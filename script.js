@@ -6,12 +6,16 @@ const tl = gsap.timeline({
     trigger: ".hero",
     start: "top top",
     end: "bottom bottom",
-    scrub: true  // 使动画与滚动同步
+    scrub: true // 使动画与滚动同步
   }
 });
 
 // Stage A: 0~30%（初始状态）
-tl.to(".transition-path", { backgroundColor: "#e8e8e8", duration: 0.3 }, 0);
+tl.to(".transition-path", { backgroundColor: "#e8e8e8", duration: 0.3 }, 0)
+  .to("html, body", {
+    backgroundPosition: "center 20%", // 背景图向下移动一点
+    duration: 0.5
+  }, 0);
 
 // Stage B: 30~70%（压平效果）
 tl.to(".black-box", {
@@ -19,13 +23,22 @@ tl.to(".black-box", {
   boxShadow: "0 0 0 rgba(0,0,0,0)",  // 去掉阴影
   borderRadius: 1,
   duration: 0.4
-}, 0.3);
+}, 0.3)
+.to(".network", { opacity: 0.55, duration: 0.4 }, 0.3)
+  .to("html, body", {
+    backgroundPosition: "center 50%", // 背景图逐渐压平
+    duration: 0.5
+  }, 0.3);
 
 // Stage C: 70~100%（进入系统层）
 tl.to(".black-box", { scale: 0.35, duration: 0.3 }, 0.7)
   .to(".content", { autoAlpha: 1, duration: 0.2 }, 0.75)
   .to("#label2", { opacity: 1, duration: 0.15 }, 0.82)
-  .to("#label3", { opacity: 1, duration: 0.15 }, 0.9);
+  .to("#label3", { opacity: 1, duration: 0.15 }, 0.9)
+  .to("html, body", {
+    backgroundPosition: "center 70%", // 背景图进一步压平，最终变成系统图
+    duration: 0.5
+  }, 0.7);
 
 // 微互动：鼠标移动时的小方块和路径移动
 const moveNode = gsap.quickTo(".aux-node", "x", { duration: 0.5, ease: "power2.out" });
