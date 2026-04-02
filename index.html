@@ -1,41 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>結構系統</title>
+  <title>Santoo / Structural Studies</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="page">
     <section class="hero">
+      <!-- 主结构容器 -->
       <div class="structure-container">
-        <div class="black-box"></div>
-        <div class="transition-path"></div>
-        <div class="network"></div>
-        <div class="aux-node n1"></div>
+        <div class="black-box"></div>  <!-- 中心黑色立方体 -->
+        <div class="transition-path"></div>  <!-- 白色路径 -->
+        <div class="aux-node n1"></div> <!-- 周围的小方块 -->
         <div class="aux-node n2"></div>
         <div class="aux-node n3"></div>
       </div>
-
+      <!-- Logo -->
       <div class="logo" id="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
         <span class="logo-mark">⌇■</span>
       </div>
-
+      <!-- 页面内容标签 -->
       <div class="content" id="systemLabel">
         <h1 id="label1">Santoo Institute</h1>
         <h2 id="label2">for Structural Studies</h2>
         <p id="label3">A framework for observing structural stability across fields.</p>
       </div>
     </section>
-
+    <!-- 入口部分 -->
     <section class="entry">
       <a href="#">Research</a>
       <a href="#">Works</a>
     </section>
   </main>
-
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>
