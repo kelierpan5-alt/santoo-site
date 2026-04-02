@@ -1,17 +1,18 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100%;
   overflow-x: hidden;
   background: #f7f7f7;
   font-family: Arial, sans-serif;
-  background-image: url('background.jpg'); /* 将图片作为背景 */
-  background-size: cover; /* 背景图覆盖整个页面 */
-  background-position: center; /* 背景图居中 */
+  background-image: url('background.jpg'); /* 使用上传的背景图片 */
+  background-size: cover; /* 确保背景覆盖整个页面 */
+  background-position: center; /* 背景居中 */
+  transition: background-position 0.5s ease-out; /* 动态效果 */
 }
 
 .page {
-  min-height: 220vh; /* 保证页面有足够的高度，支持滚动效果 */
+  min-height: 220vh; /* 确保足够的页面高度来支持滚动 */
 }
 
 .hero {
