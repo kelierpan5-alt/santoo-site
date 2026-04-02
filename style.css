@@ -1,14 +1,17 @@
 html, body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  height: 100%;
   overflow-x: hidden;
   background: #f7f7f7;
   font-family: Arial, sans-serif;
+  background-image: url('background.jpg'); /* 将图片作为背景 */
+  background-size: cover; /* 背景图覆盖整个页面 */
+  background-position: center; /* 背景图居中 */
 }
 
 .page {
-  min-height: 220vh; /* 确保足够的页面高度来支持滚动 */
+  min-height: 220vh; /* 保证页面有足够的高度，支持滚动效果 */
 }
 
 .hero {
@@ -23,11 +26,9 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f7f7f7;
-  z-index: 1;
+  background: rgba(247, 247, 247, 0.5); /* 半透明白色层，增强对比度 */
 }
 
-/* 黑色方块 */
 .black-box {
   width: 220px;
   height: 220px;
@@ -35,33 +36,30 @@ html, body {
   box-shadow: 0 30px 60px rgba(0,0,0,0.35);
   border-radius: 4px;
   position: absolute;
-  z-index: 2;
+  z-index: 10;
 }
 
-/* 白色路径 */
 .transition-path {
   position: absolute;
   left: 50%;
   top: 0;
   width: 6px;
   height: 100%;
-  transform: translateX(-50%);
   background: #ececec;
   box-shadow: 0 0 12px rgba(0,0,0,0.06);
 }
 
-/* 小方块 */
 .aux-node {
   position: absolute;
   width: 14px;
   height: 14px;
   background: #101010;
 }
+
 .n1 { left: 22%; top: 65%; }
 .n2 { left: 70%; top: 62%; }
 .n3 { left: 78%; top: 38%; }
 
-/* Logo */
 .logo {
   position: fixed;
   left: 20px;
@@ -72,7 +70,6 @@ html, body {
 
 .logo-mark { opacity: 0; }
 
-/* 页面内容 */
 .content {
   position: fixed;
   right: 6vw;
@@ -82,10 +79,7 @@ html, body {
   visibility: hidden;
   color: #111;
 }
-.content h1, .content h2, .content p { margin: 0 0 10px; }
-#label2, #label3 { opacity: 0; }
 
-/* 入口链接 */
 .entry {
   min-height: 120vh;
   display: grid;
