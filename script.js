@@ -13,21 +13,7 @@ function initHeroMotion() {
     }
   });
 
-  tl.to(".transition-path", { backgroundColor: "#e8e8e8", duration: 0.3 }, 0);
-
-  tl.to(
-    ".black-box",
-    {
-      boxShadow: "0 0 0 rgba(0,0,0,0)",
-      scale: 0.9,
-      borderRadius: 1,
-      duration: 0.4
-    },
-    0.3
-  ).to(".network", { opacity: 0.55, duration: 0.4 }, 0.3);
-
-  tl.to(".black-box", { scale: 0.35, duration: 0.3 }, 0.7)
-    .to(".content", { autoAlpha: 1, duration: 0.2 }, 0.75)
+  tl.to(".content", { autoAlpha: 1, duration: 0.2 }, 0.75)
     .to("#label2", { opacity: 1, duration: 0.15 }, 0.82)
     .to("#label3", { opacity: 1, duration: 0.15 }, 0.9);
 
@@ -42,15 +28,6 @@ function initHeroMotion() {
   gsap.to("#logo", {
     scale: 0.72,
     scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-  });
-
-  const moveNode = gsap.quickTo(".aux-node", "x", { duration: 0.5, ease: "power2.out" });
-  const movePath = gsap.quickTo(".transition-path", "x", { duration: 0.7, ease: "power2.out" });
-
-  window.addEventListener("mousemove", (e) => {
-    const xNorm = e.clientX / window.innerWidth - 0.5;
-    moveNode(xNorm * 12);
-    movePath(xNorm * 8);
   });
 }
 
