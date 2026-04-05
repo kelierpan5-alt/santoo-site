@@ -15,12 +15,12 @@ body.intro-active {
   background: #fff;
 }
 
-/* —— 進場序列（點擊後 t=0 起算） —— */
+/* —— 進場序列：白底為靜止狀態，僅點擊 Santoo 標識後才開始（點擊後 t=0 起算） —— */
 .intro-sequence {
   position: fixed;
   inset: 0;
   z-index: 300;
-  cursor: pointer;
+  cursor: default;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -38,6 +38,10 @@ body.intro-active {
   top: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
   color: #0e0e0e;
   font-size: clamp(1.75rem, 5vw, 2.75rem);
   font-weight: 600;
@@ -45,7 +49,13 @@ body.intro-active {
   text-indent: 0.28em;
   text-transform: none;
   user-select: none;
-  pointer-events: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.intro-santoo:focus-visible {
+  outline: 2px solid #0e0e0e;
+  outline-offset: 8px;
 }
 
 .intro-video-wrap {
@@ -81,7 +91,7 @@ body.intro-active {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro-sequence {
+  .intro-santoo {
     cursor: default;
   }
 }
