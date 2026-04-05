@@ -66,16 +66,6 @@ function initHeroMotion() {
     return;
   }
 
-  const prefersReduce =
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (prefersReduce) {
-    layer.remove();
-    finishIntroSkip();
-    return;
-  }
-
   document.body.classList.add("intro-active");
 
   let started = false;
@@ -99,6 +89,21 @@ function initHeroMotion() {
     gsap.set(still8k, { opacity: 0 });
     gsap.set(white, { opacity: 1 });
     gsap.set(mark, { opacity: 1 });
+
+    /**
+     * 必須在「點擊」同一使用者啟動鏈內先請求播放，否則約 1s 後 timeline 裡的 play()
+     * 會因手勢過期被瀏覽器拒絕（靜音影片亦常如此）。
+     */
+    video.muted = true;
+    const kick = video.play();
+    if (kick !== undefined) {
+      kick
+        .then(() => {
+          video.pause();
+          video.currentTime = 0;
+        })
+        .catch(() => {});
+    }
 
     /** 與 `assets/intro.mp4` 實際時長一致（秒） */
     const VIDEO_DURATION_SEC = 11;
