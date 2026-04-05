@@ -1,51 +1,164 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// 创建滚动触发的时间线
-const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".hero",
-    start: "top top",
-    end: "bottom bottom",
-    scrub: true // 使动画与滚动同步
+function initHeroMotion() {
+  if (initHeroMotion.done) return;
+  initHeroMotion.done = true;
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".hero",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true
+    }
+  });
+
+  tl.to(".transition-path", { backgroundColor: "#e8e8e8", duration: 0.3 }, 0);
+
+  tl.to(
+    ".black-box",
+    {
+      boxShadow: "0 0 0 rgba(0,0,0,0)",
+      scale: 0.9,
+      borderRadius: 1,
+      duration: 0.4
+    },
+    0.3
+  ).to(".network", { opacity: 0.55, duration: 0.4 }, 0.3);
+
+  tl.to(".black-box", { scale: 0.35, duration: 0.3 }, 0.7)
+    .to(".content", { autoAlpha: 1, duration: 0.2 }, 0.75)
+    .to("#label2", { opacity: 1, duration: 0.15 }, 0.82)
+    .to("#label3", { opacity: 1, duration: 0.15 }, 0.9);
+
+  gsap.to(".logo-full", {
+    opacity: 0,
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "70% top", scrub: true }
+  });
+  gsap.to(".logo-mark", {
+    opacity: 1,
+    scrollTrigger: { trigger: ".hero", start: "40% top", end: "90% top", scrub: true }
+  });
+  gsap.to("#logo", {
+    scale: 0.72,
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+  });
+
+  const moveNode = gsap.quickTo(".aux-node", "x", { duration: 0.5, ease: "power2.out" });
+  const movePath = gsap.quickTo(".transition-path", "x", { duration: 0.7, ease: "power2.out" });
+
+  window.addEventListener("mousemove", (e) => {
+    const xNorm = e.clientX / window.innerWidth - 0.5;
+    moveNode(xNorm * 12);
+    movePath(xNorm * 8);
+  });
+}
+
+/**
+ * 進場時間軸（相對使用者點擊 t=0）
+ * 0.0–0.5s 標識淡出 | 0.5–1.0s 白底↔影片疊化 | 1.0s 起播放影片（長度見 VIDEO_DURATION_SEC）
+ * | 影片結束時刻起 0.5s 影片↔8K 疊化 | 疊化結束後主頁穩定
+ */
+(function initIntroTimeline() {
+  function finishIntroSkip() {
+    document.body.classList.remove("intro-active");
+    const elStructure = document.getElementById("structureContainer");
+    const elMain = document.getElementById("mainPage");
+    const elLayer = document.getElementById("introSequence");
+    if (elStructure) elStructure.classList.add("has-hero8k");
+    if (elMain) {
+      elMain.classList.remove("page--behind-intro");
+      elMain.removeAttribute("aria-hidden");
+    }
+    if (elLayer) elLayer.remove();
+    initHeroMotion();
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   }
-});
 
-// Stage A: 0~30%（初始状态）
-tl.to(".transition-path", { backgroundColor: "#e8e8e8", duration: 0.3 }, 0)
-  .to("html, body", {
-    backgroundPosition: "center 20%", // 背景图向下移动一点
-    duration: 0.5
-  }, 0);
+  const layer = document.getElementById("introSequence");
+  const main = document.getElementById("mainPage");
+  const structure = document.getElementById("structureContainer");
+  const mark = document.getElementById("introSantoo");
+  const white = layer?.querySelector(".intro-white");
+  const videoWrap = layer?.querySelector(".intro-video-wrap");
+  const still8k = layer?.querySelector(".intro-hero8k");
+  const video = document.getElementById("introVideo");
 
-// Stage B: 30~70%（压平效果）
-tl.to(".black-box", {
-  scale: 0.9,
-  boxShadow: "0 0 0 rgba(0,0,0,0)",  // 去掉阴影
-  borderRadius: 1,
-  duration: 0.4
-}, 0.3)
-.to(".network", { opacity: 0.55, duration: 0.4 }, 0.3)
-  .to("html, body", {
-    backgroundPosition: "center 50%", // 背景图逐渐压平
-    duration: 0.5
-  }, 0.3);
+  if (!layer || !main || !structure || !mark || !white || !videoWrap || !still8k || !video) {
+    finishIntroSkip();
+    return;
+  }
 
-// Stage C: 70~100%（进入系统层）
-tl.to(".black-box", { scale: 0.35, duration: 0.3 }, 0.7)
-  .to(".content", { autoAlpha: 1, duration: 0.2 }, 0.75)
-  .to("#label2", { opacity: 1, duration: 0.15 }, 0.82)
-  .to("#label3", { opacity: 1, duration: 0.15 }, 0.9)
-  .to("html, body", {
-    backgroundPosition: "center 70%", // 背景图进一步压平，最终变成系统图
-    duration: 0.5
-  }, 0.7);
+  const prefersReduce =
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// 微互动：鼠标移动时的小方块和路径移动
-const moveNode = gsap.quickTo(".aux-node", "x", { duration: 0.5, ease: "power2.out" });
-const movePath = gsap.quickTo(".transition-path", "x", { duration: 0.7, ease: "power2.out" });
+  if (prefersReduce) {
+    layer.remove();
+    finishIntroSkip();
+    return;
+  }
 
-window.addEventListener("mousemove", (e) => {
-  const xNorm = (e.clientX / window.innerWidth - 0.5); // 计算鼠标位置
-  moveNode(xNorm * 6);   // 小方块的移动（缩小到±6px）
-  movePath(xNorm * 4);   // 白色路径的轻微移动（缩小到±4px）
-});
+  document.body.classList.add("intro-active");
+
+  let started = false;
+
+  function teardownIntro() {
+    document.body.classList.remove("intro-active");
+    structure.classList.add("has-hero8k");
+    main.classList.remove("page--behind-intro");
+    main.removeAttribute("aria-hidden");
+    layer.remove();
+    initHeroMotion();
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }
+
+  function onFirstActivate() {
+    if (started) return;
+    started = true;
+    layer.style.pointerEvents = "none";
+    document.removeEventListener("click", onFirstActivate);
+    document.removeEventListener("keydown", onKeyActivate);
+
+    gsap.set(videoWrap, { opacity: 0 });
+    gsap.set(still8k, { opacity: 0 });
+    gsap.set(white, { opacity: 1 });
+    gsap.set(mark, { opacity: 1 });
+
+    /** 與 `assets/intro.mp4` 實際時長一致（秒） */
+    const VIDEO_DURATION_SEC = 11;
+    const VIDEO_PLAY_AT = 1;
+    const CROSSFADE_START = VIDEO_PLAY_AT + VIDEO_DURATION_SEC;
+
+    const master = gsap.timeline({
+      defaults: { ease: "none" },
+      onComplete: teardownIntro
+    });
+
+    master.to(mark, { opacity: 0, duration: 0.5, ease: "power2.out" }, 0);
+    master.to(white, { opacity: 0, duration: 0.5 }, 0.5);
+    master.to(videoWrap, { opacity: 1, duration: 0.5 }, 0.5);
+    master.call(
+      () => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      },
+      null,
+      VIDEO_PLAY_AT
+    );
+    master.call(() => structure.classList.add("has-hero8k"), null, CROSSFADE_START);
+    master.call(() => video.pause(), null, CROSSFADE_START);
+    master.to(videoWrap, { opacity: 0, duration: 0.5 }, CROSSFADE_START);
+    master.to(still8k, { opacity: 1, duration: 0.5 }, CROSSFADE_START);
+  }
+
+  function onKeyActivate(e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onFirstActivate();
+    }
+  }
+
+  document.addEventListener("click", onFirstActivate);
+  document.addEventListener("keydown", onKeyActivate);
+})();
