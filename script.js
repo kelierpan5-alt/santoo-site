@@ -55,7 +55,7 @@ function initHeroMotion() {
 }
 
 /**
- * 進場時間軸（相對使用者點擊 t=0）
+ * 進場時間軸（相對「點擊 Santoo 標識」t=0；白底與標識為靜止狀態，僅點擊標識後啟動）
  * 0.0–0.5s 標識淡出 | 0.5–1.0s 白底↔影片疊化 | 1.0s 起播放影片（長度見 VIDEO_DURATION_SEC）
  * | 影片結束時刻起 0.5s 影片↔8K 疊化 | 疊化結束後主頁穩定
  */
@@ -117,8 +117,6 @@ function initHeroMotion() {
     if (started) return;
     started = true;
     layer.style.pointerEvents = "none";
-    document.removeEventListener("click", onFirstActivate);
-    document.removeEventListener("keydown", onKeyActivate);
 
     gsap.set(videoWrap, { opacity: 0 });
     gsap.set(still8k, { opacity: 0 });
@@ -152,13 +150,5 @@ function initHeroMotion() {
     master.to(still8k, { opacity: 1, duration: 0.5 }, CROSSFADE_START);
   }
 
-  function onKeyActivate(e) {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onFirstActivate();
-    }
-  }
-
-  document.addEventListener("click", onFirstActivate);
-  document.addEventListener("keydown", onKeyActivate);
+  mark.addEventListener("click", onFirstActivate, { once: true });
 })();
