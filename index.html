@@ -13,14 +13,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 進場時間軸（相對「使用者點擊」t=0）：見 script.js（影片 11s → 12.0–12.5s 與 8K 疊化） -->
+  <!-- 進場：白底+Santoo 靜止；僅點擊 Santoo 後開始（t=0），見 script.js -->
   <div
     id="introSequence"
     class="intro-sequence"
     role="presentation"
   >
     <div class="intro-white" aria-hidden="true"></div>
-    <p class="intro-santoo" id="introSantoo">Santoo</p>
+    <button type="button" class="intro-santoo" id="introSantoo" aria-label="播放開場影片並進入網站">
+      Santoo
+    </button>
     <div class="intro-video-wrap" aria-hidden="true">
       <video
         id="introVideo"
