@@ -7,6 +7,41 @@
   const content = document.querySelector('.content');
   const structure = document.getElementById("structureContainer");
 
+  console.log("Mark element:", mark); // 调试用：如果控制台输出 null，说明 ID 错了
+
+  if (mark) {
+    // 显式添加一个简单的测试，看看点击是否生效
+    mark.onclick = function() {
+      console.log("SANTOO Clicked!"); // 如果控制台没印这行，说明点击被拦截了
+
+      // 1. 立即禁用按钮并消失
+      this.style.pointerEvents = "none";
+      gsap.to(this, { opacity: 0, duration: 0.5, onComplete: () => this.remove() });
+
+      // 2. 激活视频
+      const videoWrap = document.querySelector('.intro-video-wrap');
+      if (videoWrap) {
+        gsap.set(videoWrap, { visibility: "visible", zIndex: 150 });
+        gsap.to(videoWrap, { opacity: 1, duration: 1.2 });
+      }
+
+      if (video) {
+        // 强制重置并播放
+        video.muted = true;
+        video.play().then(() => {
+          // 视频播了再淡出白层
+          gsap.to(".intro-white", { opacity: 0, duration: 1.5 });
+        }).catch(err => {
+          console.error("Play failed:", err);
+          showMain(); // 播不动直接进
+        });
+      }
+
+      // 3. 9秒后进站
+      gsap.delayedCall(9, showMain);
+    };
+  }
+      
   // 获取当前文件名 (例如: member.html)
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
   const hasSeenIntro = sessionStorage.getItem('santoo-visited');
