@@ -21,6 +21,10 @@ body {
   cursor: pointer; transition: color 0.6s, -webkit-text-stroke 0.6s, opacity 1s;
   -webkit-text-stroke: 1px transparent;
 }
+.intro-santoo:hover {
+  color: transparent !important;
+  -webkit-text-stroke: 1px #111;
+}
 .intro-santoo.is-hidden { opacity: 0 !important; pointer-events: none; } /* 新增状态 */
 
 .intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
