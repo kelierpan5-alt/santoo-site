@@ -1,12 +1,12 @@
-/* --- 基础设定 --- */
+/* --- 基础与字体 --- */
 html, body {
   margin: 0; padding: 0; width: 100vw; height: 100vh;
   overflow: hidden; background: #f7f7f7;
-  font-family: "Michroma", "Noto Sans TC", sans-serif;
+  font-family: "Michroma", "Noto Sans TC", sans-serif; /* 统一品牌字体 */
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- 开头标题 SANTOO --- */
+/* --- 开头标题 SANTOO (等同 Logo 字体 & 极细边缘) --- */
 .intro-santoo {
   position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%);
   border: none; background: none; color: #111;
@@ -16,9 +16,12 @@ html, body {
   cursor: pointer; transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
   -webkit-text-stroke: 0.5px transparent;
 }
-.intro-santoo:hover { color: transparent; -webkit-text-stroke: 0.5px #111; }
+.intro-santoo:hover {
+  color: transparent;
+  -webkit-text-stroke: 0.5px #111; /* 极细边缘 0.5px */
+}
 
-/* --- 进场层 --- */
+/* --- 进场动画层 --- */
 .intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; }
 .intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
 .intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
@@ -27,7 +30,9 @@ html, body {
 
 /* --- 导航：锚点锁定 (X+Y) --- */
 .entry {
-  position: absolute; top: 40px; right: 6vw;
+  position: absolute;
+  top: 40px;
+  right: 6vw;
   display: flex; flex-direction: row; align-items: center;
   gap: 45px; z-index: 1000;
 }
@@ -36,8 +41,9 @@ html, body {
   display: flex; justify-content: flex-end;
 }
 .nav-anchor {
-  text-decoration: none; color: #111; font-family: "Michroma", sans-serif;
-  font-size: 0.75rem; font-weight: 400; text-transform: uppercase;
+  text-decoration: none; color: #111;
+  font-family: "Michroma", sans-serif; font-size: 0.75rem;
+  font-weight: 400; text-transform: uppercase;
   background: none; border: none; cursor: pointer; white-space: nowrap;
 }
 
@@ -48,30 +54,33 @@ html, body {
 }
 .lang-dropdown:hover .lang-content { display: block; }
 .lang-content span {
-  display: block; background: rgba(255,255,255,0.95); color: #111;
+  display: block; background: rgba(255, 255, 255, 0.95); color: #111;
   padding: 10px 20px; font-size: 0.7rem; text-align: right; cursor: pointer;
 }
 
-/* --- 核心对齐逻辑 --- */
+/* --- 核心布局对齐与下沉逻辑 --- */
 
-/* 1. 左侧轴线：设定为 30px */
+/* 1. 左下角 Logo：设定对齐基准线 (left: 30px) */
 .logo { 
-  position: absolute; left: 30px; bottom: 30px; 
-  z-index: 500; font-size: 0.8rem; color: #111; 
-  font-family: "Michroma", sans-serif; 
+  position: absolute; 
+  left: 30px; /* 左侧基准轴线 */
+  bottom: 30px; 
+  z-index: 500; 
+  font-size: 0.8rem; color: #111; 
+  font-family: "Michroma", sans-serif; /* 统一字体 */
 }
 
-/* 2. 右下角内容：标题靠右，描述文字靠左对齐轴线 */
+/* 2. 右下角内容：整体下沉，内部分离对齐 */
 .content { 
   position: absolute; 
-  left: 30px;   /* 关键：对齐左侧 Logo 的轴线 */
+  left: 30px;   /* 关键：对齐左侧 Logo 的基准轴线 */
   right: 6vw;  /* 保持右侧间距 */
-  bottom: 12vh; 
-  opacity: 0; 
+  bottom: 12vh; /* 整体下沉位置 */
+  opacity: 0; /* 由 JS 控制优雅淡入 */
   z-index: 500; 
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 默认内部元素靠左对齐 */
+  align-items: flex-start; /* 默认让内部描述文字靠左对齐 */
 }
 
 /* 标题：强制向右对齐 */
@@ -79,32 +88,32 @@ html, body {
   width: 100%; 
   text-align: right; 
   margin: 0; 
+  font-family: "Michroma", sans-serif;
   font-weight: 400;
 }
 .content h1 { font-size: 1.8rem; }
 .content h2 { font-size: 1.2rem; margin-top: 0.2rem; opacity: 0.8; }
 
-/* 描述文字：对齐左侧轴线 (由 .content 的 left: 30px 控制) */
+/* 描述文字：对齐左侧基准轴线，限制宽度 */
 .content p { 
   font-size: 0.85rem; 
   line-height: 1.8; 
   opacity: 0.6; 
-  margin-top: 1.5rem;
+  margin-top: 2rem; /* 增加与下沉标题的间距 */
   max-width: 450px; /* 限制宽度防止过长 */
-  text-align: left;
+  text-align: left; /* 强制靠左对齐描述文字 */
 }
 
 /* --- 子页面返回键 --- */
 .back-btn { 
   position: fixed; left: 30px; top: 40px; 
-  z-index: 3000; /* 确保在最顶层 */
+  z-index: 3000; 
   text-decoration: none; color: #111; 
   font-size: 0.75rem; font-family: "Michroma", sans-serif;
   text-transform: uppercase;
-  transition: opacity 0.3s;
 }
-.back-btn:hover { opacity: 0.5; }
 
+/* 主页面层级 */
 .page { position: fixed; inset: 0; z-index: 100; visibility: hidden; }
 .structure-container { position: absolute; inset: 0; background: #f7f7f7; z-index: 1; }
 .structure-container.has-hero8k { background-image: url("assets/hero-8k.jpg") !important; background-size: cover; }
