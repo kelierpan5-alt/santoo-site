@@ -49,16 +49,23 @@
   const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
 
   if (isIndex && !hasSeenIntro) {
-    // 首页第一次访问：必须点击 SANTOO
     gsap.set(mark, { opacity: 1 });
     mark.addEventListener("click", () => {
-      if(video) video.play();
-      gsap.to(mark, { opacity: 0, duration: 1 });
+      // 1. 立即处理图标消失
+      mark.classList.add('is-hidden'); 
+      gsap.to(mark, { opacity: 0, duration: 0.8 });
+
+      // 2. 视频与背景处理
+      if(video) {
+        video.play();
+        gsap.to(".intro-video-wrap", { opacity: 1, duration: 1.5 });
+      }
       gsap.to(".intro-white", { opacity: 0, duration: 2 });
+
+      // 3. 优雅进入主页 (根据你的视频时长 11s，设定在 9s 时触发主页渐显)
       gsap.delayedCall(9, showMain);
     }, { once: true });
   } else {
-    // 已访问过或在子页面：直接显示内容
     showMain(true);
   }
 
