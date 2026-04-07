@@ -1,79 +1,113 @@
 (function initSantoo() {
   // --- 核心变量声明 ---
-  const layer = document.getElementById('santoo-layer');
+  const layer = document.getElementById("introSequence");
   const mark = document.getElementById("introSantoo");
   const video = document.getElementById("introVideo");
-  const mainPage = document.querySelector('.page');
-  const content = document.querySelector('.content');
+  const mainPage = document.getElementById("mainPage");
+  const content = document.getElementById("systemLabel");
   const structure = document.getElementById("structureContainer");
 
-  // 获取当前文件名 (例如: member.html)
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
   const hasSeenIntro = sessionStorage.getItem('santoo-visited');
-  const isIndex = currentPath === 'index.html' || currentPath === '';
 
-  // --- 新增：处理当前页面标签的禁用逻辑 ---
-  const navLinks = document.querySelectorAll('.nav-anchor, .back-btn');
-  navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentPath) {
-      link.classList.add('nav-active-link'); // 此类在 CSS 中需设置 pointer-events: none
-      link.style.pointerEvents = "none";     // 脚本层面双重拦截
-    }
-  });
-
-  // 1. 语言切换逻辑 (保持不变)
+  // 1. 优雅呼吸感语言切换
   window.switchLang = function(lang) {
     const targets = document.querySelectorAll('[data-en], #current-lang');
     const tl = gsap.timeline();
-    tl.to(targets, { opacity: 0, duration: 1.0, ease: "power2.inOut" })
-      .to({}, { duration: 0.4 })
-      .call(() => {
-        document.querySelectorAll('[data-en]').forEach(el => {
-          const text = el.getAttribute(`data-${lang}`);
-          if (text) el.innerText = text;
-        });
-        const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
-        document.getElementById('current-lang').innerText = names[lang];
-      })
-      .to(targets, { opacity: 1, duration: 1.8, ease: "power2.out" });
+
+    tl.to(targets, { 
+      opacity: 0, 
+      duration: 1.0, 
+      ease: "power2.inOut" 
+    })
+    .to({}, { duration: 0.4 }) // 关键：空白呼吸停顿期
+    .call(() => {
+      // 执行语言替换
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) el.innerText = text;
+      });
+      // 更新语言按钮文字
+      const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
+      document.getElementById('current-lang').innerText = names[lang];
+    })
+    .to(targets, { 
+      opacity: 1, 
+      duration: 1.8, // 缓慢浮现
+      ease: "power2.out" 
+    });
+
     localStorage.setItem('santoo-lang', lang);
   };
 
-  // 2. 激活主页面逻辑
+  // 2. 激活主页面逻辑 
   function showMain(isFast = false) {
     if (!mainPage) return;
     mainPage.style.visibility = "visible";
     if (structure) structure.classList.add("has-hero8k");
 
     if (isFast) {
-      if (layer) layer.remove(); // 直接移除 SANTOO 层
-      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 2.8, ease: "power2.inOut" });
-      gsap.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" });
-    } else {
-      gsap.timeline()
-        .to(mainPage, { opacity: 1, duration: 2.5 })
-        .to(layer, { opacity: 0, duration: 2.5, onComplete: () => layer?.remove() }, "-=0.5")
-        .to(content, { opacity: 1, duration: 3.0, ease: "expo.out" }, "-=1.5");
-    }
-    sessionStorage.setItem('santoo-visited', 'true');
+    if (layer) layer.remove();
+    // 页面背景：缓慢渐显
+    gsap.fromTo(mainPage, 
+      { opacity: 0 }, 
+      { 
+        opacity: 1, 
+        duration: 2.8, // 统一为较长的时间
+        ease: "power2.inOut" 
+      }
+    );
+    // 右下角文案：不再瞬间跳出，而是稍微滞后一点点慢慢浮现
+    gsap.fromTo(content, 
+      { opacity: 0, y: 10 }, 
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 2.5, 
+        delay: 0.5, // 延迟 0.5秒开始，产生层次感
+        ease: "power2.out" 
+      }
+    );
+  } else {
+    // 首次进站：维持更复杂的剧场式开场
+    gsap.timeline()
+      .to(mainPage, { opacity: 1, duration: 2.5 }) // 增加到 2.5s
+      .to(layer, { 
+          opacity: 0, 
+          duration: 2.5, 
+          onComplete: () => layer?.remove() 
+      }, "-=0.5")
+      .to(content, { 
+          opacity: 1, 
+          duration: 3.0, 
+          ease: "expo.out" 
+      }, "-=1.5"); // 稍微提前开始渐显，重叠感更自然
+  }
+  sessionStorage.setItem('santoo-visited', 'true');
   }
 
-  // 3. 初始进入判定逻辑 (核心：非首页或已看过，则直接 showMain)
+  // 3. 初始进入判定逻辑 
+  // 判断当前是否是首页 (如果是 index.html 或 根目录)
+  const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
+
   if (isIndex && !hasSeenIntro) {
+    // 首页初次访问：启动 SANTOO 点击监听
     gsap.set(mark, { opacity: 1 });
     mark.addEventListener("click", () => {
+      // 1. 立即处理图标消失
       mark.classList.add('is-hidden'); 
       gsap.to(mark, { opacity: 0, duration: 0.8 });
+
+      // 2. 视频与背景处理
       if(video) {
         video.play();
         gsap.to(".intro-video-wrap", { opacity: 1, duration: 1.5 });
       }
       gsap.to(".intro-white", { opacity: 0, duration: 2 });
+
+      // 3. 优雅进入主页 (根据你的视频时长 11s，设定在 9s 时触发主页渐显)
       gsap.delayedCall(9, showMain);
     }, { once: true });
   } else {
-    // 只要不是首次进首页，全部走快速通道（直接渐显静态内容）
     showMain(true);
   }
 
@@ -82,41 +116,47 @@
   document.querySelectorAll('[data-en]').forEach(el => {
     el.innerText = el.getAttribute(`data-${saved}`);
   });
+  // --- 4.5 背景图片预加载逻辑 ---
+  // 定义页面与背景图的对应关系
+  const preloadConfig = {
+    'member.html': 'assets/member-bg.jpg',
+    'project.html': 'assets/project-bg.jpg',
+    'research.html': 'assets/research-bg.jpg',
+    'works.html': 'assets/works-bg.jpg'
+  };
 
-  // 5. 预加载与跳转拦截
+  const navLinks = document.querySelectorAll('a.nav-anchor');
+
   navLinks.forEach(link => {
-    // 预加载
     link.addEventListener('mouseenter', function() {
       const href = this.getAttribute('href');
-      const preloadConfig = {
-        'member.html': 'assets/member-bg.jpg',
-        'project.html': 'assets/project-bg.jpg',
-        'research.html': 'assets/research-bg.jpg',
-        'works.html': 'assets/works-bg.jpg'
-      };
-      if (preloadConfig[href]) {
-        const img = new Image();
-        img.src = preloadConfig[href];
-      }
-    }, { once: true });
-
-    // 点击跳转拦截
-    link.addEventListener('click', function(e) {
-      const targetUrl = this.getAttribute('href');
+      const imgSrc = preloadConfig[href];
       
-      // 如果点击的是当前页链接，不执行任何动作
-      if (targetUrl === currentPath) {
-        e.preventDefault();
-        return;
+      if (imgSrc) {
+        // 创建一个隐形的图片对象进行静默下载
+        const img = new Image();
+        img.src = imgSrc;
+        // 下载完成后会缓存在浏览器中，跳转后瞬间显示
       }
+    }, { once: true }); // 每个链接只预加载一次，节省资源
+  });
+  // --- 5. 页面平滑跳转过渡 (渐隐-黑色-渐显) ---
+  const allLinks = document.querySelectorAll('a.nav-anchor, a.back-btn');
 
+  allLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // 只有站内跳转才执行动画
+      const targetUrl = this.getAttribute('href');
       if (targetUrl && targetUrl.includes('.html')) {
-        e.preventDefault();
+        e.preventDefault(); // 拦截默认跳转
+
+        // 执行优雅的渐隐到黑色
         gsap.to(mainPage, {
           opacity: 0,
-          duration: 1.2,
+          duration: 1.2, // 你要求的缓慢态度
           ease: "power2.inOut",
           onComplete: () => {
+            // 动画完成后，执行真正的页面跳转
             window.location.href = targetUrl;
           }
         });
@@ -124,11 +164,15 @@
     });
   });
 
-  // 6. 处理浏览器后退/前进时的渐显
-  window.addEventListener('pageshow', (event) => {
-    // 如果是从缓存读取（即后退回来），强制重置透明度并渐显
-    if (event.persisted) {
-      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 2.8, ease: "power2.out" });
+  // --- 修改跳转后的渐显速度 ---
+window.addEventListener('pageshow', () => {
+  gsap.fromTo(mainPage, 
+    { opacity: 0 }, 
+    { 
+      opacity: 1, 
+      duration: 2.8,       // 从原来的 1.5s 增加到 2.8s，让出现更缓慢
+      ease: "power2.out"   // 使用 power2.out 让渐显在接近完成时更柔和
     }
-  });
+  );
+});
 })();
