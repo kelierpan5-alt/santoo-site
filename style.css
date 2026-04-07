@@ -95,3 +95,16 @@ body {
 .structure-container { position: absolute; inset: 0; background: #f7f7f7; }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 .back-btn { position: fixed; left: 30px; top: 40px; z-index: 3000; text-decoration: none; color: #111; font-size: 0.75rem; text-transform: uppercase; }
+/* // 7. 子页面专用背景控制 */
+
+/* 默认的背景图 (首页使用) */
+.structure-container.has-hero8k {
+  background: url("assets/hero-8k.jpg") center/cover no-repeat;
+}
+
+/* MEMBER 页面专用背景图 (会覆盖默认图) */
+.structure-container.bg-member {
+  background: url("assets/member-bg.jpg") center/cover no-repeat; 
+  /* 请确保你 assets 文件夹里有一张叫 member-bg.jpg 的图 */
+  filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
+}
