@@ -8,7 +8,7 @@
 
   const VIDEO_DURATION = 11; 
 
-  // 极致平滑转场：渐隐(1s) -> 空白(0.5s) -> 渐显(1.5s)
+  // 多语言优雅转场：渐隐(1s) -> 空白(0.5s) -> 渐显(1.5s)
   window.switchLang = function(lang) {
     const targets = document.querySelectorAll('[data-en], #current-lang');
     
@@ -19,9 +19,8 @@
       duration: 1.0,
       ease: "power2.inOut"
     })
-    .to({}, { duration: 0.5 }) // 呼吸感的空白停顿
+    .to({}, { duration: 0.5 }) 
     .call(() => {
-      // 在空白瞬间静默切换文字
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.getAttribute(`data-${lang}`);
         if (text) el.innerText = text;
@@ -32,7 +31,7 @@
     })
     .to(targets, {
       opacity: 1,
-      duration: 1.5, // 优雅的缓慢浮现
+      duration: 1.5,
       ease: "power2.out"
     });
 
@@ -71,7 +70,7 @@
     });
   }
 
-  // 初始化（直接读取，不触发动画）
+  // 初始化语言
   const savedLang = localStorage.getItem('santoo-lang') || 'en';
   document.querySelectorAll('[data-en]').forEach(el => {
     const text = el.getAttribute(`data-${savedLang}`);
@@ -81,6 +80,7 @@
   if (mark && video) {
     mark.addEventListener("click", handleStart, { once: true });
   } else {
+    // 子页面处理
     if (structure) structure.classList.add("has-hero8k");
     if (mainPage) mainPage.style.visibility = "visible";
     if (content) gsap.set(content, { opacity: 1 });
