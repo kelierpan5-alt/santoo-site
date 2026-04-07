@@ -1,21 +1,20 @@
-/* 基础重置：锁定高度，禁止滚动 */
+/* 锁定视口，禁止任何形式的滚动 */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden; /* 核心：禁止全局滚动 */
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* 彻底禁止滚动 */
   background: #f7f7f7;
-  font-family: "Michroma", "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family: "Michroma", "Noto Sans TC", sans-serif;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
-/* 进场序列容器 */
+/* 进场动画容器 */
 .intro-sequence {
   position: fixed;
   inset: 0;
-  z-index: 1000; /* 确保在最顶层 */
+  z-index: 1000;
   background: #fff;
 }
 
@@ -40,20 +39,21 @@ html, body {
   letter-spacing: 0.28em;
   text-indent: 0.28em;
   cursor: pointer;
-  transition: opacity 0.3s;
+  outline: none;
 }
 
 .intro-video-wrap {
   position: absolute;
   inset: 0;
-  z-index: 5; /* 位于白底之下，但高于背景图 */
+  z-index: 5; /* 初期在白底后，点击后会提层 */
   opacity: 0;
-  visibility: hidden;
   background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .intro-video-wrap video {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -67,17 +67,19 @@ html, body {
   background: url("assets/hero-8k.jpg") center/cover no-repeat;
 }
 
-/* 主内容区域 */
+/* 主页面 - 初始隐藏 */
 .page {
-  position: relative;
-  height: 100vh;
+  position: fixed;
+  inset: 0;
   width: 100vw;
+  height: 100vh;
+  visibility: hidden;
   overflow: hidden;
 }
 
 .structure-container {
-  position: absolute;
-  inset: 0;
+  width: 100%;
+  height: 100%;
   background-color: #f7f7f7;
   background-size: cover;
   background-position: center;
@@ -88,38 +90,32 @@ html, body {
 }
 
 .logo {
-  position: fixed;
+  position: absolute;
   left: 30px;
   bottom: 30px;
-  color: #111;
   z-index: 100;
 }
 
 .content {
   position: absolute;
   right: 6vw;
-  bottom: 15vh;
+  bottom: 12vh;
   max-width: 420px;
   opacity: 0;
-  color: #111;
+  text-align: right;
 }
 
-.content h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-.content h2 { font-size: 1.2rem; margin-bottom: 1rem; font-weight: 400; }
-
-/* 隐藏原本用于滚动的区域 */
 .entry {
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  right: 6vw;
+  bottom: 5vh;
   display: flex;
   gap: 20px;
-  z-index: 100;
 }
 
 .entry a {
-  color: #111;
   text-decoration: none;
-  font-weight: 500;
+  color: #111;
+  font-size: 0.9rem;
   border-bottom: 1px solid #111;
 }
