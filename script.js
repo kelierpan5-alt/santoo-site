@@ -90,4 +90,35 @@
   document.querySelectorAll('[data-en]').forEach(el => {
     el.innerText = el.getAttribute(`data-${saved}`);
   });
+  // --- 5. 页面平滑跳转过渡 (渐隐-黑色-渐显) ---
+  const allLinks = document.querySelectorAll('a.nav-anchor, a.back-btn');
+
+  allLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // 只有站内跳转才执行动画
+      const targetUrl = this.getAttribute('href');
+      if (targetUrl && targetUrl.includes('.html')) {
+        e.preventDefault(); // 拦截默认跳转
+
+        // 执行优雅的渐隐到黑色
+        gsap.to(mainPage, {
+          opacity: 0,
+          duration: 1.2, // 你要求的缓慢态度
+          ease: "power2.inOut",
+          onComplete: () => {
+            // 动画完成后，执行真正的页面跳转
+            window.location.href = targetUrl;
+          }
+        });
+      }
+    });
+  });
+
+  // 页面加载时的渐显逻辑
+  window.addEventListener('pageshow', () => {
+    gsap.fromTo(mainPage, 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 1.5, ease: "power2.out" }
+    );
+  });
 })();
