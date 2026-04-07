@@ -8,50 +8,51 @@
   const structure = document.getElementById("structureContainer");
   const content = document.getElementById("systemLabel");
 
-  const VIDEO_DURATION = 11; 
+  const VIDEO_DURATION = 11; // 视频总长度
 
-  function finishEverything() {
-    // 关键步骤：先给主容器上背景，再删掉动画层
+  function finishSequence() {
+    // 强制挂载背景图，防止删掉动画层后变白
     structure.classList.add("has-hero8k");
     mainPage.style.visibility = "visible";
     
-    // 延迟一帧移除，防止闪白
-    requestAnimationFrame(() => {
-      if (layer) layer.remove();
-      gsap.to(content, { opacity: 1, y: -20, duration: 1.2, ease: "power2.out" });
-    });
+    // 确保主内容可见
+    gsap.to(content, { opacity: 1, y: -20, duration: 1.5, ease: "power2.out" });
+    
+    // 彻底移除动画层
+    if (layer) {
+      gsap.to(layer, { opacity: 0, duration: 1, onComplete: () => layer.remove() });
+    }
   }
 
   function handleStart() {
-    // 1. 立即尝试播放视频
-    video.muted = true; // 确保静音以获得最高播放优先级
-    const playPromise = video.play();
+    // 关键：点击瞬间唤醒视频，防止黑屏
+    video.load();
+    video.play().then(() => {
+      // 成功播放后立即提升层级
+      gsap.set(videoWrap, { visibility: "visible", opacity: 1, zIndex: 15 });
+    }).catch(e => {
+      console.warn("Video blocked:", e);
+      finishSequence(); // 失败则直接进入
+    });
 
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        console.log("视频播放受阻，直接进入底图:", error);
-        finishEverything();
-      });
-    }
+    const tl = gsap.timeline({ onComplete: finishSequence });
 
-    // 2. 提升视频层级
-    gsap.set(videoWrap, { zIndex: 15, opacity: 1, visibility: "visible" });
+    // 1. 标示消失
+    tl.to(mark, { opacity: 0, duration: 0.5, ease: "power2.in" });
+    
+    // 2. 白底消失，露出正在播放的视频
+    tl.to(".intro-white", { opacity: 0, duration: 1 }, 0.5);
 
-    const tl = gsap.timeline({ onComplete: finishEverything });
-
-    // 动画序列
-    tl.to(mark, { opacity: 0, duration: 0.4 })
-      .to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2);
-
-    // 在视频结束前开始叠化到静态 8k 图
-    const crossfadeTime = 0.2 + VIDEO_DURATION - 1.0;
-    tl.to(still8k, { opacity: 1, duration: 1 }, crossfadeTime);
-    tl.to(videoWrap, { opacity: 0, duration: 1 }, crossfadeTime);
+    // 3. 视频快结束时，叠化到静态 8K 图
+    const crossfadeStart = 0.5 + VIDEO_DURATION - 1.5;
+    tl.to(still8k, { opacity: 1, duration: 1.5 }, crossfadeStart);
+    tl.to(videoWrap, { opacity: 0, duration: 1.5 }, crossfadeStart);
   }
 
   if (mark && video) {
     mark.addEventListener("click", handleStart, { once: true });
-  } else {
-    finishEverything();
+  } else if (mainPage) {
+    // 如果没有动画层（子页面），直接初始化
+    finishSequence();
   }
 })();
