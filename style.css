@@ -92,12 +92,13 @@ body {
 
 /* // 6. 页面显示控制 */
 .page { position: fixed; inset: 0; z-index: 100; visibility: hidden; opacity: 0; }
+/* // 6.1 背景容器：设定为黑色底色，确保切换时有沉浸感 */
 .structure-container {
   position: absolute; 
   inset: 0; 
   background-color: #000; /* 关键：给背景容器一个底色 */
   z-index: 1;
-  /* 确保图片切换时是平滑的 */
+  /* 这里的 transition 负责图片出现时的微小平滑感 */
   transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
