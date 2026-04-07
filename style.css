@@ -102,8 +102,56 @@ body {
   transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
-.back-btn { position: fixed; left: 30px; top: 40px; z-index: 3000; text-decoration: none; color: #111; font-size: 0.75rem; text-transform: uppercase; }
-/* // 7. 子页面专用背景控制 */
+/* // 7. 返回按钮：极细描边样式 */
+.back-btn {
+  /* --- 调试开关：以后改这里即可 --- */
+  --btn-color: rgba(255, 255, 255, 1);    /* 文字颜色 (白色) */
+  --btn-border: rgba(255, 255, 255, 0.4); /* 描边颜色与透明度 */
+  --btn-bg-blur: 5px;                     /* 背景模糊程度 */
+  --btn-padding: 8px 16px;                /* 内部空间 */
+  
+  /* --- 核心布局 --- */
+  position: fixed; 
+  left: 30px; 
+  top: 40px; 
+  z-index: 3000; 
+  text-decoration: none; 
+  text-transform: uppercase;
+  font-size: 0.7rem; 
+
+  /* --- 应用调试参数 --- */
+  color: var(--btn-color);
+  border: 1px solid var(--btn-border);
+  padding: var(--btn-padding);
+  backdrop-filter: blur(var(--btn-bg-blur));
+  -webkit-backdrop-filter: blur(var(--btn-bg-blur)); /* 兼容苹果浏览器 */
+
+  /* --- 动画过渡 --- */
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* // 7.1 返回按钮悬停反馈：颜色与描边反转 */
+.back-btn:hover {
+  /* 悬停时背景依然保持透明（或稍微加深一点磨砂感） */
+  background-color: rgba(255, 255, 255, 0.1); 
+  
+  /* 文字变为纯白，增加亮度 */
+  color: rgba(255, 255, 255, 1); 
+  
+  /* 描边变为不透明，视觉上产生“加粗”的错觉，但实际只是颜色变实了 */
+  border-color: rgba(255, 255, 255, 1);
+  
+  /* 增加一点发光感（可选，若不需要请删除下行） */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* 悬停时的反馈：描边变亮或加粗 */
+.back-btn:hover {
+  background-color: #111; /* 变成实色按钮 */
+  color: #fff; /* 文字变白 */
+  border-color: #111;
+}
+/* // 8. 子页面专用背景控制 */
 
 /* 默认的背景图 (首页使用) */
 .structure-container.has-hero8k {
@@ -122,7 +170,7 @@ body {
   /* 请确保你 assets 文件夹里有一张叫 works-bg.jpg 的图 */
   filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
 }
-/* // 8. 页面切换过渡效果 */
+/* // 9. 页面切换过渡效果 */
 body {
   background-color: #000; /* 将底层背景设为黑色，这样页面透明度降低时会看到黑 */
   transition: background-color 0.5s ease;
