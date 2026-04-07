@@ -27,15 +27,24 @@
   }
 
   function finishEverything() {
+    // 修复白屏：强制显示主页面
+    if (mainPage) {
+      mainPage.style.visibility = "visible";
+      gsap.set(mainPage, { autoAlpha: 1 });
+    }
     if (structure) structure.classList.add("has-hero8k");
-    if (mainPage) mainPage.style.visibility = "visible";
-    gsap.to(layer, { 
-      opacity: 0, duration: 2.5, ease: "power2.inOut", 
-      onComplete: () => {
-        if (layer) layer.remove();
-        gsap.to(content, { opacity: 1, y: -5, duration: 2.5, ease: "expo.out" });
-      }
-    });
+    
+    if (layer) {
+      gsap.to(layer, { 
+        opacity: 0, duration: 2.5, ease: "power2.inOut", 
+        onComplete: () => {
+          layer.remove();
+          gsap.to(content, { opacity: 1, y: -5, duration: 2.5, ease: "expo.out" });
+        }
+      });
+    } else {
+       gsap.to(content, { opacity: 1, duration: 1 });
+    }
   }
 
   function handleStart() {
@@ -47,17 +56,17 @@
     });
   }
 
+  // 初始语言设置
   const savedLang = localStorage.getItem('santoo-lang') || 'en';
   document.querySelectorAll('[data-en]').forEach(el => {
     const text = el.getAttribute(`data-${savedLang}`);
     if (text) el.innerText = text;
   });
 
-  if (mark && video) {
+  // 逻辑入口：如果有按钮则等待点击，否则直接显示（子页面逻辑）
+  if (mark && layer) {
     mark.addEventListener("click", handleStart, { once: true });
   } else {
-    if (structure) structure.classList.add("has-hero8k");
-    if (mainPage) mainPage.style.visibility = "visible";
-    if (content) gsap.set(content, { opacity: 1 });
+    finishEverything();
   }
 })();
