@@ -1,163 +1,47 @@
-/* --- 1. 基础重置与锁定 --- */
+/* 基础重置 */
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden; 
-  background: #f7f7f7;
+  margin: 0; padding: 0; width: 100vw; height: 100vh;
+  overflow: hidden; background: #f7f7f7;
   font-family: "Michroma", "Noto Sans TC", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- 2. 进场序列 (Intro) --- */
-.intro-sequence {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: #fff;
-}
-
-.intro-white {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  background: #fff;
-  pointer-events: none;
-}
+/* 进场层 */
+.intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; }
+.intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
 
 .intro-santoo {
-  position: absolute;
-  z-index: 30;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border: none;
-  background: none;
-  color: #0e0e0e;
-  font-family: "Michroma", sans-serif;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  font-weight: 700; 
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.4s ease;
-  -webkit-text-stroke: 1px transparent;
+  position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  border: none; background: none; color: #0e0e0e;
+  font-family: "Michroma", sans-serif; font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.4s ease; -webkit-text-stroke: 1px transparent;
 }
+/* 中空效果 */
+.intro-santoo:hover { color: transparent; -webkit-text-stroke: 1px #0e0e0e; }
 
-.intro-santoo:hover {
-  color: transparent;
-  -webkit-text-stroke: 1px #0e0e0e;
-}
+.intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
+.intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+.intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 
-.intro-video-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  opacity: 0;
-  background: #000;
-  /* 初始不使用 visibility: hidden，改用 display 配合 JS 控制 */
-}
+/* 主页面层级 */
+.page { position: fixed; inset: 0; z-index: 100; visibility: hidden; }
+.structure-container { position: absolute; inset: 0; background: #f7f7f7; z-index: 1; }
+.structure-container.has-hero8k { background-image: url("assets/hero-8k.jpg") !important; background-size: cover; }
 
-.intro-video-wrap video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #000;
-}
+/* 导航与语言切换 [右上角] */
+.entry { position: absolute; top: 40px; right: 6vw; display: flex; gap: 30px; z-index: 600; align-items: center; }
+.lang-switch { display: flex; gap: 10px; margin-right: 15px; font-size: 0.7rem; font-weight: 700; cursor: pointer; color: #999; }
+.lang-switch span.active { color: #111; }
+.entry a { text-decoration: none; color: #111; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; }
 
-.intro-hero8k {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0;
-  background: url("assets/hero-8k.jpg") center/cover no-repeat;
-}
+/* Logo [左下角] */
+.logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.85rem; color: #111; font-weight: 500; }
 
-/* --- 3. 主页面布局 --- */
-.page {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100;
-  visibility: hidden; /* 由 JS 开启 */
-}
-
-/* 强制子页面直接可见 */
-.page:not(.page--behind-intro) {
-  visibility: visible !important;
-}
-
-.structure-container {
-  position: absolute;
-  inset: 0;
-  background-color: #f7f7f7;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-}
-
-/* 确保背景图路径正确且优先级最高 */
-.structure-container.has-hero8k {
-  background-image: url("assets/hero-8k.jpg") !important;
-}
-
-/* [左下角] Logo */
-.logo {
-  position: absolute;
-  left: 30px;
-  bottom: 30px;
-  z-index: 500;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #111;
-}
-
-/* [右下角] 内容 */
-.content {
-  position: absolute;
-  right: 6vw;
-  bottom: 12vh;
-  max-width: 480px;
-  opacity: 0; /* JS 控制淡入 */
-  text-align: right;
-  color: #111;
-  z-index: 500;
-}
-
+/* 内容 [右下角] */
+.content { position: absolute; right: 6vw; bottom: 12vh; max-width: 480px; opacity: 0; text-align: right; color: #111; z-index: 500; }
 .content h1 { font-size: 2.2rem; margin-bottom: 0.2rem; font-weight: 700; }
-.content h2 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 500; }
-.content p { font-size: 0.95rem; line-height: 1.5; opacity: 0.9; }
+.content p { font-size: 0.95rem; line-height: 1.5; opacity: 0.8; }
 
-/* [右上角] 导航 */
-.entry {
-  position: absolute;
-  top: 40px;
-  right: 6vw;
-  display: flex;
-  gap: 30px;
-  z-index: 600;
-}
-
-.entry a {
-  text-decoration: none;
-  color: #111;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-/* [左上角] 返回 */
-.back-btn {
-  position: fixed;
-  left: 30px;
-  top: 40px;
-  z-index: 3000;
-  text-decoration: none;
-  color: #111;
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-transform: uppercase;
-}
+/* 返回按钮 */
+.back-btn { position: fixed; left: 30px; top: 40px; z-index: 3000; text-decoration: none; color: #111; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; }
