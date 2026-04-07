@@ -11,19 +11,29 @@ body {
 }
 
 /* // 2. 进场动画层样式 */
-.intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; display: flex; align-items: center; justify-content: center; }
+.intro-sequence { 
+  position: fixed; 
+  inset: 0; 
+  z-index: 9999; 
+  /* background: #fff;  <-- 删掉这一行！它会挡住里面的逻辑 */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  pointer-events: none; /* 让容器本身不拦截点击，只由内部按钮拦截 */
+}
 /* 2.1 初始白层：最高层，挡住一切 */
 .intro-white {
   position: fixed;
   inset: 0;
   background: #fff;
-  z-index: 100; /* 基础层 */
+  z-index: 10; /* 基础层 */
   pointer-events: none;
 }
 /* // 2.1 SANTOO 按钮 (镂空效果) */
 .intro-santoo {
-  position: fixed; 
+  position: relative; /* 或者 fixed */
   z-index: 200; /* 绝对最高，确保白屏时能看见它 */
+  pointer-events: auto; /* 确保它是可以被点击的 */
   border: none; background: none; color: #111;
   font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
