@@ -49,19 +49,6 @@ body {
   justify-content: flex-end; /* 强制内容向右侧 X 点靠拢 */
 }
 
-.nav-anchor {
-  text-decoration: none; 
-  color: #111; 
-  font-size: 0.75rem;
-  text-transform: uppercase; 
-  background: none; 
-  border: none; 
-  cursor: pointer;
-  white-space: nowrap;
-  text-align: right; /* 核心：文字向右对齐，左侧自由伸缩 */
-  width: 100%;
-}
-
 /* // 4. 语言下拉菜单 */
 .lang-content {
   display: none; 
@@ -102,54 +89,61 @@ body {
   transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
-/* // 7. 返回按钮：极细描边样式 */
-.back-btn {
-  /* --- 调试开关：以后改这里即可 --- */
-  --btn-color: rgba(255, 255, 255, 1);    /* 文字颜色 (白色) */
-  --btn-border: rgba(255, 255, 255, 0.4); /* 描边颜色与透明度 */
-  --btn-bg-blur: 5px;                     /* 背景模糊程度 */
-  --btn-padding: 8px 16px;                /* 内部空间 */
+/* // 7. 导航与返回键通用：黑色字体 + 白色极细描边 (基础状态) */
+.nav-anchor, .back-btn {
+  /* 背景透明 */
+  background-color: transparent;
   
-  /* --- 核心布局 --- */
+  /* 核心视觉：黑色字体 + 0.5px 白色描边 */
+  color: #000 !important; 
+  -webkit-text-stroke: 0.5px #fff; 
+  
+  /* 文本格式 */
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.75rem; 
+  white-space: nowrap;
+  
+  /* 交互感：平滑从容的过渡 */
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: pointer;
+}
+
+/* // 7.1 导航标签专用：锁定右侧对齐锚点 */
+.nav-anchor {
+  border: none;
+  text-align: right; 
+  width: 100%;
+  display: block; 
+}
+
+/* // 7.2 返回按钮专用：左上角悬浮与外框 */
+.back-btn {
   position: fixed; 
   left: 30px; 
   top: 40px; 
-  z-index: 3000; 
-  text-decoration: none; 
-  text-transform: uppercase;
-  font-size: 0.7rem; 
-
-  /* --- 应用调试参数 --- */
-  color: var(--btn-color);
-  border: 1px solid var(--btn-border);
-  padding: var(--btn-padding);
-  backdrop-filter: blur(var(--btn-bg-blur));
-  -webkit-backdrop-filter: blur(var(--btn-bg-blur)); /* 兼容苹果浏览器 */
-
-  /* --- 动画过渡 --- */
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 3000;
+  padding: 8px 16px;
+  
+  /* 外框描边：与文字描边一致，使用白色极细 */
+  border: 0.5px solid #fff;
+  
+  /* 磨砂玻璃效果 */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
-/* // 7.1 返回按钮悬停反馈：颜色与描边反转 */
-.back-btn:hover {
-  /* 悬停时背景依然保持透明（或稍微加深一点磨砂感） */
-  background-color: rgba(255, 255, 255, 0.1); 
+/* // 7.3 悬停反馈：黑白互换 (颜色彻底反转) */
+.nav-anchor:hover, .back-btn:hover {
+  /* 反转：白色字体 + 0.5px 黑色描边 */
+  color: #fff !important;
+  -webkit-text-stroke: 0.5px #000;
   
-  /* 文字变为纯白，增加亮度 */
-  color: rgba(255, 255, 255, 1); 
+  /* 返回键的外框同步变为黑色 */
+  border-color: #000;
   
-  /* 描边变为不透明，视觉上产生“加粗”的错觉，但实际只是颜色变实了 */
-  border-color: rgba(255, 255, 255, 1);
-  
-  /* 增加一点发光感（可选，若不需要请删除下行） */
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-/* 悬停时的反馈：描边变亮或加粗 */
-.back-btn:hover {
-  background-color: #111; /* 变成实色按钮 */
-  color: #fff; /* 文字变白 */
-  border-color: #111;
+  /* 增加微小的背景亮感，辅助视觉识别 */
+  background-color: rgba(255, 255, 255, 0.1);
 }
 /* // 8. 子页面专用背景控制 */
 
