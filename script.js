@@ -8,7 +8,7 @@
 
   const VIDEO_DURATION = 11; 
 
-  // 语言切换：渐隐 -> 空白 -> 渐显
+  // 极致平滑转场：渐隐(1s) -> 空白(0.5s) -> 渐显(1.5s)
   window.switchLang = function(lang) {
     const targets = document.querySelectorAll('[data-en], #current-lang');
     
@@ -16,24 +16,23 @@
 
     tl.to(targets, {
       opacity: 0,
-      duration: 1.0, // 缓慢渐隐
+      duration: 1.0,
       ease: "power2.inOut"
     })
-    .to({}, { duration: 0.4 }) // 关键：中间停顿的“空白”时长
+    .to({}, { duration: 0.5 }) // 呼吸感的空白停顿
     .call(() => {
-      // 替换内容
+      // 在空白瞬间静默切换文字
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.getAttribute(`data-${lang}`);
         if (text) el.innerText = text;
       });
-      // 更新按钮
       const langNames = { 'en': 'LANGUAGE', 'zh': '语言', 'ja': '言語' };
       const btn = document.getElementById('current-lang');
       if(btn) btn.innerText = langNames[lang];
     })
     .to(targets, {
       opacity: 1,
-      duration: 1.2, // 更缓慢地渐显
+      duration: 1.5, // 优雅的缓慢浮现
       ease: "power2.out"
     });
 
@@ -46,11 +45,11 @@
     
     gsap.to(layer, { 
       opacity: 0, 
-      duration: 2.0, // 优雅的进场淡出
+      duration: 2.5, 
       ease: "power2.inOut", 
       onComplete: () => {
         if (layer) layer.remove();
-        gsap.to(content, { opacity: 1, y: -15, duration: 2.5, ease: "expo.out" });
+        gsap.to(content, { opacity: 1, y: -10, duration: 2.5, ease: "expo.out" });
       }
     });
   }
@@ -63,8 +62,8 @@
     }
     
     gsap.timeline()
-      .to(mark, { opacity: 0, duration: 0.8 })
-      .to(".intro-white", { opacity: 0, duration: 1.5 }, 0.3);
+      .to(mark, { opacity: 0, duration: 1.0 })
+      .to(".intro-white", { opacity: 0, duration: 1.8 }, 0.4);
 
     gsap.delayedCall(VIDEO_DURATION - 2, () => {
       gsap.to(".intro-hero8k", { opacity: 1, duration: 2 });
@@ -72,7 +71,7 @@
     });
   }
 
-  // 初始化语言（无动画直接显示）
+  // 初始化（直接读取，不触发动画）
   const savedLang = localStorage.getItem('santoo-lang') || 'en';
   document.querySelectorAll('[data-en]').forEach(el => {
     const text = el.getAttribute(`data-${savedLang}`);
