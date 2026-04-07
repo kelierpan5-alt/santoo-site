@@ -43,111 +43,40 @@
   // 2. 激活主页面逻辑
   function showMain(isFast = false) {
     if (!mainPage) return;
-
-    // 确保主页面可见，但保持透明等待动画
     mainPage.style.visibility = "visible";
     if (structure) structure.classList.add("has-hero8k");
 
-    // 检查 layer 和 content 是否存在，避免 GSAP 报错
-    const hasLayer = !!document.getElementById('santoo-layer');
-    const hasContent = !!document.querySelector('.content');
-
     if (isFast) {
-      // --- 快速进入 ---
-      if (hasLayer) document.getElementById('santoo-layer').remove();
-      
-      gsap.fromTo(mainPage, 
-        { opacity: 0 }, 
-        { opacity: 1, duration: 2.8, ease: "power2.inOut" }
-      );
-      
-      if (hasContent) {
-        gsap.fromTo(".content", 
-          { opacity: 0, y: 10 }, 
-          { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" }
-        );
-      }
+      if (layer) layer.remove(); // 直接移除 SANTOO 层
+      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 2.8, ease: "power2.inOut" });
+      gsap.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" });
     } else {
-      // --- 剧场式进入（视频结束后） ---
-      const tl = gsap.timeline();
-      
-      // 1. 先处理主页面显现
-      tl.to(mainPage, { opacity: 1, duration: 3.0, ease: "power2.inOut" });
-
-      // 2. 如果有开场层，并排处理它的消失
-      if (hasLayer) {
-        tl.to("#santoo-layer", { 
-          opacity: 0, 
-          duration: 2.0, 
-          onComplete: () => {
-            const l = document.getElementById('santoo-layer');
-            if (l) l.remove();
-            // 额外清理视频层，防止遮挡点击
-            const videoWrap = document.querySelector('.intro-video-wrap');
-            if (videoWrap) videoWrap.remove();
-          } 
-        }, "-=2.5");
-      }
-
-      // 3. 如果有右下角文案，最后浮现
-      if (hasContent) {
-        tl.to(".content", { 
-          opacity: 1, 
-          duration: 2.5, 
-          ease: "power2.out" 
-        }, "-=1.0");
-      }
+      gsap.timeline()
+        .to(mainPage, { opacity: 1, duration: 2.5 })
+        .to(layer, { opacity: 0, duration: 2.5, onComplete: () => layer?.remove() }, "-=0.5")
+        .to(content, { opacity: 1, duration: 3.0, ease: "expo.out" }, "-=1.5");
     }
-
     sessionStorage.setItem('santoo-visited', 'true');
   }
-// 3. 初始进入判定逻辑 
+
+  // 3. 初始进入判定逻辑 (核心：非首页或已看过，则直接 showMain)
   if (isIndex && !hasSeenIntro) {
-    // 首页初次访问：确保初始白层和 Logo 可见
-    gsap.set(".intro-white", { opacity: 1, visibility: "visible" });
-    gsap.set(mark, { opacity: 1, visibility: "visible" });
-    
+    gsap.set(mark, { opacity: 1 });
     mark.addEventListener("click", () => {
-      // 1. 处理图标消失
-      mark.style.pointerEvents = "none"; 
-      gsap.to(mark, { opacity: 0, duration: 0.8, onComplete: () => mark.remove() });
-
-      // --- 修改后的第 2 部分：视频唤醒核心逻辑 ---
-const videoWrap = document.querySelector('.intro-video-wrap');
-if (video && videoWrap) {
-  // 1. 点击瞬间：立即让视频容器开始渐显 (不再等待 video.play 的成功回调)
-  gsap.set(videoWrap, { visibility: "visible" });
-  gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
-  
-  // 2. 同时：让初始白层开始消失
-  gsap.to(".intro-white", { 
-    opacity: 0, 
-    duration: 2.0, 
-    onComplete: () => document.querySelector('.intro-white')?.remove() 
-  });
-
-  // 3. 尝试播放视频
-  video.play().then(() => {
-    console.log("Video playing...");
-  }).catch(err => {
-    console.log("Video blocked, but we already fade in the container:", err);
-    // 如果彻底播不动，等几秒直接进站
-  });
-}
-
-      // 3. 双保险进入机制
-      const timer = gsap.delayedCall(9, () => showMain());
-
-      if (video) {
-        video.onended = () => {
-          timer.kill();
-          showMain();
-        };
+      mark.classList.add('is-hidden'); 
+      gsap.to(mark, { opacity: 0, duration: 0.8 });
+      if(video) {
+        video.play();
+        gsap.to(".intro-video-wrap", { opacity: 1, duration: 1.5 });
       }
+      gsap.to(".intro-white", { opacity: 0, duration: 2 });
+      gsap.delayedCall(9, showMain);
     }, { once: true });
   } else {
+    // 只要不是首次进首页，全部走快速通道（直接渐显静态内容）
     showMain(true);
   }
+
   // 4. 语言初始化
   const saved = localStorage.getItem('santoo-lang') || 'en';
   document.querySelectorAll('[data-en]').forEach(el => {
