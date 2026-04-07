@@ -27,33 +27,51 @@ body {
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
 .intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 
-/* --- 导航锚点固定逻辑 --- */
+/* --- 导航：右锚点固定逻辑 (X+Y+Z) --- */
 .entry {
-  position: absolute; top: 40px; right: 6vw;
-  display: flex; gap: 45px; z-index: 1000;
-  justify-content: flex-end; align-items: flex-start;
+  position: absolute; 
+  top: 40px; 
+  right: 6vw; /* 这里的 6vw 是最右侧单元格的固定点 X */
+  display: flex; 
+  gap: 45px; /* 这是固定距离 Y */
+  z-index: 1000;
 }
+
 .nav-item-wrapper {
-  position: relative; /* 确保下拉菜单以此为基准 */
+  position: relative;
+  width: 120px; /* 固定单元格宽度 Z，确保足以容纳 "RESEARCH" 或 "LANGUAGE" */
   display: flex;
+  justify-content: flex-end; /* 强制内容向右侧 X 点靠拢 */
 }
-.lang-dropdown { position: relative; } /* 锁定下拉框锚点 */
 
 .nav-anchor {
-  text-decoration: none; color: #111; font-size: 0.75rem;
-  text-transform: uppercase; white-space: nowrap; cursor: pointer;
-  background: none; border: none; padding: 0; margin: 0;
+  text-decoration: none; 
+  color: #111; 
+  font-size: 0.75rem;
+  text-transform: uppercase; 
+  background: none; 
+  border: none; 
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: right; /* 核心：文字向右对齐，左侧自由伸缩 */
+  width: 100%;
 }
 
+/* 下拉菜单：同样锁定右对齐 */
 .lang-content {
-  display: none; position: absolute; 
-  top: 100%; left: 0; /* 改为左对齐，确保从单词起始处向下排 */
-  padding-top: 15px; flex-direction: column; gap: 8px;
+  display: none; 
+  position: absolute; 
+  top: 100%; 
+  right: 0; /* 菜单右侧与 LANGUAGE 单词右侧对齐 */
+  padding-top: 15px; 
+  flex-direction: column; 
+  gap: 8px;
 }
 .lang-dropdown:hover .lang-content { display: flex; }
 .lang-content span {
-  background: rgba(255,255,255,0.95); padding: 8px 16px; font-size: 0.7rem;
-  text-align: left; cursor: pointer; transition: 0.3s; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111; padding: 8px 16px; font-size: 0.7rem;
+  text-align: right; cursor: pointer; white-space: nowrap;
 }
 
 /* --- 内容下沉布局 --- */
