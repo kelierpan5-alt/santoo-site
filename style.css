@@ -139,10 +139,10 @@ body {
 /* // 7.1 核心：镂空效果 (对标 SANTOO) */
 .nav-anchor:hover, .back-btn:hover {
   /* 核心：文字颜色直接变为纯白 */
-  color: #fff !important;
+  color: #000 !important;
   
-  /* 关键：开启极细黑色描边（增加文字轮廓的锐利度，防止在复杂背景下模糊） */
-  -webkit-text-stroke: 0.3px #000; 
+  /* 关键：开启极细白色描边（增加文字轮廓的锐利度，防止在复杂背景下模糊） */
+  -webkit-text-stroke: 0.1px #fff; 
   
   /* 确保没有任何背景干扰 */
   background: none !important;
