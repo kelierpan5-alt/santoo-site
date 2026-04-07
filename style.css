@@ -89,14 +89,13 @@ body {
   transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
-/* // 7. 导航与返回键通用：黑色字体 + 白色极细描边 (基础状态) */
+/* // 7. 导航与返回键通用：初始状态（纯黑文字，无描边） */
 .nav-anchor, .back-btn {
-  /* 背景透明 */
   background-color: transparent;
   
-  /* 核心视觉：黑色字体 + 0.5px 白色描边 */
+  /* 初始：纯黑色字体，描边颜色设为透明 */
   color: #000 !important; 
-  -webkit-text-stroke: 0.5px #fff; 
+  -webkit-text-stroke: 0.5px transparent; 
   
   /* 文本格式 */
   text-decoration: none;
@@ -104,12 +103,12 @@ body {
   font-size: 0.75rem; 
   white-space: nowrap;
   
-  /* 交互感：平滑从容的过渡 */
+  /* 动画：0.8秒的缓慢优雅过渡 */
   transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: pointer;
 }
 
-/* // 7.1 导航标签专用：锁定右侧对齐锚点 */
+/* // 7.1 导航标签专用：锁定右侧对齐 */
 .nav-anchor {
   border: none;
   text-align: right; 
@@ -117,7 +116,7 @@ body {
   display: block; 
 }
 
-/* // 7.2 返回按钮专用：左上角悬浮与外框 */
+/* // 7.2 返回按钮专用：左上角外框 */
 .back-btn {
   position: fixed; 
   left: 30px; 
@@ -125,25 +124,28 @@ body {
   z-index: 3000;
   padding: 8px 16px;
   
-  /* 外框描边：与文字描边一致，使用白色极细 */
-  border: 0.5px solid #fff;
+  /* 初始：外框也是透明的，或者设为极淡的灰色 */
+  border: 0.5px solid transparent;
   
-  /* 磨砂玻璃效果 */
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(0px); /* 初始不模糊 */
+  -webkit-backdrop-filter: blur(0px);
 }
 
-/* // 7.3 悬停反馈：黑白互换 (颜色彻底反转) */
+/* // 7.3 悬停反馈：唤醒白色描边 (你想要的核心效果) */
 .nav-anchor:hover, .back-btn:hover {
-  /* 反转：白色字体 + 0.5px 黑色描边 */
-  color: #fff !important;
-  -webkit-text-stroke: 0.5px #000;
+  /* 字体保持黑色，但唤醒白色极细描边 */
+  color: #000 !important;
+  -webkit-text-stroke: 0.5px #fff;
   
-  /* 返回键的外框同步变为黑色 */
-  border-color: #000;
+  /* BACK按钮的外框同步变为白色 */
+  border-color: #fff;
   
-  /* 增加微小的背景亮感，辅助视觉识别 */
-  background-color: rgba(255, 255, 255, 0.1);
+  /* 悬停时开启磨砂感 */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  
+  /* 增加轻微的底色，让白色描边在浅色背景下更清晰 */
+  background-color: rgba(0, 0, 0, 0.03);
 }
 /* // 8. 子页面专用背景控制 */
 
