@@ -68,10 +68,17 @@ body {
 
 /* // 5. 内容与 Logo 布局 */
 .logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.8rem; }
+/* // 5. 内容文案：确保初始可见 */
 .content {
-  position: absolute; right: 6vw; bottom: 30px;
-  display: flex; flex-direction: column; align-items: flex-end; text-align: right;
-  opacity: 0; /* JS 唤醒 */
+  position: absolute; 
+  right: 6vw; 
+  bottom: 30px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-end; 
+  text-align: right;
+  z-index: 500;
+  opacity: 1 !important; /* 强制显示，防止被脚本误伤 */
 }
 .content h1 { font-size: 1.8rem; text-transform: uppercase; line-height: 1.2; margin: 0; }
 .content h2 { font-size: 1.2rem; opacity: 0.8; margin: 0.2rem 0 0 0; }
@@ -89,63 +96,51 @@ body {
   transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
-/* // 7. 导航与返回键通用：初始状态（纯黑文字，无描边） */
+/* // 7. 导航与返回键：彻底去框，回归纯粹文字 */
 .nav-anchor, .back-btn {
-  background-color: transparent;
+  /* 基础：彻底透明背景，无边框 */
+  background: none !important;
+  border: none !important;
+  outline: none;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   
-  /* 初始：纯黑色字体，描边颜色设为透明 */
+  /* 初始状态：纯黑色字体，无描边 */
   color: #000 !important; 
-  -webkit-text-stroke: 0.5px transparent; 
+  -webkit-text-stroke: 0px transparent; 
   
   /* 文本格式 */
   text-decoration: none;
   text-transform: uppercase;
   font-size: 0.75rem; 
   white-space: nowrap;
-  
-  /* 动画：0.8秒的缓慢优雅过渡 */
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: pointer;
+  
+  /* 动画：保持那种优雅的呼吸感 */
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* // 7.1 导航标签专用：锁定右侧对齐 */
+/* 导航标签专用：锁定右侧对齐 */
 .nav-anchor {
-  border: none;
   text-align: right; 
   width: 100%;
   display: block; 
 }
 
-/* // 7.2 返回按钮专用：左上角外框 */
+/* 返回按钮专用：左上角位置 */
 .back-btn {
   position: fixed; 
   left: 30px; 
   top: 40px; 
   z-index: 3000;
-  padding: 8px 16px;
-  
-  /* 初始：外框也是透明的，或者设为极淡的灰色 */
-  border: 0.5px solid transparent;
-  
-  backdrop-filter: blur(0px); /* 初始不模糊 */
-  -webkit-backdrop-filter: blur(0px);
+  padding: 0; /* 去掉边距，让它纯粹像个文字 */
 }
 
-/* // 7.3 悬停反馈：唤醒白色描边 (你想要的核心效果) */
+/* // 7.1 悬停反馈：仅唤醒白色描边，保持黑字 */
 .nav-anchor:hover, .back-btn:hover {
-  /* 字体保持黑色，但唤醒白色极细描边 */
-  color: #000 !important;
-  -webkit-text-stroke: 0.5px #fff;
-  
-  /* BACK按钮的外框同步变为白色 */
-  border-color: #fff;
-  
-  /* 悬停时开启磨砂感 */
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  
-  /* 增加轻微的底色，让白色描边在浅色背景下更清晰 */
-  background-color: rgba(0, 0, 0, 0.03);
+  color: #000 !important; /* 字体保持黑色 */
+  -webkit-text-stroke: 0.6px #fff; /* 仅出现白色极细描边 */
+  background: none !important; /* 确保悬停时也不产生任何背景 */
 }
 /* // 8. 子页面专用背景控制 */
 
