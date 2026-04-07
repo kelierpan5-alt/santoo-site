@@ -43,19 +43,52 @@
   // 2. 激活主页面逻辑
   function showMain(isFast = false) {
     if (!mainPage) return;
+
+    // 确保主页面可见，但保持透明等待动画
     mainPage.style.visibility = "visible";
     if (structure) structure.classList.add("has-hero8k");
 
     if (isFast) {
-      if (layer) layer.remove(); // 直接移除 SANTOO 层
-      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 2.8, ease: "power2.inOut" });
-      gsap.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" });
+      // --- 快速进入：用于子页或非首次访问 ---
+      if (layer) layer.remove(); 
+      gsap.fromTo(mainPage, 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 2.8, ease: "power2.inOut" }
+      );
+      if (content) {
+        gsap.fromTo(content, 
+          { opacity: 0, y: 10 }, 
+          { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" }
+        );
+      }
     } else {
-      gsap.timeline()
-        .to(mainPage, { opacity: 1, duration: 2.5 })
-        .to(layer, { opacity: 0, duration: 2.5, onComplete: () => layer?.remove() }, "-=0.5")
-        .to(content, { opacity: 1, duration: 3.0, ease: "expo.out" }, "-=1.5");
+      // --- 剧场式进入：用于视频播放结束 ---
+      // 关键修复：确保 mainPage 在 layer 消失的同时渐显
+      const tl = gsap.timeline();
+      
+      tl.set(mainPage, { opacity: 0 }) // 确保起点是 0
+        .to(mainPage, { 
+          opacity: 1, 
+          duration: 3.0, 
+          ease: "power2.inOut" 
+        })
+        .to(layer, { 
+          opacity: 0, 
+          duration: 2.0, 
+          onComplete: () => {
+            if (layer) layer.remove();
+            // 额外保险：移除可能挡住点击的视频层
+            const videoWrap = document.querySelector('.intro-video-wrap');
+            if (videoWrap) videoWrap.remove();
+          } 
+        }, "-=2.5") // 让 layer 的消失提前开始，与页面显现重叠
+        .to(content, { 
+          opacity: 1, 
+          duration: 2.5, 
+          ease: "power2.out" 
+        }, "-=1.0");
     }
+    
     sessionStorage.setItem('santoo-visited', 'true');
   }
 
