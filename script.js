@@ -112,27 +112,28 @@
       mark.style.pointerEvents = "none"; 
       gsap.to(mark, { opacity: 0, duration: 0.8, onComplete: () => mark.remove() });
 
-      // 2. 视频唤醒核心逻辑
-      const videoWrap = document.querySelector('.intro-video-wrap');
-      if (video && videoWrap) {
-        // 关键：先让容器在底层“准备好”
-        gsap.set(videoWrap, { visibility: "visible", opacity: 0 });
-        
-        // 尝试播放
-        video.play().then(() => {
-          // 播放成功后，再让视频容器渐显，白层渐隐
-          gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
-          gsap.to(".intro-white", { opacity: 0, duration: 2.0, onComplete: () => {
-             document.querySelector('.intro-white')?.remove();
-          }});
-        }).catch(err => {
-          console.log("Video blocked or failed:", err);
-          showMain(); // 播放失败直接进站
-        });
-      } else {
-        // 如果根本没视频元素，直接进站
-        showMain();
-      }
+      // --- 修改后的第 2 部分：视频唤醒核心逻辑 ---
+const videoWrap = document.querySelector('.intro-video-wrap');
+if (video && videoWrap) {
+  // 1. 点击瞬间：立即让视频容器开始渐显 (不再等待 video.play 的成功回调)
+  gsap.set(videoWrap, { visibility: "visible" });
+  gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
+  
+  // 2. 同时：让初始白层开始消失
+  gsap.to(".intro-white", { 
+    opacity: 0, 
+    duration: 2.0, 
+    onComplete: () => document.querySelector('.intro-white')?.remove() 
+  });
+
+  // 3. 尝试播放视频
+  video.play().then(() => {
+    console.log("Video playing...");
+  }).catch(err => {
+    console.log("Video blocked, but we already fade in the container:", err);
+    // 如果彻底播不动，等几秒直接进站
+  });
+}
 
       // 3. 双保险进入机制
       const timer = gsap.delayedCall(9, () => showMain());
