@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", () => { // 加上这一行
 (function initSantoo() {
   // --- 核心变量声明 ---
   const layer = document.getElementById('santoo-layer');
@@ -155,10 +156,15 @@
 
         const videoWrap = document.querySelector('.intro-video-wrap');
         // 提升视频层级并显现
+        if (videoWrap) {
         gsap.set(videoWrap, { visibility: "visible", zIndex: 150 }); 
         gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
+          }
 
         video.play().catch(e => {
+          // 播成功了再让白层消失
+           gsap.to(".intro-white", { opacity: 0, duration: 2.0 });
+        }).catch(e => {
           console.warn("Autoplay blocked:", e);
           showMain(); // 播不动就跳过
         });
@@ -230,3 +236,4 @@
     }
   });
 })();
+}); // 加上这一行，对应开头的那个括号
