@@ -1,93 +1,63 @@
-(function initSantoo() {
-  // --- 核心变量声明 ---
-  const layer = document.getElementById("introSequence");
-  const mark = document.getElementById("introSantoo");
-  const video = document.getElementById("introVideo");
-  const mainPage = document.getElementById("mainPage");
-  const content = document.getElementById("systemLabel");
-  const structure = document.getElementById("structureContainer");
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SANTOO | Structural Studies</title>
 
-  // --- 1. 优雅呼吸感语言切换 ---
-  window.switchLang = function(lang) {
-    const targets = document.querySelectorAll('[data-en], #current-lang');
-    const tl = gsap.timeline();
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    tl.to(targets, { 
-      opacity: 0, 
-      duration: 1.0, 
-      ease: "power2.inOut" 
-    })
-    .to({}, { duration: 0.4 }) // 关键：空白呼吸停顿期
-    .call(() => {
-      // 执行语言替换
-      document.querySelectorAll('[data-en]').forEach(el => {
-        const text = el.getAttribute(`data-${lang}`);
-        if (text) el.innerText = text;
-      });
-      // 更新语言按钮文字
-      const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
-      document.getElementById('current-lang').innerText = names[lang];
-    })
-    .to(targets, { 
-      opacity: 1, 
-      duration: 1.8, 
-      ease: "power2.out" 
-    });
+  <div id="introSequence" class="intro-sequence">
+    <div class="intro-white"></div>
+    <button type="button" class="intro-santoo" id="introSantoo">SANTOO</button>
+    <div class="intro-video-wrap">
+      <video id="introVideo" src="assets/intro.mp4" muted playsinline preload="auto"></video>
+    </div>
+    <div class="intro-hero8k"></div>
+  </div>
 
-    localStorage.setItem('santoo-lang', lang);
-  };
+  <main class="page" id="mainPage">
+    <section class="hero">
+      <div class="structure-container" id="structureContainer"></div>
+      
+      <div class="logo">
+        <span class="logo-full">SANTOO / Structural Studies</span>
+        <span class="logo-mark">⌇■</span>
+      </div>
 
-  // --- 2. 激活主页面逻辑 ---
-  function showMain(isFast = false) {
-    if (!mainPage) return;
-    mainPage.style.visibility = "visible";
-    if (structure) structure.classList.add("has-hero8k");
+      <nav class="entry">
+        <div class="nav-item-wrapper lang-dropdown">
+          <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
+          <div class="lang-content">
+            <span onclick="switchLang('en')">English</span>
+            <span onclick="switchLang('zh')">中文</span>
+            <span onclick="switchLang('ja')">日本語</span>
+          </div>
+        </div>
+        <div class="nav-item-wrapper"><a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a></div>
+        <div class="nav-item-wrapper"><a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a></div>
+        <div class="nav-item-wrapper"><a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a></div>
+        <div class="nav-item-wrapper"><a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a></div>
+      </nav>
 
-    if (isFast) {
-      // 快速进入 (返回页面时使用)
-      if (layer) layer.remove();
-      gsap.set(mainPage, { opacity: 1 });
-      gsap.set(content, { opacity: 1, y: 0 });
-    } else {
-      // 优雅进入 (初次点击 SANTOO 使用)
-      const tl = gsap.timeline();
-      tl.to(mainPage, { opacity: 1, duration: 1.5 })
-        .to(layer, { 
-          opacity: 0, 
-          duration: 2.5, 
-          onComplete: () => layer?.remove() 
-        }, "-=0.5")
-        .to(content, { 
-          opacity: 1, 
-          y: 0, 
-          duration: 3, 
-          ease: "expo.out" 
-        }, "-=1.5");
-    }
-    sessionStorage.setItem('santoo-visited', 'true');
-  }
+      <div class="content" id="systemLabel">
+        <h1 data-en="Santoo Institute" data-zh="Santoo 研究所" data-ja="Santoo 研究所">Santoo Institute</h1>
+        <h2 data-en="for Structural Studies" data-zh="结构研究中心" data-ja="構造研究センター">for Structural Studies</h2>
+        <p data-en="A framework for observing structural stability across fields." 
+           data-zh="一个用于观察跨领域结构稳定性的框架。" 
+           data-ja="領域を超えた構造的安定性を观察するためのフレームワーク。">
+           A framework for observing structural stability across fields.
+        </p>
+      </div>
+    </section>
+  </main>
 
-  // --- 3. 初始进入判定逻辑 ---
-  const hasSeenIntro = sessionStorage.getItem('santoo-visited');
-  const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
-
-  if (isIndex && !hasSeenIntro) {
-    // 首页初次访问：启动 SANTOO 点击监听
-    gsap.set(mark, { opacity: 1 });
-    mark.addEventListener("click", () => {
-      if(video) video.play();
-      gsap.to(mark, { opacity: 0, duration: 1 });
-      gsap.to(".intro-white", { opacity: 0, duration: 2 });
-      gsap.delayedCall(9, showMain); 
-    }, { once: true });
-  } else {
-    // 已访问或子页面：直接显示主内容
-    showMain(true);
-  }
-
-  // --- 4. 语言偏好初始化 ---
-  const saved = localStorage.getItem('santoo-lang') || 'en';
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.innerText = el.getAttribute(`data-${saved}`);
-  });
-})();
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
