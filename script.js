@@ -1,63 +1,70 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANTOO | Structural Studies</title>
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+      // 3. 双保险进入机制
+      const timer = gsap.delayedCall(9, () => showMain());
 
-  <div id="introSequence" class="intro-sequence">
-    <div class="intro-white"></div>
-    <button type="button" class="intro-santoo" id="introSantoo">SANTOO</button>
-    <div class="intro-video-wrap">
-      <video id="introVideo" src="assets/intro.mp4" muted playsinline preload="auto"></video>
-    </div>
-    <div class="intro-hero8k"></div>
-  </div>
+      if (video) {
+        video.onended = () => {
+          timer.kill();
+          showMain();
+        };
+      }
+    }, { once: true });
+  } else {
+    showMain(true);
+  }
+  // 4. 语言初始化
+  const saved = localStorage.getItem('santoo-lang') || 'en';
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerText = el.getAttribute(`data-${saved}`);
+  });
 
-  <main class="page" id="mainPage">
-    <section class="hero">
-      <div class="structure-container" id="structureContainer"></div>
+  // 5. 预加载与跳转拦截
+  navLinks.forEach(link => {
+    // 预加载
+    link.addEventListener('mouseenter', function() {
+      const href = this.getAttribute('href');
+      const preloadConfig = {
+        'member.html': 'assets/member-bg.jpg',
+        'project.html': 'assets/project-bg.jpg',
+        'research.html': 'assets/research-bg.jpg',
+        'works.html': 'assets/works-bg.jpg'
+      };
+      if (preloadConfig[href]) {
+        const img = new Image();
+        img.src = preloadConfig[href];
+      }
+    }, { once: true });
+
+    // 点击跳转拦截
+    link.addEventListener('click', function(e) {
+      const targetUrl = this.getAttribute('href');
       
-      <div class="logo">
-        <span class="logo-full">SANTOO / Structural Studies</span>
-        <span class="logo-mark">⌇■</span>
-      </div>
+      // 如果点击的是当前页链接，不执行任何动作
+      if (targetUrl === currentPath) {
+        e.preventDefault();
+        return;
+      }
 
-      <nav class="entry">
-        <div class="nav-item-wrapper lang-dropdown">
-          <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
-          <div class="lang-content">
-            <span onclick="switchLang('en')">English</span>
-            <span onclick="switchLang('zh')">中文</span>
-            <span onclick="switchLang('ja')">日本語</span>
-          </div>
-        </div>
-        <div class="nav-item-wrapper"><a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a></div>
-        <div class="nav-item-wrapper"><a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a></div>
-        <div class="nav-item-wrapper"><a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a></div>
-        <div class="nav-item-wrapper"><a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a></div>
-      </nav>
+      if (targetUrl && targetUrl.includes('.html')) {
+        e.preventDefault();
+        gsap.to(mainPage, {
+          opacity: 0,
+          duration: 1.2,
+          ease: "power2.inOut",
+          onComplete: () => {
+            window.location.href = targetUrl;
+          }
+        });
+      }
+    });
+  });
 
-      <div class="content" id="systemLabel">
-        <h1 data-en="Santoo Institute" data-zh="Santoo 研究所" data-ja="Santoo 研究所">Santoo Institute</h1>
-        <h2 data-en="for Structural Studies" data-zh="结构研究中心" data-ja="構造研究センター">for Structural Studies</h2>
-        <p data-en="A framework for observing structural stability across fields." 
-           data-zh="一个用于观察跨领域结构稳定性的框架。" 
-           data-ja="領域を超えた構造的安定性を观察するためのフレームワーク。">
-           A framework for observing structural stability across fields.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+  // 6. 处理浏览器后退/前进时的渐显
+  window.addEventListener('pageshow', (event) => {
+    // 如果是从缓存读取（即后退回来），强制重置透明度并渐显
+    if (event.persisted) {
+      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 2.8, ease: "power2.out" });
+    }
+  });
+})();
