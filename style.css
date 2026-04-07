@@ -108,3 +108,13 @@ body {
   /* 请确保你 assets 文件夹里有一张叫 member-bg.jpg 的图 */
   filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
 }
+/* // 8. 页面切换过渡效果 */
+body {
+  background-color: #000; /* 将底层背景设为黑色，这样页面透明度降低时会看到黑 */
+  transition: background-color 0.5s ease;
+}
+
+/* 确保主页面在显示时背景是浅灰色，只有切换时才显露底部的黑色 */
+.page {
+  background-color: #f7f7f7; 
+}
