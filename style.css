@@ -92,7 +92,14 @@ body {
 
 /* // 6. 页面显示控制 */
 .page { position: fixed; inset: 0; z-index: 100; visibility: hidden; opacity: 0; }
-.structure-container { position: absolute; inset: 0; background: #f7f7f7; }
+.structure-container {
+  position: absolute; 
+  inset: 0; 
+  background-color: #000; /* 关键：给背景容器一个底色 */
+  z-index: 1;
+  /* 确保图片切换时是平滑的 */
+  transition: background-image 0.3s ease-in-out; 
+}
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 .back-btn { position: fixed; left: 30px; top: 40px; z-index: 3000; text-decoration: none; color: #111; font-size: 0.75rem; text-transform: uppercase; }
 /* // 7. 子页面专用背景控制 */
