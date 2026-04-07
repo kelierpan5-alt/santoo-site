@@ -1,10 +1,10 @@
-/* 基础重置 */
+/* 全局锁定：禁止滚动 */
 html, body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* 锁定页面，禁止滚动 */
+  overflow: hidden; 
   background: #f7f7f7;
   font-family: "Michroma", "Noto Sans TC", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -14,7 +14,7 @@ html, body {
 .intro-sequence {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 2000; /* 极高层级 */
   background: #fff;
 }
 
@@ -27,7 +27,7 @@ html, body {
 
 .intro-santoo {
   position: absolute;
-  z-index: 20;
+  z-index: 30;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -47,6 +47,7 @@ html, body {
   z-index: 5;
   opacity: 0;
   background: #000;
+  visibility: hidden;
 }
 
 .intro-video-wrap video {
@@ -55,11 +56,10 @@ html, body {
   object-fit: cover;
 }
 
-/* 核心修复：这个 8k 图层只是过渡用的 */
 .intro-hero8k {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
   background: url("assets/hero-8k.jpg") center/cover no-repeat;
 }
@@ -68,7 +68,8 @@ html, body {
 .page {
   position: fixed;
   inset: 0;
-  visibility: hidden; /* 初始隐藏 */
+  visibility: hidden;
+  z-index: 100;
 }
 
 .structure-container {
@@ -79,7 +80,6 @@ html, body {
   background-position: center;
 }
 
-/* 确保主背景图生效 */
 .structure-container.has-hero8k {
   background-image: url("assets/hero-8k.jpg") !important;
 }
@@ -91,27 +91,50 @@ html, body {
   right: 6vw;
   display: flex;
   gap: 30px;
-  z-index: 110;
+  z-index: 500;
 }
 
 .entry a {
   text-decoration: none;
   color: #111;
   font-size: 0.85rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
   transition: opacity 0.3s;
 }
 
-.entry a:hover { opacity: 0.6; }
+.entry a:hover { opacity: 0.5; }
 
-.logo { position: absolute; left: 30px; bottom: 30px; z-index: 100; }
+/* 底部 Logo */
+.logo {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  z-index: 500;
+  font-size: 0.9rem;
+}
 
+/* 主内容 */
 .content {
   position: absolute;
   right: 6vw;
   bottom: 12vh;
-  max-width: 420px;
+  max-width: 450px;
   opacity: 0;
   text-align: right;
+  color: #111;
+}
+
+.content h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.content p { font-size: 0.9rem; line-height: 1.6; opacity: 0.8; }
+
+/* 子页面通用：返回按钮 */
+.back-btn {
+  position: absolute;
+  left: 30px;
+  top: 40px;
+  text-decoration: none;
+  color: #111;
+  font-size: 0.8rem;
 }
