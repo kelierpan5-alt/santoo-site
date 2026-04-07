@@ -1,28 +1,48 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project | Santoo Institute</title>
+  <title>Project | SANTOO</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a href="index.html" class="back-btn">← BACK</a>
+  <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
+
   <nav class="entry">
-    <a href="member.html">Member</a>
-    <a href="project.html">Project</a>
-    <a href="research.html">Research</a>
-    <a href="works.html">Works</a>
+    <div class="lang-dropdown">
+      <button class="lang-dropbtn" id="current-lang">LANGUAGE</button>
+      <div class="lang-content">
+        <span onclick="switchLang('en')">English</span>
+        <span onclick="switchLang('zh')">中文</span>
+        <span onclick="switchLang('ja')">日本語</span>
+      </div>
+    </div>
+    <a href="member.html" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
+    <a href="project.html" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
+    <a href="research.html" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
+    <a href="works.html" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
   </nav>
 
-  <main class="page" style="visibility: visible;">
+  <main class="page" id="mainPage" style="visibility: visible;">
     <section class="hero">
       <div class="structure-container has-hero8k"></div>
-      <div class="content" style="opacity: 1;">
-        <h1>Ongoing Projects</h1>
-        <p>Exploring the tension between material and form.</p>
+      <div class="logo">
+        <span class="logo-full">SANTOO / Structural Studies</span>
+        <span class="logo-mark">⌇■</span>
+      </div>
+      <div class="content" id="systemLabel" style="opacity: 1;">
+        <h1 data-en="Ongoing Projects" data-zh="在研项目" data-ja="進行中のプロジェクト">Ongoing Projects</h1>
+        <p data-en="Exploring the tension between material and form." 
+           data-zh="探索材料与形式之间的张力。" 
+           data-ja="材料と形態の間の緊張感を探求する。">
+           Exploring the tension between material and form.
+        </p>
       </div>
     </section>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
