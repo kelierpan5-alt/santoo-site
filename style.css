@@ -23,6 +23,7 @@ html, body {
   inset: 0;
   z-index: 10;
   background: #fff;
+  pointer-events: none;
 }
 
 .intro-santoo {
@@ -55,14 +56,15 @@ html, body {
   inset: 0;
   z-index: 5;
   opacity: 0;
-  visibility: hidden;
   background: #000;
+  /* 初始不使用 visibility: hidden，改用 display 配合 JS 控制 */
 }
 
 .intro-video-wrap video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background: #000;
 }
 
 .intro-hero8k {
@@ -80,28 +82,29 @@ html, body {
   width: 100vw;
   height: 100vh;
   z-index: 100;
-  visibility: hidden;
+  visibility: hidden; /* 由 JS 开启 */
 }
 
+/* 强制子页面直接可见 */
 .page:not(.page--behind-intro) {
-  visibility: visible;
+  visibility: visible !important;
 }
 
 .structure-container {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   background-color: #f7f7f7;
   background-size: cover;
   background-position: center;
+  z-index: 1;
 }
 
+/* 确保背景图路径正确且优先级最高 */
 .structure-container.has-hero8k {
   background-image: url("assets/hero-8k.jpg") !important;
 }
 
-/* --- 4. 定位核心修改 --- */
-
-/* [左下角] SANTOO / Structural Studies ⌇■ */
+/* [左下角] Logo */
 .logo {
   position: absolute;
   left: 30px;
@@ -110,48 +113,32 @@ html, body {
   font-size: 0.85rem;
   font-weight: 500;
   color: #111;
-  pointer-events: none;
 }
 
-/* [右下角] Santoo Institute 文字内容 */
+/* [右下角] 内容 */
 .content {
   position: absolute;
-  right: 6vw; /* 保持与导航对齐的间距 */
-  bottom: 12vh; /* 略高于底部 logo 线的平衡位置 */
+  right: 6vw;
+  bottom: 12vh;
   max-width: 480px;
-  opacity: 0;
+  opacity: 0; /* JS 控制淡入 */
   text-align: right;
   color: #111;
-  pointer-events: none;
+  z-index: 500;
 }
 
-.content h1 {
-  font-size: 2.2rem; /* 根据截图比例稍微放大 */
-  margin-bottom: 0.2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
+.content h1 { font-size: 2.2rem; margin-bottom: 0.2rem; font-weight: 700; }
+.content h2 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 500; }
+.content p { font-size: 0.95rem; line-height: 1.5; opacity: 0.9; }
 
-.content h2 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.content p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  opacity: 0.9;
-}
-
-/* [右上角] 导航菜单 */
+/* [右上角] 导航 */
 .entry {
   position: absolute;
   top: 40px;
   right: 6vw;
   display: flex;
   gap: 30px;
-  z-index: 500;
+  z-index: 600;
 }
 
 .entry a {
@@ -160,12 +147,9 @@ html, body {
   font-size: 0.85rem;
   font-weight: 500;
   text-transform: uppercase;
-  transition: opacity 0.3s;
 }
 
-.entry a:hover { opacity: 0.5; }
-
-/* [左上角] 返回按钮 */
+/* [左上角] 返回 */
 .back-btn {
   position: fixed;
   left: 30px;
@@ -176,16 +160,4 @@ html, body {
   font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
-}
-
-/* 移动端适配：缩小字体并增加间距 */
-@media (max-width: 768px) {
-  .content {
-    right: 20px;
-    bottom: 15vh;
-    max-width: 85%;
-  }
-  .content h1 { font-size: 1.5rem; }
-  .logo { left: 20px; bottom: 20px; font-size: 0.7rem; }
-  .entry { top: 20px; right: 20px; gap: 15px; }
 }
