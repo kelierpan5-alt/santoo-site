@@ -5,72 +5,112 @@
 }
 
 body {
-  width: 100vw; height: 100vh; overflow: hidden;
   background: #f7f7f7; color: #111;
+  width: 100vw; height: 100vh; overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 /* // 2. 进场动画层样式 */
-.intro-sequence { 
-  position: fixed; inset: 0; z-index: 2000; 
-  background: #fff; display: flex; align-items: center; justify-content: center; 
+.intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; display: flex; align-items: center; justify-content: center; }
+/* 2.1 初始白层：最高层，挡住一切 */
+.intro-white {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 100; /* 初始设为最高 */
+  pointer-events: none;
 }
-.intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
-
 /* // 2.1 SANTOO 按钮 (镂空效果) */
 .intro-santoo {
   position: relative; z-index: 30;
   border: none; background: none; color: #111;
   font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
-  cursor: pointer; 
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: pointer; transition: color 0.6s, -webkit-text-stroke 0.6s, opacity 1s;
   -webkit-text-stroke: 1px transparent;
 }
 .intro-santoo:hover {
   color: transparent !important;
   -webkit-text-stroke: 1px #111;
 }
+.intro-santoo.is-hidden { opacity: 0 !important; pointer-events: none; } /* 新增状态 */
 
-.intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
+/* 2. 视频层：中层，点击 Logo 后显现 */
+.intro-video-wrap {
+  position: fixed; 
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;  
+  opacity: 0;   
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* 关键优化 1：初始禁止鼠标事件，确保能点到下方的 Logo */
+  pointer-events: none; 
+  
+  /* 关键优化 2：防止视频溢出产生滚动条 */
+  overflow: hidden; 
+}
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+/* 3. 背景图片层：底层 */
+.intro-hero8k {
+  position: absolute;
+  inset: 0;
+  z-index: 2;   /* 最底层 */
+  opacity: 0;
+  background: url("assets/hero-8k.jpg") center/cover no-repeat;
+}
 
 /* // 3. 导航栏样式 (右侧 X+Y+Z 绝对对齐逻辑) */
 .entry {
-  position: absolute; top: 40px; right: 6vw; /* 固定锚点 X */
-  display: flex; gap: 45px; /* 固定间距 Y */
+  position: absolute; 
+  top: 40px;  /* 固定锚点 X */
+  right: 6vw; /* 这里的 6vw 是最右侧单元格的固定点 X */
+  display: flex; /* 固定间距 Y */
+  gap: 45px; /* 这是固定距离 Y */
   z-index: 1000;
 }
 
 .nav-item-wrapper {
   position: relative;
-  width: 120px; /* 固定单元格 Z，确保最长单词对齐 */
-  display: flex; justify-content: flex-end;
-}
-
-.nav-anchor {
-  text-decoration: none; color: #111; font-size: 0.75rem;
-  text-transform: uppercase; white-space: nowrap; cursor: pointer;
-  background: none; border: none; text-align: right; width: 100%;
+  width: 120px; /* 固定单元格宽度 Z，确保足以容纳 "RESEARCH" 或 "LANGUAGE" */
+  display: flex;
+  justify-content: flex-end; /* 强制内容向右侧 X 点靠拢 */
 }
 
 /* // 4. 语言下拉菜单 */
 .lang-content {
-  display: none; position: absolute; top: 100%; right: 0;
-  padding-top: 15px; flex-direction: column; gap: 8px;
+  display: none; 
+  position: absolute; 
+  top: 100%; 
+  right: 0; /* 菜单右侧与 LANGUAGE 单词右侧对齐 */
+  padding-top: 15px; 
+  flex-direction: column; 
+  gap: 8px;
 }
 .lang-dropdown:hover .lang-content { display: flex; }
 .lang-content span {
-  background: rgba(255, 255, 255, 0.95); padding: 8px 16px; 
-  font-size: 0.7rem; text-align: right; cursor: pointer;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111; padding: 8px 16px; font-size: 0.7rem;
+  text-align: right; cursor: pointer; white-space: nowrap;
 }
 
 /* // 5. 内容与 Logo 布局 */
 .logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.8rem; }
+/* // 5. 内容文案：确保初始可见 */
 .content {
-  position: absolute; right: 6vw; bottom: 30px;
-  display: flex; flex-direction: column; align-items: flex-end; text-align: right;
-  opacity: 0; 
+  position: absolute; 
+  right: 6vw; 
+  bottom: 30px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-end; 
+  text-align: right;
+  z-index: 500;
+  opacity: 1 !important; /* 强制显示，防止被脚本误伤 */
 }
 .content h1 { font-size: 1.8rem; text-transform: uppercase; line-height: 1.2; margin: 0; }
 .content h2 { font-size: 1.2rem; opacity: 0.8; margin: 0.2rem 0 0 0; }
@@ -87,7 +127,8 @@ body {
   /* 这里的 transition 负责图片出现时的微小平滑感 */
   transition: background-image 1.2s ease-in-out; 
 }
-.structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }/* // 7. 导航与返回键：极简黑字状态 */
+.structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
+/* // 7. 导航与返回键：极简黑字状态 */
 .nav-anchor, .back-btn {
   /* 基础：彻底透明背景，无边框 */
   background: none !important;
@@ -126,6 +167,18 @@ body {
   z-index: 3000;
   padding: 0;
 }
+
+/* // 7.1 核心：镂空效果 (对标 SANTOO) */
+.nav-anchor:hover, .back-btn:hover {
+  /* 核心：文字颜色直接变为纯白 */
+  color: #000 !important;
+  
+  /* 关键：开启极细白色描边（增加文字轮廓的锐利度，防止在复杂背景下模糊） */
+  -webkit-text-stroke: 0.1px #fff; 
+  
+  /* 确保没有任何背景干扰 */
+  background: none !important;
+}
 /* // 8. 子页面专用背景控制 */
 
 /* 默认的背景图 (首页使用) */
@@ -157,4 +210,27 @@ body {
   /* 请确保你 assets 文件夹里有一张叫 research-bg.jpg 的图 */
   filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
 }
+/* // 9. 页面切换过渡效果 */
+body {
+  background-color: #000; /* 将底层背景设为黑色，这样页面透明度降低时会看到黑 */
+  transition: background-color 0.5s ease;
+}
 
+/* 确保主页面在显示时背景是浅灰色，只有切换时才显露底部的黑色 */
+.page {
+  background-color: #f7f7f7; 
+}
+/* // 10. 当前页面标签的禁用状态 (确保无悬停白边，无点击) */
+.nav-active-link {
+  pointer-events: none !important; /* 物理禁止点击 */
+  cursor: default !important;     /* 鼠标形状还原 */
+  opacity: 0.5;                   /* 视觉减弱，示意已在当前页 */
+  
+  /* 强制覆盖：即使鼠标强行放上去，也不准出现白色描边 */
+  color: #000 !important; 
+  -webkit-text-stroke: 0px transparent !important; 
+}
+/* 确保它在所有层之上 */
+.page {
+  z-index: 2000 !important; /* 确保它在所有层之上 */
+}
