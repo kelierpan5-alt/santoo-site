@@ -93,7 +93,7 @@ body {
   background-color: #000; /* 关键：给背景容器一个底色 */
   z-index: 1;
   /* 这里的 transition 负责图片出现时的微小平滑感 */
-  transition: background-image 0.8s ease-in-out; 
+  transition: background-image 1.2s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 /* // 7. 导航与返回键：极简黑字状态 */
