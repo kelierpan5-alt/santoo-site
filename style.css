@@ -1,11 +1,16 @@
-/* --- 基础与字体 --- */
-html, body {
-  margin: 0; padding: 0; width: 100vw; height: 100vh;
-  overflow: hidden; background: #f7f7f7;
-  font-family: "Michroma", "Noto Sans TC", sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* --- 全局字体锁定 --- */
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
 }
 
+html, body {
+  width: 100vw; height: 100vh;
+  overflow: hidden; background: #f7f7f7;
+  /* 强制锁定 Michroma 为主字体，Noto Sans TC 为中文补充 */
+  font-family: "Michroma", "Noto Sans TC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #111;
+}
 /* --- 开头标题 SANTOO --- */
 .intro-santoo {
   position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%);
