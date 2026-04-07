@@ -90,6 +90,30 @@
   document.querySelectorAll('[data-en]').forEach(el => {
     el.innerText = el.getAttribute(`data-${saved}`);
   });
+  // --- 4.5 背景图片预加载逻辑 ---
+  // 定义页面与背景图的对应关系
+  const preloadConfig = {
+    'member.html': 'assets/member-bg.jpg',
+    'project.html': 'assets/project-bg.jpg',
+    'research.html': 'assets/research-bg.jpg',
+    'works.html': 'assets/works-bg.jpg'
+  };
+
+  const navLinks = document.querySelectorAll('a.nav-anchor');
+
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+      const href = this.getAttribute('href');
+      const imgSrc = preloadConfig[href];
+      
+      if (imgSrc) {
+        // 创建一个隐形的图片对象进行静默下载
+        const img = new Image();
+        img.src = imgSrc;
+        // 下载完成后会缓存在浏览器中，跳转后瞬间显示
+      }
+    }, { once: true }); // 每个链接只预加载一次，节省资源
+  });
   // --- 5. 页面平滑跳转过渡 (渐隐-黑色-渐显) ---
   const allLinks = document.querySelectorAll('a.nav-anchor, a.back-btn');
 
