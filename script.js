@@ -1,3 +1,138 @@
+(function initSantoo() {
+  // --- 核心变量声明 ---
+  const layer = document.getElementById('santoo-layer');
+  const mark = document.getElementById("introSantoo");
+  const video = document.getElementById("introVideo");
+  const mainPage = document.querySelector('.page');
+  const content = document.querySelector('.content');
+  const structure = document.getElementById("structureContainer");
+
+  // 获取当前文件名 (例如: member.html)
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const hasSeenIntro = sessionStorage.getItem('santoo-visited');
+  const isIndex = currentPath === 'index.html' || currentPath === '';
+
+  // --- 新增：处理当前页面标签的禁用逻辑 ---
+  const navLinks = document.querySelectorAll('.nav-anchor, .back-btn');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentPath) {
+      link.classList.add('nav-active-link'); // 此类在 CSS 中需设置 pointer-events: none
+      link.style.pointerEvents = "none";     // 脚本层面双重拦截
+    }
+  });
+
+  // 1. 语言切换逻辑 (保持不变)
+  window.switchLang = function(lang) {
+    const targets = document.querySelectorAll('[data-en], #current-lang');
+    const tl = gsap.timeline();
+    tl.to(targets, { opacity: 0, duration: 1.0, ease: "power2.inOut" })
+      .to({}, { duration: 0.4 })
+      .call(() => {
+        document.querySelectorAll('[data-en]').forEach(el => {
+          const text = el.getAttribute(`data-${lang}`);
+          if (text) el.innerText = text;
+        });
+        const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
+        document.getElementById('current-lang').innerText = names[lang];
+      })
+      .to(targets, { opacity: 1, duration: 1.8, ease: "power2.out" });
+    localStorage.setItem('santoo-lang', lang);
+  };
+
+  // 2. 激活主页面逻辑
+  function showMain(isFast = false) {
+    if (!mainPage) return;
+
+    // 确保主页面可见，但保持透明等待动画
+    mainPage.style.visibility = "visible";
+    if (structure) structure.classList.add("has-hero8k");
+
+    // 检查 layer 和 content 是否存在，避免 GSAP 报错
+    const hasLayer = !!document.getElementById('santoo-layer');
+    const hasContent = !!document.querySelector('.content');
+
+    if (isFast) {
+      // --- 快速进入 ---
+      if (hasLayer) document.getElementById('santoo-layer').remove();
+      
+      gsap.fromTo(mainPage, 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 2.8, ease: "power2.inOut" }
+      );
+      
+      if (hasContent) {
+        gsap.fromTo(".content", 
+          { opacity: 0, y: 10 }, 
+          { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" }
+        );
+      }
+    } else {
+      // --- 剧场式进入（视频结束后） ---
+      const tl = gsap.timeline();
+      
+      // 1. 先处理主页面显现
+      tl.to(mainPage, { opacity: 1, duration: 3.0, ease: "power2.inOut" });
+
+      // 2. 如果有开场层，并排处理它的消失
+      if (hasLayer) {
+        tl.to("#santoo-layer", { 
+          opacity: 0, 
+          duration: 2.0, 
+          onComplete: () => {
+            const l = document.getElementById('santoo-layer');
+            if (l) l.remove();
+            // 额外清理视频层，防止遮挡点击
+            const videoWrap = document.querySelector('.intro-video-wrap');
+            if (videoWrap) videoWrap.remove();
+          } 
+        }, "-=2.5");
+      }
+
+      // 3. 如果有右下角文案，最后浮现
+      if (hasContent) {
+        tl.to(".content", { 
+          opacity: 1, 
+          duration: 2.5, 
+          ease: "power2.out" 
+        }, "-=1.0");
+      }
+    }
+
+    sessionStorage.setItem('santoo-visited', 'true');
+  }
+// 3. 初始进入判定逻辑 
+  if (isIndex && !hasSeenIntro) {
+    // 首页初次访问：确保初始白层和 Logo 可见
+    gsap.set(".intro-white", { opacity: 1, visibility: "visible" });
+    gsap.set(mark, { opacity: 1, visibility: "visible" });
+    
+    mark.addEventListener("click", () => {
+      // 1. 处理图标消失
+      mark.style.pointerEvents = "none"; 
+      gsap.to(mark, { opacity: 0, duration: 0.8, onComplete: () => mark.remove() });
+
+      // --- 修改后的第 2 部分：视频唤醒核心逻辑 ---
+const videoWrap = document.querySelector('.intro-video-wrap');
+if (video && videoWrap) {
+  // 1. 点击瞬间：立即让视频容器开始渐显 (不再等待 video.play 的成功回调)
+  gsap.set(videoWrap, { visibility: "visible" });
+  gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
+  
+  // 2. 同时：让初始白层开始消失
+  gsap.to(".intro-white", { 
+    opacity: 0, 
+    duration: 2.0, 
+    onComplete: () => document.querySelector('.intro-white')?.remove() 
+  });
+
+  // 3. 尝试播放视频
+  video.play().then(() => {
+    console.log("Video playing...");
+  }).catch(err => {
+    console.log("Video blocked, but we already fade in the container:", err);
+    // 如果彻底播不动，等几秒直接进站
+  });
 }
 
       // 3. 双保险进入机制
