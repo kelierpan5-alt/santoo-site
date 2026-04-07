@@ -142,7 +142,7 @@ body {
   color: transparent !important; 
   
   /* 关键：开启极细白色描边 */
-  -webkit-text-stroke: 0.8px #fff; 
+  -webkit-text-stroke: 0.8px #000; 
   
   /* 确保没有任何背景干扰 */
   background: none !important;
