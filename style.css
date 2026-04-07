@@ -11,13 +11,14 @@ html, body {
   color: #111;
 }
 
-/* --- 导航栏：右锚点固定逻辑 --- */
+/* --- 导航栏：右锚点固定 X+Y 逻辑 --- */
 .entry {
   position: absolute; 
   top: 40px; 
-  right: 6vw; /* 这里的 6vw 就是你的固定点 X */
+  right: 6vw; /* 固定点 X */
   display: flex; 
-  flex-direction: row-reverse; /* 关键：从右向左排列 */
+  flex-direction: row; /* 恢复正常顺序 */
+  justify-content: flex-end; /* 关键：整体靠右对齐 */
   align-items: flex-start; 
   gap: 45px; /* 固定距离 Y */
   z-index: 1000;
@@ -25,9 +26,9 @@ html, body {
 
 .nav-item-wrapper {
   position: relative;
-  /* 不再设固定宽度，由 row-reverse 确保右对齐 */
   display: flex;
   justify-content: flex-end;
+  /* 移除固定宽度，让文字自然向左延伸，保持右侧 Z 点不动 */
 }
 
 .nav-anchor {
@@ -39,7 +40,7 @@ html, body {
   border: none; 
   cursor: pointer;
   white-space: nowrap;
-  text-align: right; /* 确保文字向右靠拢 */
+  text-align: right;
 }
 
 /* --- 下拉菜单精准修复 --- */
