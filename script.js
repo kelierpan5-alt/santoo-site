@@ -1,4 +1,5 @@
 (function initSantooSystem() {
+  // ... 前面变量定义保持不变 ...
   const layer = document.getElementById("introSequence");
   const mark = document.getElementById("introSantoo");
   const videoWrap = document.querySelector(".intro-video-wrap");
@@ -10,57 +11,71 @@
 
   const VIDEO_DURATION = 11; 
 
-  // 多语言切换函数
+  // 强化版多语言切换：渐隐渐显 + 位置固定
   window.switchLang = function(lang) {
-    document.querySelectorAll('[data-en]').forEach(el => {
-      const text = el.getAttribute(`data-${lang}`);
-      if (text) el.innerText = text;
+    const targets = document.querySelectorAll('[data-en]');
+    
+    // 1. 整体开始渐隐
+    gsap.to(targets, {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        // 2. 隐去时更换文本
+        targets.forEach(el => {
+          const text = el.getAttribute(`data-${lang}`);
+          if (text) el.innerText = text;
+        });
+
+        // 更新按钮显示的文字
+        const langNames = { 'en': 'LANGUAGE', 'zh': '语言', 'ja': '言語' };
+        const btn = document.getElementById('current-lang');
+        if(btn) btn.innerText = langNames[lang];
+
+        // 3. 换好后渐显
+        gsap.to(targets, {
+          opacity: 1,
+          duration: 0.4,
+          ease: "power1.out"
+        });
+      }
     });
-    const langNames = { 'en': 'LANGUAGE', 'zh': '语言', 'ja': '言語' };
-    document.getElementById('current-lang').innerText = langNames[lang];
+
     localStorage.setItem('santoo-lang', lang);
   }
 
+  // --- 进场动画与初始化逻辑保持不变 ---
   function finishEverything() {
-    // 关键：先让主容器挂载背景，再显示主页面
     if (structure) structure.classList.add("has-hero8k");
     if (mainPage) mainPage.style.visibility = "visible";
-    
-    // 强制等待一帧后再移除动画层，彻底解决白屏闪烁
     requestAnimationFrame(() => {
       gsap.to(layer, { opacity: 0, duration: 1, onComplete: () => {
         if (layer) layer.remove();
-        gsap.to(content, { opacity: 1, y: -20, duration: 1.2, ease: "power2.out" });
+        gsap.to(content, { opacity: 1, y: -20, duration: 1.2 });
       }});
     });
   }
 
   function handleStart() {
-    // 强制播放逻辑
-    video.play().then(() => {
-      gsap.set(videoWrap, { opacity: 1, zIndex: 15 });
-    }).catch(() => finishEverything());
-    
+    if(video) video.play().catch(() => finishEverything());
+    gsap.set(videoWrap, { opacity: 1, zIndex: 15 });
     const tl = gsap.timeline();
-    tl.to(mark, { opacity: 0, duration: 0.4 })
-      .to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2);
-
-    // 视频结束前的叠化过渡
+    tl.to(mark, { opacity: 0, duration: 0.4 }).to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2);
     gsap.delayedCall(VIDEO_DURATION - 1.2, () => {
       gsap.to(still8k, { opacity: 1, duration: 1.2 });
       gsap.to(videoWrap, { opacity: 0, duration: 1.2, onComplete: finishEverything });
     });
   }
 
-  // 1. 初始化语言
   const savedLang = localStorage.getItem('santoo-lang') || 'en';
-  switchLang(savedLang);
+  // 初始化不需要动画，直接显示
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute(`data-${savedLang}`);
+    if (text) el.innerText = text;
+  });
 
-  // 2. 绑定事件
   if (mark && video) {
     mark.addEventListener("click", handleStart, { once: true });
   } else {
-    // 处理无动画层的情况（如子页面或直接访问）
     if (structure) structure.classList.add("has-hero8k");
     if (mainPage) mainPage.style.visibility = "visible";
     if (content) gsap.set(content, { opacity: 1 });
