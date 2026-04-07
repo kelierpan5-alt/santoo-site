@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
       // 2. 视频唤醒
       if (video) {
         // ！！修正点：直接使用 Raw 链接确保 GitHub 能播
-        video.src = "https://raw.githubusercontent.com/kelierpan5-alt/santoo-site/main/assets/intro.mp4";
+        video.src = "assets/intro.mp4";
         video.muted = true; // 确保静音
         video.setAttribute('playsinline', ''); // 兼容 iOS
         video.load();
