@@ -10,14 +10,28 @@
 
   window.switchLang = function(lang) {
     const targets = document.querySelectorAll('[data-en], #current-lang');
-    gsap.to(targets, { opacity: 0, duration: 0.5, onComplete: () => {
+    const tl = gsap.timeline();
+
+    tl.to(targets, { 
+      opacity: 0, 
+      duration: 1.2, // 缓慢渐隐
+      ease: "power2.inOut" 
+    })
+    .to({}, { duration: 0.5 }) // 关键：优雅的空白停顿期
+    .call(() => {
       document.querySelectorAll('[data-en]').forEach(el => {
-        el.innerText = el.getAttribute(`data-${lang}`);
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) el.innerText = text;
       });
-      const langNames = {en:'LANGUAGE', zh:'语言', ja:'言語'};
+      const langNames = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
       document.getElementById('current-lang').innerText = langNames[lang];
-      gsap.to(targets, { opacity: 1, duration: 0.8 });
-    }});
+    })
+    .to(targets, { 
+      opacity: 1, 
+      duration: 1.8, // 更缓慢的渐显
+      ease: "power2.out" 
+    });
+
     localStorage.setItem('santoo-lang', lang);
   };
 
@@ -31,10 +45,21 @@
       gsap.set(mainPage, { opacity: 1 });
       gsap.set(content, { opacity: 1, y: 0 });
     } else {
+      // 正常进场：态度从容
       const tl = gsap.timeline();
-      tl.to(mainPage, { opacity: 1, duration: 1 })
-        .to(layer, { opacity: 0, duration: 1.5, onComplete: () => layer?.remove() }, "-=0.5")
-        .to(content, { opacity: 1, y: -5, duration: 1.5, ease: "expo.out" }, "-=1");
+      tl.to(mainPage, { opacity: 1, duration: 1.5 })
+        .to(layer, { 
+          opacity: 0, 
+          duration: 2.5, 
+          ease: "power2.inOut", 
+          onComplete: () => layer?.remove() 
+        }, "-=0.5")
+        .to(content, { 
+          opacity: 1, 
+          y: 0, 
+          duration: 3, // 极缓慢的升起
+          ease: "expo.out" 
+        }, "-=1.5");
     }
     sessionStorage.setItem('santoo-visited', 'true');
   }
