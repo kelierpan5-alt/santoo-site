@@ -3,34 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research | SANTOO</title>
+  <title>SANTOO | Structural Studies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
 
-  <nav class="entry">
-  <div class="lang-dropdown">
-    <button class="lang-dropbtn" id="current-lang">LANGUAGE</button>
-    <div class="lang-content">
-      <span onclick="switchLang('en')">English</span>
-      <span onclick="switchLang('zh')">中文</span>
-      <span onclick="switchLang('ja')">日本語</span>
-    </div>
-  </div>
-  <a href="member.html" class="nav-item" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
-  <a href="project.html" class="nav-item" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
-  <a href="research.html" class="nav-item" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
-  <a href="works.html" class="nav-item" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
-</nav>
-
   <main class="page" id="mainPage" style="visibility: visible;">
     <section class="hero">
       <div class="structure-container has-hero8k"></div>
+
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
         <span class="logo-mark">⌇■</span>
       </div>
+
+      <nav class="entry">
+        <div class="nav-item-wrapper lang-dropdown">
+          <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
+          <div class="lang-content">
+            <span onclick="switchLang('en')">English</span>
+            <span onclick="switchLang('zh')">中文</span>
+            <span onclick="switchLang('ja')">日本語</span>
+          </div>
+        </div>
+        <div class="nav-item-wrapper">
+          <a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
+        </div>
+        <div class="nav-item-wrapper">
+          <a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
+        </div>
+        <div class="nav-item-wrapper">
+          <a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
+        </div>
+        <div class="nav-item-wrapper">
+          <a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
+        </div>
+      </nav>
       <div class="content" id="systemLabel" style="opacity: 1;">
         <h1 data-en="Research Studies" data-zh="研究课题" data-ja="研究課題">Research Studies</h1>
         <p data-en="Theoretical frameworks for structural stability across fields." 
