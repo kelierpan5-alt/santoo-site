@@ -46,43 +46,17 @@
     if (structure) structure.classList.add("has-hero8k");
 
     if (isFast) {
-    if (layer) layer.remove();
-    // 页面背景：缓慢渐显
-    gsap.fromTo(mainPage, 
-      { opacity: 0 }, 
-      { 
-        opacity: 1, 
-        duration: 2.8, // 统一为较长的时间
-        ease: "power2.inOut" 
-      }
-    );
-    // 右下角文案：不再瞬间跳出，而是稍微滞后一点点慢慢浮现
-    gsap.fromTo(content, 
-      { opacity: 0, y: 10 }, 
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 2.5, 
-        delay: 0.5, // 延迟 0.5秒开始，产生层次感
-        ease: "power2.out" 
-      }
-    );
-  } else {
-    // 首次进站：维持更复杂的剧场式开场
-    gsap.timeline()
-      .to(mainPage, { opacity: 1, duration: 2.5 }) // 增加到 2.5s
-      .to(layer, { 
-          opacity: 0, 
-          duration: 2.5, 
-          onComplete: () => layer?.remove() 
-      }, "-=0.5")
-      .to(content, { 
-          opacity: 1, 
-          duration: 3.0, 
-          ease: "expo.out" 
-      }, "-=1.5"); // 稍微提前开始渐显，重叠感更自然
-  }
-  sessionStorage.setItem('santoo-visited', 'true');
+      if (layer) layer.remove();
+      // 即便是快速进入，也给一个 1.5秒的渐显，保持优雅
+      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 1.5 });
+      gsap.set(content, { opacity: 1, y: 0 });
+    } else {
+      gsap.timeline()
+        .to(mainPage, { opacity: 1, duration: 1.5 })
+        .to(layer, { opacity: 0, duration: 2, onComplete: () => layer?.remove() }, "-=0.5")
+        .to(content, { opacity: 1, duration: 2.5, ease: "expo.out" }, "-=1");
+    }
+    sessionStorage.setItem('santoo-visited', 'true');
   }
 
   // 3. 初始进入判定逻辑 
@@ -164,15 +138,11 @@
     });
   });
 
-  // --- 修改跳转后的渐显速度 ---
-window.addEventListener('pageshow', () => {
-  gsap.fromTo(mainPage, 
-    { opacity: 0 }, 
-    { 
-      opacity: 1, 
-      duration: 2.8,       // 从原来的 1.5s 增加到 2.8s，让出现更缓慢
-      ease: "power2.out"   // 使用 power2.out 让渐显在接近完成时更柔和
-    }
-  );
-});
+  // 页面加载时的渐显逻辑
+  window.addEventListener('pageshow', () => {
+    gsap.fromTo(mainPage, 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 1.5, ease: "power2.out" }
+    );
+  });
 })();
