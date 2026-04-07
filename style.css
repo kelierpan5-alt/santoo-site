@@ -6,10 +6,9 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- 进场序列 (Intro) --- */
+/* --- 进场序列 --- */
 .intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; }
 .intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
-
 .intro-santoo {
   position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%);
   border: none; background: none; color: #0e0e0e;
@@ -17,9 +16,7 @@ html, body {
   font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
   cursor: pointer; transition: all 0.4s ease; -webkit-text-stroke: 1px transparent;
 }
-/* 悬停中空效果 */
 .intro-santoo:hover { color: transparent; -webkit-text-stroke: 1px #0e0e0e; }
-
 .intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
 .intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
@@ -29,10 +26,18 @@ html, body {
 .structure-container { position: absolute; inset: 0; background: #f7f7f7; z-index: 1; }
 .structure-container.has-hero8k { background-image: url("assets/hero-8k.jpg") !important; background-size: cover; }
 
-/* [右上角] 导航与下拉菜单 */
-.entry { position: absolute; top: 40px; right: 6vw; display: flex; gap: 30px; z-index: 600; align-items: center; }
+/* [右上角导航] 锁定位置关键代码 */
+.entry {
+  position: absolute;
+  top: 40px;
+  right: 6vw;
+  display: flex;
+  gap: 15px; /* 减小间距，通过 item 宽度控制 */
+  z-index: 600;
+  align-items: center;
+}
 
-.lang-dropdown { position: relative; display: inline-block; }
+.lang-dropdown { position: relative; display: inline-block; margin-right: 10px; }
 .lang-dropbtn {
   background: none; border: none; color: #111; font-family: "Michroma", sans-serif;
   font-size: 0.75rem; font-weight: 700; cursor: pointer; text-transform: uppercase;
@@ -49,16 +54,33 @@ html, body {
 .lang-content span:hover { background: #f1f1f1; }
 .lang-dropdown:hover .lang-content { display: block; }
 
-.entry a { text-decoration: none; color: #111; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; }
+/* 导航项固定宽度，防止位移 */
+.nav-item {
+  text-decoration: none;
+  color: #111;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  min-width: 90px; /* 固定最小宽度 */
+  text-align: right; /* 文字向右对齐，确保右侧间距统一 */
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+.nav-item:hover { opacity: 0.5; }
 
-/* [左下角] Logo (SANTOO / Structural Studies) */
+/* [左下角 Logo] */
 .logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.85rem; color: #111; font-weight: 500; }
 
-/* [右下角] 内容信息 */
+/* [右下角 内容] */
 .content { position: absolute; right: 6vw; bottom: 12vh; max-width: 480px; opacity: 0; text-align: right; color: #111; z-index: 500; }
 .content h1 { font-size: 2.2rem; margin-bottom: 0.2rem; font-weight: 700; }
 .content h2 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 500; }
 .content p { font-size: 0.95rem; line-height: 1.5; opacity: 0.8; }
 
 /* 返回按钮 */
-.back-btn { position: fixed; left: 30px; top: 40px; z-index: 3000; text-decoration: none; color: #111; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; }
+.back-btn { 
+  position: fixed; left: 30px; top: 40px; z-index: 3000; 
+  text-decoration: none; color: #111; font-size: 0.8rem; 
+  font-weight: 500; text-transform: uppercase;
+  min-width: 80px;
+}
