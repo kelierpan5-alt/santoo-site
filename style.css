@@ -157,8 +157,4 @@ body {
   /* 请确保你 assets 文件夹里有一张叫 research-bg.jpg 的图 */
   filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
 }
-/* // 9. 页面切换过渡效果 */
-body {
-  background-color: #000; /* 将底层背景设为黑色，这样页面透明度降低时会看到黑 */
-  transition: background-color 0.5s ease;
-}
+
