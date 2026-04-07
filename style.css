@@ -11,34 +11,35 @@ html, body {
   color: #111;
 }
 
-/* --- SANTOO 悬停镂空 --- */
-.intro-santoo {
-  position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  border: none; background: none; color: #111;
-  font-size: clamp(1.2rem, 4vw, 2rem);
-  font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
-  cursor: pointer; transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-  -webkit-text-stroke: 1px transparent;
-}
-.intro-santoo:hover { color: transparent; -webkit-text-stroke: 1px #111; }
-
-/* --- 导航栏修复 --- */
+/* --- 导航栏：右锚点固定逻辑 --- */
 .entry {
-  position: absolute; top: 40px; right: 6vw;
-  display: flex; align-items: flex-start; /* 改为顶端对齐，防止下拉撑开高度 */
-  gap: 45px; z-index: 1000;
+  position: absolute; 
+  top: 40px; 
+  right: 6vw; /* 这里的 6vw 就是你的固定点 X */
+  display: flex; 
+  flex-direction: row-reverse; /* 关键：从右向左排列 */
+  align-items: flex-start; 
+  gap: 45px; /* 固定距离 Y */
+  z-index: 1000;
 }
 
 .nav-item-wrapper {
-  position: relative; 
+  position: relative;
+  /* 不再设固定宽度，由 row-reverse 确保右对齐 */
   display: flex;
   justify-content: flex-end;
 }
 
 .nav-anchor {
-  text-decoration: none; color: #111; font-size: 0.75rem;
-  text-transform: uppercase; background: none; border: none; cursor: pointer;
+  text-decoration: none; 
+  color: #111; 
+  font-size: 0.75rem;
+  text-transform: uppercase; 
+  background: none; 
+  border: none; 
+  cursor: pointer;
   white-space: nowrap;
+  text-align: right; /* 确保文字向右靠拢 */
 }
 
 /* --- 下拉菜单精准修复 --- */
