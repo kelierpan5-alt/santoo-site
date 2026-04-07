@@ -12,7 +12,14 @@ body {
 
 /* // 2. 进场动画层样式 */
 .intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; display: flex; align-items: center; justify-content: center; }
-.intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
+/* 2.1 初始白层：最高层，挡住一切 */
+.intro-white {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 100; /* 初始设为最高 */
+  pointer-events: none;
+}
 /* // 2.1 SANTOO 按钮 (镂空效果) */
 .intro-santoo {
   position: relative; z-index: 30;
@@ -28,9 +35,26 @@ body {
 }
 .intro-santoo.is-hidden { opacity: 0 !important; pointer-events: none; } /* 新增状态 */
 
-.intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
+/* 2. 视频层：中层，点击 Logo 后显现 */
+.intro-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 50;  /* 必须高于 8k 图片层 */
+  opacity: 0;   /* 初始透明 */
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
-.intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
+/* 3. 背景图片层：底层 */
+.intro-hero8k {
+  position: absolute;
+  inset: 0;
+  z-index: 2;   /* 最底层 */
+  opacity: 0;
+  background: url("assets/hero-8k.jpg") center/cover no-repeat;
+}
 
 /* // 3. 导航栏样式 (右侧 X+Y+Z 绝对对齐逻辑) */
 .entry {
