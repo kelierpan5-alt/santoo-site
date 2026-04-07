@@ -11,17 +11,28 @@
   // 1. 优雅呼吸感语言切换
   window.switchLang = function(lang) {
     const targets = document.querySelectorAll('[data-en], #current-lang');
-    gsap.timeline()
-      .to(targets, { opacity: 0, duration: 1.0, ease: "power2.inOut" })
-      .to({}, { duration: 0.4 }) // 优雅停顿
-      .call(() => {
-        document.querySelectorAll('[data-en]').forEach(el => {
-          el.innerText = el.getAttribute(`data-${lang}`);
-        });
-        const names = {en:'LANGUAGE', zh:'语言', ja:'言語'};
-        document.getElementById('current-lang').innerText = names[lang];
-      })
-      .to(targets, { opacity: 1, duration: 1.5, ease: "power2.out" });
+    const tl = gsap.timeline();
+
+    tl.to(targets, { 
+      opacity: 0, 
+      duration: 1.0, 
+      ease: "power2.inOut" 
+    })
+    .to({}, { duration: 0.4 }) // 关键：空白呼吸停顿期
+    .call(() => {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) el.innerText = text;
+      });
+      const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
+      document.getElementById('current-lang').innerText = names[lang];
+    })
+    .to(targets, { 
+      opacity: 1, 
+      duration: 1.8, // 缓慢浮现
+      ease: "power2.out" 
+    });
+
     localStorage.setItem('santoo-lang', lang);
   };
 
