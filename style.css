@@ -1,20 +1,21 @@
-/* 全局锁定：禁止滚动 */
+/* --- 1. 基础重置与锁定 --- */
 html, body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; 
+  overflow: hidden; /* 彻底禁止滚动 */
   background: #f7f7f7;
   font-family: "Michroma", "Noto Sans TC", sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 进场动画层 */
+/* --- 2. 进场序列 (Intro) --- */
 .intro-sequence {
   position: fixed;
   inset: 0;
-  z-index: 2000; /* 极高层级 */
+  z-index: 2000; /* 极高层级，确保覆盖一切 */
   background: #fff;
 }
 
@@ -34,11 +35,23 @@ html, body {
   border: none;
   background: none;
   color: #0e0e0e;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 600;
-  letter-spacing: 0.28em;
+  /* 字体样式：加粗且大写 */
+  font-family: "Michroma", sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700; 
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
   cursor: pointer;
   outline: none;
+  transition: all 0.4s ease;
+  /* 预设描边以防抖动 */
+  -webkit-text-stroke: 1px transparent;
+}
+
+/* 鼠标悬停：中空效果 */
+.intro-santoo:hover {
+  color: transparent;
+  -webkit-text-stroke: 1px #0e0e0e;
 }
 
 .intro-video-wrap {
@@ -46,8 +59,8 @@ html, body {
   inset: 0;
   z-index: 5;
   opacity: 0;
-  background: #000;
   visibility: hidden;
+  background: #000;
 }
 
 .intro-video-wrap video {
@@ -64,12 +77,19 @@ html, body {
   background: url("assets/hero-8k.jpg") center/cover no-repeat;
 }
 
-/* 主页面 */
+/* --- 3. 主页面结构 --- */
 .page {
   position: fixed;
   inset: 0;
-  visibility: hidden;
+  width: 100vw;
+  height: 100vh;
   z-index: 100;
+  visibility: hidden; /* JS 播放完后会设为 visible */
+}
+
+/* 子页面中直接显示 */
+.page:not(.page--behind-intro) {
+  visibility: visible;
 }
 
 .structure-container {
@@ -84,7 +104,27 @@ html, body {
   background-image: url("assets/hero-8k.jpg") !important;
 }
 
-/* 导航：右上角定位 */
+/* --- 4. 导航与交互 (核心修复) --- */
+
+/* 返回首页按钮 */
+.back-btn {
+  position: fixed; /* 必须 fixed 才能脱离 page 容器的限制 */
+  left: 30px;
+  top: 40px;
+  z-index: 3000; /* 必须高于所有容器 */
+  text-decoration: none;
+  color: #111;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  transition: opacity 0.3s ease;
+}
+
+.back-btn:hover {
+  opacity: 0.5;
+}
+
+/* 右上角导航 */
 .entry {
   position: absolute;
   top: 40px;
@@ -98,43 +138,4 @@ html, body {
   text-decoration: none;
   color: #111;
   font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: opacity 0.3s;
-}
-
-.entry a:hover { opacity: 0.5; }
-
-/* 底部 Logo */
-.logo {
-  position: absolute;
-  left: 30px;
-  bottom: 30px;
-  z-index: 500;
-  font-size: 0.9rem;
-}
-
-/* 主内容 */
-.content {
-  position: absolute;
-  right: 6vw;
-  bottom: 12vh;
-  max-width: 450px;
-  opacity: 0;
-  text-align: right;
-  color: #111;
-}
-
-.content h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-.content p { font-size: 0.9rem; line-height: 1.6; opacity: 0.8; }
-
-/* 子页面通用：返回按钮 */
-.back-btn {
-  position: absolute;
-  left: 30px;
-  top: 40px;
-  text-decoration: none;
-  color: #111;
-  font-size: 0.8rem;
-}
+  font-weight:
