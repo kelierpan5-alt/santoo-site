@@ -93,7 +93,7 @@ body {
   background-color: #000; /* 关键：给背景容器一个底色 */
   z-index: 1;
   /* 这里的 transition 负责图片出现时的微小平滑感 */
-  transition: background-image 1.2s ease-in-out; 
+  transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 /* // 7. 导航与返回键：极简黑字状态 */
@@ -138,11 +138,11 @@ body {
 
 /* // 7.1 核心：镂空效果 (对标 SANTOO) */
 .nav-anchor:hover, .back-btn:hover {
-  /* 核心：文字颜色直接变为纯白 */
-  color: #000 !important;
+  /* 关键：内部颜色设为透明，这是实现镂空的前提 */
+  color: transparent !important; 
   
-  /* 关键：开启极细白色描边（增加文字轮廓的锐利度，防止在复杂背景下模糊） */
-  -webkit-text-stroke: 0.1px #fff; 
+  /* 关键：开启极细白色描边 */
+  -webkit-text-stroke: 0.8px #fff; 
   
   /* 确保没有任何背景干扰 */
   background: none !important;
@@ -164,18 +164,6 @@ body {
 .structure-container.bg-works {
   background: url("assets/works-bg.jpg") center/cover no-repeat; 
   /* 请确保你 assets 文件夹里有一张叫 works-bg.jpg 的图 */
-  filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
-}
-/* PROJECT 页面专用背景图 (会覆盖默认图) */
-.structure-container.bg-project {
-  background: url("assets/project-bg.jpg") center/cover no-repeat; 
-  /* 请确保你 assets 文件夹里有一张叫 project-bg.jpg 的图 */
-  filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
-}
-/* RESEARCH 页面专用背景图 (会覆盖默认图) */
-.structure-container.bg-research {
-  background: url("assets/research-bg.jpg") center/cover no-repeat; 
-  /* 请确保你 assets 文件夹里有一张叫 research-bg.jpg 的图 */
   filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
 }
 /* // 9. 页面切换过渡效果 */
