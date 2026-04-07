@@ -1,72 +1,59 @@
 /**
- * Santoo 结构系统 - 进场控制逻辑
+ * SANTOO 核心脚本 - 修复视频播放与页面锁定
  */
 
-(function initSantooIntro() {
-  // 获取 DOM 元素
+(function initSantooSystem() {
   const layer = document.getElementById("introSequence");
   const mark = document.getElementById("introSantoo");
-  const videoWrap = layer?.querySelector(".intro-video-wrap");
+  const videoWrap = document.querySelector(".intro-video-wrap");
   const video = document.getElementById("introVideo");
-  const still8k = layer?.querySelector(".intro-hero8k");
+  const still8k = document.querySelector(".intro-hero8k");
   const mainPage = document.getElementById("mainPage");
   const structure = document.getElementById("structureContainer");
   const content = document.getElementById("systemLabel");
 
-  // 视频配置
-  const VIDEO_DURATION = 11; // 对应你的 intro.mp4 时长
+  const VIDEO_DURATION = 11; // 视频时长（秒）
 
-  function finishIntro() {
-    // 1. 设置主页面背景
+  function finishEverything() {
     structure.classList.add("has-hero8k");
-    // 2. 显示主页面内容
-    mainPage.classList.remove("page--behind-intro");
     mainPage.style.visibility = "visible";
-    mainPage.setAttribute("aria-hidden", "false");
     
-    // 3. 移除进场动画层
+    // 移除动画层并显示内容
     if (layer) layer.remove();
-
-    // 4. 直接触发内容淡入（取代原本的滚动触发）
-    gsap.to(content, { opacity: 1, y: -20, duration: 1.2, ease: "power2.out" });
+    gsap.to(content, { opacity: 1, y: -20, duration: 1, ease: "power2.out" });
   }
 
-  function startSequence() {
-    // 立即隐藏按钮，防止重复点击
-    mark.style.pointerEvents = "none";
-
-    // 创建 GSAP 时间轴
-    const tl = gsap.timeline({
-      onComplete: finishIntro
+  function handleStart() {
+    // 关键修复 1：在点击的一瞬间立即触发播放，获取浏览器授权
+    video.play().catch(err => {
+      console.error("视频启动失败:", err);
+      // 如果视频真的加载不出来，3秒后强制跳过
+      setTimeout(finishEverything, 3000);
     });
 
-    // 步骤 1: 按钮淡出 (0s - 0.5s)
-    tl.to(mark, { autoAlpha: 0, duration: 0.5 });
+    // 关键修复 2：立即将视频层提升到白底之上
+    gsap.set(videoWrap, { zIndex: 15 });
 
-    // 步骤 2: 视频准备并播放 (0.5s 时启动)
-    tl.call(() => {
-      videoWrap.style.visibility = "visible";
-      video.play().catch(e => console.warn("播放被拦截:", e));
-    }, null, 0.5);
+    const tl = gsap.timeline({
+      onComplete: finishEverything
+    });
 
-    // 步骤 3: 白底淡出，露出视频 (0.5s - 1.2s)
-    tl.to(".intro-white", { autoAlpha: 0, duration: 0.7 }, 0.5);
-    tl.to(videoWrap, { opacity: 1, duration: 0.7 }, 0.5);
+    // 动画序列
+    tl.to(mark, { opacity: 0, duration: 0.4, ease: "power2.in" })
+      .to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2)
+      .to(videoWrap, { opacity: 1, duration: 0.8 }, 0.2);
 
-    // 步骤 4: 视频播放期间保持 (持续 VIDEO_DURATION)
-    const fadeOutStart = 0.5 + VIDEO_DURATION;
-
-    // 步骤 5: 视频淡出，8K 静态图淡入 (视频结束前 0.8s 开始叠化)
-    tl.to(videoWrap, { autoAlpha: 0, duration: 0.8 }, fadeOutStart);
-    tl.to(still8k, { autoAlpha: 1, duration: 0.8 }, fadeOutStart);
+    // 视频结束前的叠化
+    const fadeOutTime = 0.2 + VIDEO_DURATION - 0.8;
+    tl.to(videoWrap, { opacity: 0, duration: 0.8 }, fadeOutTime)
+      .to(still8k, { opacity: 1, duration: 0.8 }, fadeOutTime);
   }
 
-  // 绑定点击事件
   if (mark && video) {
-    // 预加载视频
+    // 预热视频
     video.load();
-    mark.addEventListener("click", startSequence, { once: true });
+    mark.addEventListener("click", handleStart, { once: true });
   } else {
-    finishIntro();
+    finishEverything();
   }
 })();
