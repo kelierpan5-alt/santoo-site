@@ -10,15 +10,17 @@
 
   const VIDEO_DURATION = 11; 
 
-  // 多语言切换函数 (带动画)
+  // 多语言切换函数：缓慢、优雅的渐隐渐显
   window.switchLang = function(lang) {
     const targets = document.querySelectorAll('[data-en]');
     
-    // 渐隐动画
+    // 1. 缓慢渐隐 (0.8s)
     gsap.to(targets, {
       opacity: 0,
-      duration: 0.3,
+      duration: 0.8,
+      ease: "power2.inOut",
       onComplete: () => {
+        // 2. 替换文本
         targets.forEach(el => {
           const text = el.getAttribute(`data-${lang}`);
           if (text) el.innerText = text;
@@ -29,8 +31,12 @@
         const btn = document.getElementById('current-lang');
         if(btn) btn.innerText = langNames[lang];
 
-        // 渐显动画
-        gsap.to(targets, { opacity: 1, duration: 0.4 });
+        // 3. 缓慢渐显 (0.8s)
+        gsap.to(targets, { 
+          opacity: 1, 
+          duration: 0.8, 
+          ease: "power2.inOut" 
+        });
       }
     });
 
@@ -42,9 +48,10 @@
     if (mainPage) mainPage.style.visibility = "visible";
     
     requestAnimationFrame(() => {
-      gsap.to(layer, { opacity: 0, duration: 1, onComplete: () => {
+      gsap.to(layer, { opacity: 0, duration: 1.5, ease: "power2.inOut", onComplete: () => {
         if (layer) layer.remove();
-        gsap.to(content, { opacity: 1, y: -20, duration: 1.2, ease: "power2.out" });
+        // 主内容文字出现的优雅动画
+        gsap.to(content, { opacity: 1, y: -10, duration: 2, ease: "expo.out" });
       }});
     });
   }
@@ -57,18 +64,17 @@
     }
     
     const tl = gsap.timeline();
-    tl.to(mark, { opacity: 0, duration: 0.4 })
-      .to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2);
+    tl.to(mark, { opacity: 0, duration: 0.6 })
+      .to(".intro-white", { opacity: 0, duration: 1.2 }, 0.2);
 
-    gsap.delayedCall(VIDEO_DURATION - 1.2, () => {
-      gsap.to(still8k, { opacity: 1, duration: 1.2 });
-      gsap.to(videoWrap, { opacity: 0, duration: 1.2, onComplete: finishEverything });
+    gsap.delayedCall(VIDEO_DURATION - 1.5, () => {
+      gsap.to(still8k, { opacity: 1, duration: 1.5 });
+      gsap.to(videoWrap, { opacity: 0, duration: 1.5, onComplete: finishEverything });
     });
   }
 
-  // 1. 初始化语言
+  // 1. 初始化加载逻辑 (不使用动画，直接呈现保存的语言)
   const savedLang = localStorage.getItem('santoo-lang') || 'en';
-  // 初始加载不需要动画，直接显示
   document.querySelectorAll('[data-en]').forEach(el => {
     const text = el.getAttribute(`data-${savedLang}`);
     if (text) el.innerText = text;
@@ -77,10 +83,11 @@
   const btn = document.getElementById('current-lang');
   if(btn) btn.innerText = langNames[savedLang];
 
-  // 2. 事件绑定
+  // 2. 绑定点击事件
   if (mark && video) {
     mark.addEventListener("click", handleStart, { once: true });
   } else {
+    // 子页面处理
     if (structure) structure.classList.add("has-hero8k");
     if (mainPage) mainPage.style.visibility = "visible";
     if (content) gsap.set(content, { opacity: 1 });
