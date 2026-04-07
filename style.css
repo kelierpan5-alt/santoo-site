@@ -1,16 +1,16 @@
-/* 锁定视口，禁止任何形式的滚动 */
+/* 基础重置 */
 html, body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* 彻底禁止滚动 */
+  overflow: hidden; /* 锁定页面，禁止滚动 */
   background: #f7f7f7;
   font-family: "Michroma", "Noto Sans TC", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 进场动画容器 */
+/* 进场动画层 */
 .intro-sequence {
   position: fixed;
   inset: 0;
@@ -34,10 +34,9 @@ html, body {
   border: none;
   background: none;
   color: #0e0e0e;
-  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 600;
   letter-spacing: 0.28em;
-  text-indent: 0.28em;
   cursor: pointer;
   outline: none;
 }
@@ -45,12 +44,9 @@ html, body {
 .intro-video-wrap {
   position: absolute;
   inset: 0;
-  z-index: 5; /* 初期在白底后，点击后会提层 */
+  z-index: 5;
   opacity: 0;
   background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .intro-video-wrap video {
@@ -59,6 +55,7 @@ html, body {
   object-fit: cover;
 }
 
+/* 核心修复：这个 8k 图层只是过渡用的 */
 .intro-hero8k {
   position: absolute;
   inset: 0;
@@ -67,14 +64,11 @@ html, body {
   background: url("assets/hero-8k.jpg") center/cover no-repeat;
 }
 
-/* 主页面 - 初始隐藏 */
+/* 主页面 */
 .page {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  visibility: hidden;
-  overflow: hidden;
+  visibility: hidden; /* 初始隐藏 */
 }
 
 .structure-container {
@@ -85,16 +79,33 @@ html, body {
   background-position: center;
 }
 
+/* 确保主背景图生效 */
 .structure-container.has-hero8k {
-  background-image: url("assets/hero-8k.jpg");
+  background-image: url("assets/hero-8k.jpg") !important;
 }
 
-.logo {
+/* 导航：右上角定位 */
+.entry {
   position: absolute;
-  left: 30px;
-  bottom: 30px;
-  z-index: 100;
+  top: 40px;
+  right: 6vw;
+  display: flex;
+  gap: 30px;
+  z-index: 110;
 }
+
+.entry a {
+  text-decoration: none;
+  color: #111;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s;
+}
+
+.entry a:hover { opacity: 0.6; }
+
+.logo { position: absolute; left: 30px; bottom: 30px; z-index: 100; }
 
 .content {
   position: absolute;
@@ -103,19 +114,4 @@ html, body {
   max-width: 420px;
   opacity: 0;
   text-align: right;
-}
-
-.entry {
-  position: absolute;
-  right: 6vw;
-  bottom: 5vh;
-  display: flex;
-  gap: 20px;
-}
-
-.entry a {
-  text-decoration: none;
-  color: #111;
-  font-size: 0.9rem;
-  border-bottom: 1px solid #111;
 }
