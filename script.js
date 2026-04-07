@@ -101,46 +101,50 @@
 
     sessionStorage.setItem('santoo-visited', 'true');
   }
-  // 3. 初始进入判定逻辑 
+// 3. 初始进入判定逻辑 
   if (isIndex && !hasSeenIntro) {
-    // 首页初次访问：启动 SANTOO 点击监听
+    // 首页初次访问：确保初始白层和 Logo 可见
+    gsap.set(".intro-white", { opacity: 1, visibility: "visible" });
     gsap.set(mark, { opacity: 1, visibility: "visible" });
     
     mark.addEventListener("click", () => {
-      // 1. 立即处理图标消失
-      mark.style.pointerEvents = "none"; // 防止重复点击
+      // 1. 处理图标消失
+      mark.style.pointerEvents = "none"; 
       gsap.to(mark, { opacity: 0, duration: 0.8, onComplete: () => mark.remove() });
 
-      // 2. 视频处理
-      if(video) {
-        // 确保视频容器可见
-        gsap.set(".intro-video-wrap", { visibility: "visible" });
-        video.play().catch(err => {
-          console.log("Video play failed, skipping to main:", err);
-          showMain(); // 如果视频播放失败，直接进首页
+      // 2. 视频唤醒核心逻辑
+      const videoWrap = document.querySelector('.intro-video-wrap');
+      if (video && videoWrap) {
+        // 关键：先让容器在底层“准备好”
+        gsap.set(videoWrap, { visibility: "visible", opacity: 0 });
+        
+        // 尝试播放
+        video.play().then(() => {
+          // 播放成功后，再让视频容器渐显，白层渐隐
+          gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
+          gsap.to(".intro-white", { opacity: 0, duration: 2.0, onComplete: () => {
+             document.querySelector('.intro-white')?.remove();
+          }});
+        }).catch(err => {
+          console.log("Video blocked or failed:", err);
+          showMain(); // 播放失败直接进站
         });
-        gsap.to(".intro-video-wrap", { opacity: 1, duration: 1.5 });
+      } else {
+        // 如果根本没视频元素，直接进站
+        showMain();
       }
 
-      // 3. 遮罩层处理
-      gsap.to(".intro-white", { opacity: 0, duration: 2 });
+      // 3. 双保险进入机制
+      const timer = gsap.delayedCall(9, () => showMain());
 
-      // 4. 【核心修复】增加双保险进入机制
-      // 方案 A: 正常等待视频快结束时进入 (9秒)
-      const timer = gsap.delayedCall(9, () => {
-        showMain();
-      });
-
-      // 方案 B: 监听视频结束事件 (防止视频加载慢导致9秒时还没播完)
       if (video) {
         video.onended = () => {
-          timer.kill(); // 如果视频先结束，杀掉定时器，立即进入
+          timer.kill();
           showMain();
         };
       }
     }, { once: true });
   } else {
-    // 只要不是首次进首页，全部走快速通道
     showMain(true);
   }
   // 4. 语言初始化
