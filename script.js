@@ -1,4 +1,5 @@
 (function initSantoo() {
+  // --- 核心变量声明 ---
   const layer = document.getElementById("introSequence");
   const mark = document.getElementById("introSantoo");
   const video = document.getElementById("introVideo");
@@ -20,10 +21,12 @@
     })
     .to({}, { duration: 0.4 }) // 关键：空白呼吸停顿期
     .call(() => {
+      // 执行语言替换
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.getAttribute(`data-${lang}`);
         if (text) el.innerText = text;
       });
+      // 更新语言按钮文字
       const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
       document.getElementById('current-lang').innerText = names[lang];
     })
@@ -36,13 +39,14 @@
     localStorage.setItem('santoo-lang', lang);
   };
 
-  // 2. 唤醒主页面
+  // 2. 激活主页面逻辑 
   function showMain(isFast = false) {
     if (!mainPage) return;
     mainPage.style.visibility = "visible";
     if (structure) structure.classList.add("has-hero8k");
 
     if (isFast) {
+      // 快速进入 (返回页面时使用)
       if (layer) layer.remove();
       gsap.set(mainPage, { opacity: 1 });
       gsap.set(content, { opacity: 1 });
@@ -55,11 +59,12 @@
     sessionStorage.setItem('santoo-visited', 'true');
   }
 
-  // 3. 初始逻辑：首页 vs 子页面
+  // 3. 初始进入判定逻辑 
   // 判断当前是否是首页 (如果是 index.html 或 根目录)
   const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
 
   if (isIndex && !hasSeenIntro) {
+    // 首页初次访问：启动 SANTOO 点击监听
     gsap.set(mark, { opacity: 1 });
     mark.addEventListener("click", () => {
       // 1. 立即处理图标消失
