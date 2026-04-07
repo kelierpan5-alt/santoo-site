@@ -1,7 +1,3 @@
-/**
- * SANTOO 核心脚本 - 修复视频播放与页面锁定
- */
-
 (function initSantooSystem() {
   const layer = document.getElementById("introSequence");
   const mark = document.getElementById("introSantoo");
@@ -12,46 +8,48 @@
   const structure = document.getElementById("structureContainer");
   const content = document.getElementById("systemLabel");
 
-  const VIDEO_DURATION = 11; // 视频时长（秒）
+  const VIDEO_DURATION = 11; 
 
   function finishEverything() {
+    // 关键步骤：先给主容器上背景，再删掉动画层
     structure.classList.add("has-hero8k");
     mainPage.style.visibility = "visible";
     
-    // 移除动画层并显示内容
-    if (layer) layer.remove();
-    gsap.to(content, { opacity: 1, y: -20, duration: 1, ease: "power2.out" });
+    // 延迟一帧移除，防止闪白
+    requestAnimationFrame(() => {
+      if (layer) layer.remove();
+      gsap.to(content, { opacity: 1, y: -20, duration: 1.2, ease: "power2.out" });
+    });
   }
 
   function handleStart() {
-    // 关键修复 1：在点击的一瞬间立即触发播放，获取浏览器授权
-    video.play().catch(err => {
-      console.error("视频启动失败:", err);
-      // 如果视频真的加载不出来，3秒后强制跳过
-      setTimeout(finishEverything, 3000);
-    });
+    // 1. 立即尝试播放视频
+    video.muted = true; // 确保静音以获得最高播放优先级
+    const playPromise = video.play();
 
-    // 关键修复 2：立即将视频层提升到白底之上
-    gsap.set(videoWrap, { zIndex: 15 });
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        console.log("视频播放受阻，直接进入底图:", error);
+        finishEverything();
+      });
+    }
 
-    const tl = gsap.timeline({
-      onComplete: finishEverything
-    });
+    // 2. 提升视频层级
+    gsap.set(videoWrap, { zIndex: 15, opacity: 1, visibility: "visible" });
+
+    const tl = gsap.timeline({ onComplete: finishEverything });
 
     // 动画序列
-    tl.to(mark, { opacity: 0, duration: 0.4, ease: "power2.in" })
-      .to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2)
-      .to(videoWrap, { opacity: 1, duration: 0.8 }, 0.2);
+    tl.to(mark, { opacity: 0, duration: 0.4 })
+      .to(".intro-white", { opacity: 0, duration: 0.8 }, 0.2);
 
-    // 视频结束前的叠化
-    const fadeOutTime = 0.2 + VIDEO_DURATION - 0.8;
-    tl.to(videoWrap, { opacity: 0, duration: 0.8 }, fadeOutTime)
-      .to(still8k, { opacity: 1, duration: 0.8 }, fadeOutTime);
+    // 在视频结束前开始叠化到静态 8k 图
+    const crossfadeTime = 0.2 + VIDEO_DURATION - 1.0;
+    tl.to(still8k, { opacity: 1, duration: 1 }, crossfadeTime);
+    tl.to(videoWrap, { opacity: 0, duration: 1 }, crossfadeTime);
   }
 
   if (mark && video) {
-    // 预热视频
-    video.load();
     mark.addEventListener("click", handleStart, { once: true });
   } else {
     finishEverything();
