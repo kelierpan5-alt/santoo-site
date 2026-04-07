@@ -48,50 +48,59 @@
     mainPage.style.visibility = "visible";
     if (structure) structure.classList.add("has-hero8k");
 
+    // 检查 layer 和 content 是否存在，避免 GSAP 报错
+    const hasLayer = !!document.getElementById('santoo-layer');
+    const hasContent = !!document.querySelector('.content');
+
     if (isFast) {
-      // --- 快速进入：用于子页或非首次访问 ---
-      if (layer) layer.remove(); 
+      // --- 快速进入 ---
+      if (hasLayer) document.getElementById('santoo-layer').remove();
+      
       gsap.fromTo(mainPage, 
         { opacity: 0 }, 
         { opacity: 1, duration: 2.8, ease: "power2.inOut" }
       );
-      if (content) {
-        gsap.fromTo(content, 
+      
+      if (hasContent) {
+        gsap.fromTo(".content", 
           { opacity: 0, y: 10 }, 
           { opacity: 1, y: 0, duration: 2.5, delay: 0.5, ease: "power2.out" }
         );
       }
     } else {
-      // --- 剧场式进入：用于视频播放结束 ---
-      // 关键修复：确保 mainPage 在 layer 消失的同时渐显
+      // --- 剧场式进入（视频结束后） ---
       const tl = gsap.timeline();
       
-      tl.set(mainPage, { opacity: 0 }) // 确保起点是 0
-        .to(mainPage, { 
-          opacity: 1, 
-          duration: 3.0, 
-          ease: "power2.inOut" 
-        })
-        .to(layer, { 
+      // 1. 先处理主页面显现
+      tl.to(mainPage, { opacity: 1, duration: 3.0, ease: "power2.inOut" });
+
+      // 2. 如果有开场层，并排处理它的消失
+      if (hasLayer) {
+        tl.to("#santoo-layer", { 
           opacity: 0, 
           duration: 2.0, 
           onComplete: () => {
-            if (layer) layer.remove();
-            // 额外保险：移除可能挡住点击的视频层
+            const l = document.getElementById('santoo-layer');
+            if (l) l.remove();
+            // 额外清理视频层，防止遮挡点击
             const videoWrap = document.querySelector('.intro-video-wrap');
             if (videoWrap) videoWrap.remove();
           } 
-        }, "-=2.5") // 让 layer 的消失提前开始，与页面显现重叠
-        .to(content, { 
+        }, "-=2.5");
+      }
+
+      // 3. 如果有右下角文案，最后浮现
+      if (hasContent) {
+        tl.to(".content", { 
           opacity: 1, 
           duration: 2.5, 
           ease: "power2.out" 
         }, "-=1.0");
+      }
     }
     
     sessionStorage.setItem('santoo-visited', 'true');
   }
-
   // 3. 初始进入判定逻辑 
   if (isIndex && !hasSeenIntro) {
     // 首页初次访问：启动 SANTOO 点击监听
