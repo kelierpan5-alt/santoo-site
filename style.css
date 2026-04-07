@@ -15,7 +15,7 @@ html, body {
 .intro-santoo {
   position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%);
   border: none; background: none; color: #111;
-  font-family: "Michroma", sans-serif;
+  font-family: "Michroma", sans-serif; /* 锁定 */
   font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
   cursor: pointer; transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
@@ -35,11 +35,14 @@ html, body {
   position: absolute; top: 40px; right: 6vw;
   display: flex; gap: 45px; z-index: 1000;
 }
-.nav-item-wrapper { position: relative; width: 120px; display: flex; justify-content: flex-end; }
 .nav-anchor {
-  text-decoration: none; color: #111; font-family: "Michroma", sans-serif;
-  font-size: 0.75rem; font-weight: 400; text-transform: uppercase;
+  text-decoration: none; 
+  color: #111; 
+  font-size: 0.75rem; 
+  font-weight: 400; 
+  text-transform: uppercase;
   background: none; border: none; cursor: pointer;
+  /* 继承全局 Michroma */
 }
 
 /* 下拉菜单 */
@@ -70,15 +73,26 @@ html, body {
   text-align: right;
 }
 
-.content h1 { font-size: 1.8rem; margin: 0; text-transform: uppercase; font-weight: 400; }
-.content h2 { font-size: 1.2rem; margin: 0.2rem 0 0 0; opacity: 0.8; font-weight: 400; }
+.content h1 { 
+  font-size: 1.8rem; 
+  margin: 0; 
+  text-transform: uppercase; 
+  font-weight: 400;
+  line-height: 1.2;
+}
 
-/* 描述文字：现在与标题右侧像素级对齐 */
+.content h2 { 
+  font-size: 1.2rem; 
+  margin: 0.2rem 0 0 0; 
+  opacity: 0.8; 
+  font-weight: 400; 
+}
+
 .content p { 
   font-size: 0.85rem; 
   line-height: 1.6; 
   opacity: 0.6; 
-  margin-top: 2.5rem; /* 与标题的间距 */
+  margin-top: 2.5rem; 
   max-width: 400px;
 }
 
