@@ -1,136 +1,72 @@
-gsap.registerPlugin(ScrollTrigger);
-
-function initHeroMotion() {
-  if (initHeroMotion.done) return;
-  initHeroMotion.done = true;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true
-    }
-  });
-
-  tl.to(".content", { autoAlpha: 1, duration: 0.2 }, 0.75)
-    .to("#label2", { opacity: 1, duration: 0.15 }, 0.82)
-    .to("#label3", { opacity: 1, duration: 0.15 }, 0.9);
-
-  gsap.to(".logo-full", {
-    opacity: 0,
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "70% top", scrub: true }
-  });
-  gsap.to(".logo-mark", {
-    opacity: 1,
-    scrollTrigger: { trigger: ".hero", start: "40% top", end: "90% top", scrub: true }
-  });
-  gsap.to("#logo", {
-    scale: 0.72,
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-  });
-}
-
 /**
- * 進場時間軸（相對「點擊 Santoo 標識」t=0；白底與標識為靜止狀態，僅點擊標識後啟動）
- * 0.0–0.5s 標識淡出 | 0.5–1.0s 白底↔影片疊化 | 1.0s 起播放影片（長度見 VIDEO_DURATION_SEC）
- * | 影片結束時刻起 0.5s 影片↔8K 疊化 | 疊化結束後主頁穩定
+ * Santoo 结构系统 - 进场控制逻辑
  */
-(function initIntroTimeline() {
-  function finishIntroSkip() {
-    document.body.classList.remove("intro-active");
-    const elStructure = document.getElementById("structureContainer");
-    const elMain = document.getElementById("mainPage");
-    const elLayer = document.getElementById("introSequence");
-    if (elStructure) elStructure.classList.add("has-hero8k");
-    if (elMain) {
-      elMain.classList.remove("page--behind-intro");
-      elMain.removeAttribute("aria-hidden");
-    }
-    if (elLayer) elLayer.remove();
-    initHeroMotion();
-    requestAnimationFrame(() => ScrollTrigger.refresh());
-  }
 
+(function initSantooIntro() {
+  // 获取 DOM 元素
   const layer = document.getElementById("introSequence");
-  const main = document.getElementById("mainPage");
-  const structure = document.getElementById("structureContainer");
   const mark = document.getElementById("introSantoo");
-  const white = layer?.querySelector(".intro-white");
   const videoWrap = layer?.querySelector(".intro-video-wrap");
-  const still8k = layer?.querySelector(".intro-hero8k");
   const video = document.getElementById("introVideo");
+  const still8k = layer?.querySelector(".intro-hero8k");
+  const mainPage = document.getElementById("mainPage");
+  const structure = document.getElementById("structureContainer");
+  const content = document.getElementById("systemLabel");
 
-  if (!layer || !main || !structure || !mark || !white || !videoWrap || !still8k || !video) {
-    finishIntroSkip();
-    return;
-  }
+  // 视频配置
+  const VIDEO_DURATION = 11; // 对应你的 intro.mp4 时长
 
-  document.body.classList.add("intro-active");
-
-  let started = false;
-
-  function teardownIntro() {
-    document.body.classList.remove("intro-active");
+  function finishIntro() {
+    // 1. 设置主页面背景
     structure.classList.add("has-hero8k");
-    main.classList.remove("page--behind-intro");
-    main.removeAttribute("aria-hidden");
-    layer.remove();
-    initHeroMotion();
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    // 2. 显示主页面内容
+    mainPage.classList.remove("page--behind-intro");
+    mainPage.style.visibility = "visible";
+    mainPage.setAttribute("aria-hidden", "false");
+    
+    // 3. 移除进场动画层
+    if (layer) layer.remove();
+
+    // 4. 直接触发内容淡入（取代原本的滚动触发）
+    gsap.to(content, { opacity: 1, y: -20, duration: 1.2, ease: "power2.out" });
   }
 
-  function onFirstActivate() {
-    if (started) return;
-    started = true;
-    layer.style.pointerEvents = "none";
+  function startSequence() {
+    // 立即隐藏按钮，防止重复点击
+    mark.style.pointerEvents = "none";
 
-    gsap.set(videoWrap, { opacity: 0 });
-    gsap.set(still8k, { opacity: 0 });
-    gsap.set(white, { opacity: 1 });
-    gsap.set(mark, { opacity: 1 });
-
-    /**
-     * 必須在「點擊」同一使用者啟動鏈內先請求播放，否則約 1s 後 timeline 裡的 play()
-     * 會因手勢過期被瀏覽器拒絕（靜音影片亦常如此）。
-     */
-    video.muted = true;
-    const kick = video.play();
-    if (kick !== undefined) {
-      kick
-        .then(() => {
-          video.pause();
-          video.currentTime = 0;
-        })
-        .catch(() => {});
-    }
-
-    /** 與 `assets/intro.mp4` 實際時長一致（秒） */
-    const VIDEO_DURATION_SEC = 11;
-    const VIDEO_PLAY_AT = 1;
-    const CROSSFADE_START = VIDEO_PLAY_AT + VIDEO_DURATION_SEC;
-
-    const master = gsap.timeline({
-      defaults: { ease: "none" },
-      onComplete: teardownIntro
+    // 创建 GSAP 时间轴
+    const tl = gsap.timeline({
+      onComplete: finishIntro
     });
 
-    master.to(mark, { opacity: 0, duration: 0.5, ease: "power2.out" }, 0);
-    master.to(white, { opacity: 0, duration: 0.5 }, 0.5);
-    master.to(videoWrap, { opacity: 1, duration: 0.5 }, 0.5);
-    master.call(
-      () => {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-      },
-      null,
-      VIDEO_PLAY_AT
-    );
-    master.call(() => structure.classList.add("has-hero8k"), null, CROSSFADE_START);
-    master.call(() => video.pause(), null, CROSSFADE_START);
-    master.to(videoWrap, { opacity: 0, duration: 0.5 }, CROSSFADE_START);
-    master.to(still8k, { opacity: 1, duration: 0.5 }, CROSSFADE_START);
+    // 步骤 1: 按钮淡出 (0s - 0.5s)
+    tl.to(mark, { autoAlpha: 0, duration: 0.5 });
+
+    // 步骤 2: 视频准备并播放 (0.5s 时启动)
+    tl.call(() => {
+      videoWrap.style.visibility = "visible";
+      video.play().catch(e => console.warn("播放被拦截:", e));
+    }, null, 0.5);
+
+    // 步骤 3: 白底淡出，露出视频 (0.5s - 1.2s)
+    tl.to(".intro-white", { autoAlpha: 0, duration: 0.7 }, 0.5);
+    tl.to(videoWrap, { opacity: 1, duration: 0.7 }, 0.5);
+
+    // 步骤 4: 视频播放期间保持 (持续 VIDEO_DURATION)
+    const fadeOutStart = 0.5 + VIDEO_DURATION;
+
+    // 步骤 5: 视频淡出，8K 静态图淡入 (视频结束前 0.8s 开始叠化)
+    tl.to(videoWrap, { autoAlpha: 0, duration: 0.8 }, fadeOutStart);
+    tl.to(still8k, { autoAlpha: 1, duration: 0.8 }, fadeOutStart);
   }
 
-  mark.addEventListener("click", onFirstActivate, { once: true });
+  // 绑定点击事件
+  if (mark && video) {
+    // 预加载视频
+    video.load();
+    mark.addEventListener("click", startSequence, { once: true });
+  } else {
+    finishIntro();
+  }
 })();
