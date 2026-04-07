@@ -98,7 +98,10 @@
         }, "-=1.0");
       }
     }
-    
+    .page {
+  z-index: 2000 !important; /* 确保它在所有层之上 */
+}
+
     sessionStorage.setItem('santoo-visited', 'true');
   }
   // 3. 初始进入判定逻辑 
