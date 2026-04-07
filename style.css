@@ -1,4 +1,4 @@
-/* --- 全局强制字体 --- */
+/* // 1. 全局样式重置与字体强制锁定 */
 * {
   margin: 0; padding: 0; box-sizing: border-box;
   font-family: "Michroma", "Noto Sans TC", sans-serif !important;
@@ -10,9 +10,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- SANTOO 图标修复 --- */
+/* // 2. 进场动画层样式 */
 .intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; display: flex; align-items: center; justify-content: center; }
 .intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
+/* // 2.1 SANTOO 按钮 (镂空效果) */
 .intro-santoo {
   position: relative; z-index: 30;
   border: none; background: none; color: #111;
@@ -31,12 +32,12 @@ body {
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
 .intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 
-/* --- 导航：右锚点固定逻辑 (X+Y+Z) --- */
+/* // 3. 导航栏样式 (右侧 X+Y+Z 绝对对齐逻辑) */
 .entry {
   position: absolute; 
-  top: 40px; 
+  top: 40px;  /* 固定锚点 X */
   right: 6vw; /* 这里的 6vw 是最右侧单元格的固定点 X */
-  display: flex; 
+  display: flex; /* 固定间距 Y */
   gap: 45px; /* 这是固定距离 Y */
   z-index: 1000;
 }
@@ -61,7 +62,7 @@ body {
   width: 100%;
 }
 
-/* 下拉菜单：同样锁定右对齐 */
+/* // 4. 语言下拉菜单 */
 .lang-content {
   display: none; 
   position: absolute; 
@@ -78,7 +79,7 @@ body {
   text-align: right; cursor: pointer; white-space: nowrap;
 }
 
-/* --- 内容下沉布局 --- */
+/* // 5. 内容与 Logo 布局 */
 .logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.8rem; }
 .content {
   position: absolute; right: 6vw; bottom: 30px;
@@ -89,7 +90,7 @@ body {
 .content h2 { font-size: 1.2rem; opacity: 0.8; margin: 0.2rem 0 0 0; }
 .content p { font-size: 0.85rem; line-height: 1.6; opacity: 0.6; margin-top: 2.5rem; max-width: 400px; }
 
-/* --- 页面控制 --- */
+/* // 6. 页面显示控制 */
 .page { position: fixed; inset: 0; z-index: 100; visibility: hidden; opacity: 0; }
 .structure-container { position: absolute; inset: 0; background: #f7f7f7; }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
