@@ -96,7 +96,7 @@ body {
   transition: background-image 0.3s ease-in-out; 
 }
 .structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
-/* // 7. 导航与返回键：彻底去框，回归纯粹文字 */
+/* // 7. 导航与返回键：极简黑字状态 */
 .nav-anchor, .back-btn {
   /* 基础：彻底透明背景，无边框 */
   background: none !important;
@@ -105,7 +105,7 @@ body {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   
-  /* 初始状态：纯黑色字体，无描边 */
+  /* 初始状态：纯黑色实体字，无描边 */
   color: #000 !important; 
   -webkit-text-stroke: 0px transparent; 
   
@@ -116,7 +116,7 @@ body {
   white-space: nowrap;
   cursor: pointer;
   
-  /* 动画：保持那种优雅的呼吸感 */
+  /* 动画：保持缓慢优雅的过渡 */
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -133,14 +133,19 @@ body {
   left: 30px; 
   top: 40px; 
   z-index: 3000;
-  padding: 0; /* 去掉边距，让它纯粹像个文字 */
+  padding: 0;
 }
 
-/* // 7.1 悬停反馈：仅唤醒白色描边，保持黑字 */
+/* // 7.1 核心：镂空效果 (对标 SANTOO) */
 .nav-anchor:hover, .back-btn:hover {
-  color: #000 !important; /* 字体保持黑色 */
-  -webkit-text-stroke: 0.6px #fff; /* 仅出现白色极细描边 */
-  background: none !important; /* 确保悬停时也不产生任何背景 */
+  /* 关键：内部颜色设为透明，这是实现镂空的前提 */
+  color: transparent !important; 
+  
+  /* 关键：开启极细白色描边 */
+  -webkit-text-stroke: 0.8px #fff; 
+  
+  /* 确保没有任何背景干扰 */
+  background: none !important;
 }
 /* // 8. 子页面专用背景控制 */
 
