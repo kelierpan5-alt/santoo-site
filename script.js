@@ -1,4 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => { // 加上这一行
 (function initSantoo() {
   // --- 核心变量声明 ---
   const layer = document.getElementById('santoo-layer');
@@ -139,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
   }
 // 3. 初始进入判定逻辑 
   if (isIndex && !hasSeenIntro) {
-    if (mark) { // 关键：必须包在 if (mark) 里
     // 初始状态
     gsap.set(".intro-white", { opacity: 1 });
     gsap.set("#introSantoo", { opacity: 1, visibility: "visible" });
@@ -152,34 +150,15 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
       // 2. 视频唤醒
       if (video) {
         // ！！修正点：直接使用 Raw 链接确保 GitHub 能播
-        video.src = "assets/intro.mp4";
-        video.muted = true; // 确保静音
-        video.setAttribute('playsinline', ''); // 兼容 iOS
+        video.src = "https://raw.githubusercontent.com/kelierpan5-alt/santoo-site/main/assets/intro.mp4";
         video.load();
-        // 尝试播放
-        const playPromise = video.play();
 
-        if (playPromise !== undefined) {
-        playPromise.then(() => {
-            console.log("Video started playing");
-            gsap.to(".intro-white", { opacity: 0, duration: 2.0 });
-        }).catch(error => {
-            console.warn("Playback failed, skipping to main site:", error);
-            showMain(true); // 如果播放失败（被拦截），直接进入主站，防止卡死
-        });
-    }
-}
         const videoWrap = document.querySelector('.intro-video-wrap');
         // 提升视频层级并显现
-        if (videoWrap) {
         gsap.set(videoWrap, { visibility: "visible", zIndex: 150 }); 
         gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
-          }
 
         video.play().catch(e => {
-          // 播成功了再让白层消失
-           gsap.to(".intro-white", { opacity: 0, duration: 2.0 });
-        }).catch(e => {
           console.warn("Autoplay blocked:", e);
           showMain(); // 播不动就跳过
         });
@@ -195,10 +174,6 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
       // 4. 定时进入主站
       gsap.delayedCall(9, showMain);
     }, { once: true });
-      } else {
-        // 如果找不到进入按钮，直接进站，防止页面卡死在白屏
-        showMain(true);
-    }
   }
   // 4. 语言初始化
   const saved = localStorage.getItem('santoo-lang') || 'en';
@@ -255,4 +230,3 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
     }
   });
 })();
-}); // 加上这一行，对应开头的那个括号
