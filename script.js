@@ -103,59 +103,42 @@
   }
 // 3. 初始进入判定逻辑 
   if (isIndex && !hasSeenIntro) {
-    // 强制确保白层可见，且 Logo 在最前方
-    gsap.set(".intro-white", { opacity: 1, visibility: "visible", zIndex: 100 });
-    gsap.set(mark, { opacity: 1, visibility: "visible", zIndex: 150 }); // 确保 Logo 高于白层
-    
+    // 初始状态
+    gsap.set(".intro-white", { opacity: 1 });
+    gsap.set("#introSantoo", { opacity: 1, visibility: "visible" });
+
     mark.addEventListener("click", () => {
-      // 1. 处理图标消失
-      mark.style.pointerEvents = "none"; 
-      gsap.to(mark, { opacity: 0, duration: 0.8, onComplete: () => mark.remove() });
+      // 1. 按钮动画：变透明并禁用
+      mark.style.pointerEvents = "none";
+      gsap.to(mark, { opacity: 0, duration: 0.8 });
 
-      // 2. 视频唤醒核心逻辑
-      const videoWrap = document.querySelector('.intro-video-wrap');
-      if (video && videoWrap) {
-        // 确保视频路径是 Raw 链接
-        if (!video.src.includes('raw.githubusercontent')) {
-           video.src = "https://raw.githubusercontent.com/kelierpan5-alt/santoo-site/main/assets/intro.mp4";
-           video.load();
-        }
-
-        // 立即提升视频容器层级，并开始渐显
-        gsap.set(videoWrap, { visibility: "visible", zIndex: 120 }); 
-        gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
-        
-        // 同时：让初始白层开始消失
-        gsap.to(".intro-white", { 
-          opacity: 0, 
-          duration: 2.0, 
-          onComplete: () => document.querySelector('.intro-white')?.remove() 
-        });
-
-        // 3. 尝试播放视频 (静音是关键)
-        video.muted = true; 
-        video.play().then(() => {
-          console.log("Video playing...");
-        }).catch(err => {
-          console.log("Video blocked, skipping to main:", err);
-          showMain(); 
-        });
-      } else {
-        showMain();
-      }
-
-      // 3. 双保险进入机制
-      const timer = gsap.delayedCall(9, () => showMain());
-
+      // 2. 视频唤醒
       if (video) {
-        video.onended = () => {
-          timer.kill();
-          showMain();
-        };
+        // ！！修正点：直接使用 Raw 链接确保 GitHub 能播
+        video.src = "https://raw.githubusercontent.com/kelierpan5-alt/santoo-site/main/assets/intro.mp4";
+        video.load();
+
+        const videoWrap = document.querySelector('.intro-video-wrap');
+        // 提升视频层级并显现
+        gsap.set(videoWrap, { visibility: "visible", zIndex: 150 }); 
+        gsap.to(videoWrap, { opacity: 1, duration: 1.5 });
+
+        video.play().catch(e => {
+          console.warn("Autoplay blocked:", e);
+          showMain(); // 播不动就跳过
+        });
       }
+
+      // 3. 白层消失
+      gsap.to(".intro-white", { 
+        opacity: 0, 
+        duration: 2, 
+        onComplete: () => document.querySelector('.intro-white')?.remove() 
+      });
+
+      // 4. 定时进入主站
+      gsap.delayedCall(9, showMain);
     }, { once: true });
-  } else {
-    showMain(true);
   }
   // 4. 语言初始化
   const saved = localStorage.getItem('santoo-lang') || 'en';
