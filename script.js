@@ -46,10 +46,10 @@
     if (structure) structure.classList.add("has-hero8k");
 
     if (isFast) {
-      // 快速进入 (返回页面时使用)
       if (layer) layer.remove();
-      gsap.set(mainPage, { opacity: 1 });
-      gsap.set(content, { opacity: 1 });
+      // 即便是快速进入，也给一个 1.5秒的渐显，保持优雅
+      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 1.5 });
+      gsap.set(content, { opacity: 1, y: 0 });
     } else {
       gsap.timeline()
         .to(mainPage, { opacity: 1, duration: 1.5 })
