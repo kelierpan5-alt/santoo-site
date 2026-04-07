@@ -1,102 +1,72 @@
-/* --- 全局字体锁定 --- */
+/* --- 全局强制字体 --- */
 * {
   margin: 0; padding: 0; box-sizing: border-box;
   font-family: "Michroma", "Noto Sans TC", sans-serif !important;
 }
 
-html, body {
-  width: 100vw; height: 100vh;
-  overflow: hidden; background: #f7f7f7;
+body {
+  background: #f7f7f7; color: #111;
+  width: 100vw; height: 100vh; overflow: hidden;
   -webkit-font-smoothing: antialiased;
-  color: #111;
 }
 
-/* --- 导航栏：右锚点固定 X+Y 逻辑 --- */
-.entry {
-  position: absolute; 
-  top: 40px; 
-  right: 6vw; /* 固定点 X */
-  display: flex; 
-  flex-direction: row; /* 恢复正常顺序 */
-  justify-content: flex-end; /* 关键：整体靠右对齐 */
-  align-items: flex-start; 
-  gap: 45px; /* 固定距离 Y */
-  z-index: 1000;
-}
-
-.nav-item-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  /* 移除固定宽度，让文字自然向左延伸，保持右侧 Z 点不动 */
-}
-
-.nav-anchor {
-  text-decoration: none; 
-  color: #111; 
-  font-size: 0.75rem;
-  text-transform: uppercase; 
-  background: none; 
-  border: none; 
-  cursor: pointer;
-  white-space: nowrap;
-  text-align: right;
-}
-
-/* --- 下拉菜单精准修复 --- */
-.lang-dropdown {
-  cursor: pointer;
-}
-
-.lang-content {
-  display: none; /* 默认隐藏 */
-  position: absolute; /* 关键：脱离文档流，不影响其他导航项 */
-  top: 100%; /* 出现在按钮下方 */
-  right: 0;
-  padding-top: 15px; 
-  z-index: 1100;
-  flex-direction: column; /* 垂直排列选项 */
-  gap: 8px;
-}
-
-.lang-dropdown:hover .lang-content {
-  display: flex; /* 悬停时显示为弹性盒模型 */
-}
-
-.lang-content span {
-  display: block;
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
-  padding: 8px 16px;
-  font-size: 0.7rem;
-  text-align: right;
-  white-space: nowrap;
-  transition: opacity 0.3s;
-}
-
-.lang-content span:hover {
-  opacity: 0.5;
-}
-
-/* --- 布局容器 --- */
-.logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.8rem; color: #111; }
-
-.content { 
-  position: absolute; right: 6vw; bottom: 30px; 
-  opacity: 0; z-index: 500; 
-  display: flex; flex-direction: column; align-items: flex-end; text-align: right;
-}
-.content h1 { font-size: 1.8rem; margin: 0; text-transform: uppercase; line-height: 1.2; }
-.content h2 { font-size: 1.2rem; margin: 0.2rem 0 0 0; opacity: 0.8; }
-.content p { font-size: 0.85rem; line-height: 1.6; opacity: 0.6; margin-top: 2.5rem; max-width: 400px; }
-
-.intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; }
+/* --- SANTOO 图标修复 --- */
+.intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; display: flex; align-items: center; justify-content: center; }
 .intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
+.intro-santoo {
+  position: relative; z-index: 30;
+  border: none; background: none; color: #111;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.6s;
+  -webkit-text-stroke: 1px transparent;
+  opacity: 1 !important; /* 强制可见 */
+}
+.intro-santoo:hover { color: transparent; -webkit-text-stroke: 1px #111; }
+
 .intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
 .intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 
+/* --- 导航锚点固定逻辑 --- */
+.entry {
+  position: absolute; top: 40px; right: 6vw; /* 固定点 X */
+  display: flex; gap: 45px; /* 固定距离 Y */
+  z-index: 1000; align-items: flex-start;
+}
+.nav-item-wrapper {
+  display: flex; justify-content: flex-end; /* 锚定右侧 */
+}
+.nav-anchor {
+  text-decoration: none; color: #111; font-size: 0.75rem;
+  text-transform: uppercase; white-space: nowrap; cursor: pointer;
+  background: none; border: none;
+}
+
+/* 下拉菜单 */
+.lang-content {
+  display: none; position: absolute; top: 100%; right: 0;
+  padding-top: 15px; flex-direction: column; gap: 8px;
+}
+.lang-dropdown:hover .lang-content { display: flex; }
+.lang-content span {
+  background: rgba(255,255,255,0.95); padding: 8px 16px; font-size: 0.7rem;
+  text-align: right; cursor: pointer; transition: 0.3s;
+}
+
+/* --- 内容下沉布局 --- */
+.logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.8rem; }
+.content {
+  position: absolute; right: 6vw; bottom: 30px;
+  display: flex; flex-direction: column; align-items: flex-end; text-align: right;
+  opacity: 0; /* JS 唤醒 */
+}
+.content h1 { font-size: 1.8rem; text-transform: uppercase; line-height: 1.2; margin: 0; }
+.content h2 { font-size: 1.2rem; opacity: 0.8; margin: 0.2rem 0 0 0; }
+.content p { font-size: 0.85rem; line-height: 1.6; opacity: 0.6; margin-top: 2.5rem; max-width: 400px; }
+
+/* --- 页面控制 --- */
 .page { position: fixed; inset: 0; z-index: 100; visibility: hidden; opacity: 0; }
-.structure-container { position: absolute; inset: 0; background: #f7f7f7; z-index: 1; }
-.structure-container.has-hero8k { background-image: url("assets/hero-8k.jpg") !important; background-size: cover; }
+.structure-container { position: absolute; inset: 0; background: #f7f7f7; }
+.structure-container.has-hero8k { background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 .back-btn { position: fixed; left: 30px; top: 40px; z-index: 3000; text-decoration: none; color: #111; font-size: 0.75rem; text-transform: uppercase; }
