@@ -142,7 +142,7 @@ body {
   color: #fff !important;
   
   /* 关键：开启极细黑色描边（增加文字轮廓的锐利度，防止在复杂背景下模糊） */
-  -webkit-text-stroke: 0.1px #000; 
+  -webkit-text-stroke: 0.3px #000; 
   
   /* 确保没有任何背景干扰 */
   background: none !important;
