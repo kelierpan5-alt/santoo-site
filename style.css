@@ -1,70 +1,55 @@
+/* 基础重置：锁定高度，禁止滚动 */
 html, body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
-  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* 核心：禁止全局滚动 */
   background: #f7f7f7;
   font-family: "Michroma", "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-body.intro-active {
-  overflow: hidden;
-  background: #fff;
-}
-
-/* —— 進場序列：白底為靜止狀態，僅點擊 Santoo 標識後才開始（點擊後 t=0 起算） —— */
+/* 进场序列容器 */
 .intro-sequence {
   position: fixed;
   inset: 0;
-  z-index: 300;
-  cursor: default;
-  -webkit-tap-highlight-color: transparent;
+  z-index: 1000; /* 确保在最顶层 */
+  background: #fff;
 }
 
 .intro-white {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 10;
   background: #fff;
 }
 
 .intro-santoo {
   position: absolute;
-  z-index: 2;
+  z-index: 20;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0;
   border: none;
   background: none;
-  font: inherit;
   color: #0e0e0e;
   font-size: clamp(1.75rem, 5vw, 2.75rem);
   font-weight: 600;
   letter-spacing: 0.28em;
   text-indent: 0.28em;
-  text-transform: none;
-  user-select: none;
   cursor: pointer;
-  pointer-events: auto;
-}
-
-.intro-santoo:focus-visible {
-  outline: 2px solid #0e0e0e;
-  outline-offset: 8px;
+  transition: opacity 0.3s;
 }
 
 .intro-video-wrap {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 5; /* 位于白底之下，但高于背景图 */
   opacity: 0;
-  overflow: hidden;
-  pointer-events: none;
+  visibility: hidden;
+  background: #000;
 }
 
 .intro-video-wrap video {
@@ -77,39 +62,23 @@ body.intro-active {
 .intro-hero8k {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 1;
   opacity: 0;
-  pointer-events: none;
-  background-color: #f7f7f7;
-  background-image: url("assets/hero-8k.jpg");
-  background-size: cover;
-  background-position: center;
+  background: url("assets/hero-8k.jpg") center/cover no-repeat;
 }
 
-.page--behind-intro {
-  visibility: hidden;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .intro-santoo {
-    cursor: default;
-  }
-}
-
-.page { min-height: 220vh; }
-
-.hero {
+/* 主内容区域 */
+.page {
   position: relative;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .structure-container {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
   background-color: #f7f7f7;
-  background-image: none;
   background-size: cover;
   background-position: center;
 }
@@ -120,29 +89,37 @@ body.intro-active {
 
 .logo {
   position: fixed;
-  left: 20px;
-  bottom: 20px;
+  left: 30px;
+  bottom: 30px;
   color: #111;
-  z-index: 20;
+  z-index: 100;
 }
-.logo-mark { opacity: 0; }
 
 .content {
-  position: fixed;
+  position: absolute;
   right: 6vw;
-  bottom: 10vh;
+  bottom: 15vh;
   max-width: 420px;
   opacity: 0;
-  visibility: hidden;
   color: #111;
 }
-.content h1, .content h2, .content p { margin: 0 0 10px; }
 
-#label2, #label3 { opacity: 0; }
+.content h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.content h2 { font-size: 1.2rem; margin-bottom: 1rem; font-weight: 400; }
 
+/* 隐藏原本用于滚动的区域 */
 .entry {
-  min-height: 120vh;
-  display: grid;
-  place-content: center;
-  gap: 16px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+
+.entry a {
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #111;
 }
