@@ -188,13 +188,3 @@ body {
 .page {
   background-color: #f7f7f7; 
 }
-/* // 10. 当前页面标签的禁用状态 (确保无悬停白边，无点击) */
-.nav-active-link {
-  pointer-events: none !important; /* 物理禁止点击 */
-  cursor: default !important;     /* 鼠标形状还原 */
-  opacity: 0.5;                   /* 视觉减弱，示意已在当前页 */
-  
-  /* 强制覆盖：即使鼠标强行放上去，也不准出现白色描边 */
-  color: #000 !important; 
-  -webkit-text-stroke: 0px transparent !important; 
-}
