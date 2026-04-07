@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
   }
 // 3. 初始进入判定逻辑 
   if (isIndex && !hasSeenIntro) {
+    if (mark) { // 关键：必须包在 if (mark) 里
     // 初始状态
     gsap.set(".intro-white", { opacity: 1 });
     gsap.set("#introSantoo", { opacity: 1, visibility: "visible" });
@@ -180,6 +181,10 @@ document.addEventListener("DOMContentLoaded", () => { // 加上这一行
       // 4. 定时进入主站
       gsap.delayedCall(9, showMain);
     }, { once: true });
+      } else {
+        // 如果找不到进入按钮，直接进站，防止页面卡死在白屏
+        showMain(true);
+    }
   }
   // 4. 语言初始化
   const saved = localStorage.getItem('santoo-lang') || 'en';
