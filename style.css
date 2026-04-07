@@ -29,28 +29,31 @@ body {
 
 /* --- 导航锚点固定逻辑 --- */
 .entry {
-  position: absolute; top: 40px; right: 6vw; /* 固定点 X */
-  display: flex; gap: 45px; /* 固定距离 Y */
-  z-index: 1000; align-items: flex-start;
+  position: absolute; top: 40px; right: 6vw;
+  display: flex; gap: 45px; z-index: 1000;
+  justify-content: flex-end; align-items: flex-start;
 }
 .nav-item-wrapper {
-  display: flex; justify-content: flex-end; /* 锚定右侧 */
+  position: relative; /* 确保下拉菜单以此为基准 */
+  display: flex;
 }
+.lang-dropdown { position: relative; } /* 锁定下拉框锚点 */
+
 .nav-anchor {
   text-decoration: none; color: #111; font-size: 0.75rem;
   text-transform: uppercase; white-space: nowrap; cursor: pointer;
-  background: none; border: none;
+  background: none; border: none; padding: 0; margin: 0;
 }
 
-/* 下拉菜单 */
 .lang-content {
-  display: none; position: absolute; top: 100%; right: 0;
+  display: none; position: absolute; 
+  top: 100%; left: 0; /* 改为左对齐，确保从单词起始处向下排 */
   padding-top: 15px; flex-direction: column; gap: 8px;
 }
 .lang-dropdown:hover .lang-content { display: flex; }
 .lang-content span {
   background: rgba(255,255,255,0.95); padding: 8px 16px; font-size: 0.7rem;
-  text-align: right; cursor: pointer; transition: 0.3s;
+  text-align: left; cursor: pointer; transition: 0.3s; white-space: nowrap;
 }
 
 /* --- 内容下沉布局 --- */
