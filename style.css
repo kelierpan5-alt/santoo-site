@@ -1,14 +1,18 @@
-/* --- 全局字体锁定 --- */
+/* --- 全局字体极致锁定 --- */
 * {
-  margin: 0; padding: 0; box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* 强制所有元素（包括按钮和输入框）继承 Michroma */
+  font-family: "Michroma", "Noto Sans TC", sans-serif !important; 
 }
 
 html, body {
-  width: 100vw; height: 100vh;
-  overflow: hidden; background: #f7f7f7;
-  /* 强制锁定 Michroma 为主字体，Noto Sans TC 为中文补充 */
-  font-family: "Michroma", "Noto Sans TC", sans-serif;
-  -webkit-font-smoothing: antialiased;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #f7f7f7;
+  -webkit-font-smoothing: antialiased; /* 让细体字更清晰 */
   color: #111;
 }
 /* --- 开头标题 SANTOO --- */
