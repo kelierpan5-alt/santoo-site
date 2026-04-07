@@ -59,24 +59,48 @@
     sessionStorage.setItem('santoo-visited', 'true');
   }
 
-  // 3. 初始进入判定逻辑 (核心：非首页或已看过，则直接 showMain)
+  // 3. 初始进入判定逻辑 
   if (isIndex && !hasSeenIntro) {
-    gsap.set(mark, { opacity: 1 });
+    // 首页初次访问：启动 SANTOO 点击监听
+    gsap.set(mark, { opacity: 1, visibility: "visible" });
+    
     mark.addEventListener("click", () => {
-      mark.classList.add('is-hidden'); 
-      gsap.to(mark, { opacity: 0, duration: 0.8 });
+      // 1. 立即处理图标消失
+      mark.style.pointerEvents = "none"; // 防止重复点击
+      gsap.to(mark, { opacity: 0, duration: 0.8, onComplete: () => mark.remove() });
+
+      // 2. 视频处理
       if(video) {
-        video.play();
+        // 确保视频容器可见
+        gsap.set(".intro-video-wrap", { visibility: "visible" });
+        video.play().catch(err => {
+          console.log("Video play failed, skipping to main:", err);
+          showMain(); // 如果视频播放失败，直接进首页
+        });
         gsap.to(".intro-video-wrap", { opacity: 1, duration: 1.5 });
       }
+
+      // 3. 遮罩层处理
       gsap.to(".intro-white", { opacity: 0, duration: 2 });
-      gsap.delayedCall(9, showMain);
+
+      // 4. 【核心修复】增加双保险进入机制
+      // 方案 A: 正常等待视频快结束时进入 (9秒)
+      const timer = gsap.delayedCall(9, () => {
+        showMain();
+      });
+
+      // 方案 B: 监听视频结束事件 (防止视频加载慢导致9秒时还没播完)
+      if (video) {
+        video.onended = () => {
+          timer.kill(); // 如果视频先结束，杀掉定时器，立即进入
+          showMain();
+        };
+      }
     }, { once: true });
   } else {
-    // 只要不是首次进首页，全部走快速通道（直接渐显静态内容）
+    // 只要不是首次进首页，全部走快速通道
     showMain(true);
   }
-
   // 4. 语言初始化
   const saved = localStorage.getItem('santoo-lang') || 'en';
   document.querySelectorAll('[data-en]').forEach(el => {
