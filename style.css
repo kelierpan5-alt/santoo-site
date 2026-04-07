@@ -27,17 +27,22 @@ body {
   inset: 0;
   background: #fff;
   z-index: 10; /* 基础层 */
-  pointer-events: none;
+  pointer-events: none;/* 重要：防止这块白布挡住点击 */
 }
 /* // 2.1 SANTOO 按钮 (镂空效果) */
 .intro-santoo {
   position: relative; /* 或者 fixed */
   z-index: 200; /* 绝对最高，确保白屏时能看见它 */
-  pointer-events: auto; /* 确保它是可以被点击的 */
-  border: none; background: none; color: #111;
+  pointer-events: auto !important; /* 确保它是可以被点击的 */
+  border: none !important; 
+  background: none; 
+  color: #111;
   font-size: clamp(1.2rem, 4vw, 2rem);
-  font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
-  cursor: pointer; transition: color 0.6s, -webkit-text-stroke 0.6s, opacity 1s;
+  font-weight: 400; 
+  letter-spacing: 0.4em; 
+  text-transform: uppercase;
+  cursor: pointer; 
+  transition: color 0.6s, -webkit-text-stroke 0.6s, opacity 1s;
   -webkit-text-stroke: 1px transparent;
 }
 .intro-santoo:hover {
