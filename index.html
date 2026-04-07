@@ -3,53 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANTOO | Structural Studies</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <title>Member | SANTOO</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="introSequence" class="intro-sequence">
-    <div class="intro-white"></div>
-    <button type="button" class="intro-santoo" id="introSantoo">SANTOO</button>
-    <div class="intro-video-wrap">
-      <video id="introVideo" src="assets/intro.mp4" muted playsinline preload="auto"></video>
+  <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
+
+  <nav class="entry">
+    <div class="lang-dropdown">
+      <button class="lang-dropbtn" id="current-lang">LANGUAGE</button>
+      <div class="lang-content">
+        <span onclick="switchLang('en')">English</span>
+        <span onclick="switchLang('zh')">中文</span>
+        <span onclick="switchLang('ja')">日本語</span>
+      </div>
     </div>
-    <div class="intro-hero8k"></div>
-  </div>
+    <a href="member.html" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
+    <a href="project.html" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
+    <a href="research.html" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
+    <a href="works.html" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
+  </nav>
 
-  <main class="page" id="mainPage">
+  <main class="page" id="mainPage" style="visibility: visible;">
     <section class="hero">
-      <div class="structure-container" id="structureContainer"></div>
-
+      <div class="structure-container has-hero8k"></div>
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
         <span class="logo-mark">⌇■</span>
       </div>
-
-      <nav class="entry">
-        <div class="lang-dropdown">
-          <button class="lang-dropbtn" id="current-lang">LANGUAGE</button>
-          <div class="lang-content">
-            <span onclick="switchLang('en')">English</span>
-            <span onclick="switchLang('zh')">中文</span>
-            <span onclick="switchLang('ja')">日本語</span>
-          </div>
-        </div>
-        <a href="member.html" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
-        <a href="project.html" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
-        <a href="research.html" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
-        <a href="works.html" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
-      </nav>
-
-      <div class="content" id="systemLabel">
-        <h1 data-en="Santoo Institute" data-zh="Santoo 研究所" data-ja="Santoo 研究所">Santoo Institute</h1>
-        <h2 data-en="for Structural Studies" data-zh="结构研究中心" data-ja="構造研究センター">for Structural Studies</h2>
-        <p data-en="A framework for observing structural stability across fields." 
-           data-zh="一个用于观察跨领域结构稳定性的框架。" 
-           data-ja="領域を超えた構造的安定性を観察するためのフレームワーク。">
-           A framework for observing structural stability across fields.
+      <div class="content" id="systemLabel" style="opacity: 1;">
+        <h1 data-en="Members" data-zh="核心成员" data-ja="メンバー">Members</h1>
+        <p data-en="A multidisciplinary team of structural observers and designers." 
+           data-zh="一个由跨学科结构观察者和设计师组成的团队。" 
+           data-ja="多角的な視点を持つ構造オブザーバーとデザイナーのチーム。">
+           A multidisciplinary team of structural observers and designers.
         </p>
       </div>
     </section>
