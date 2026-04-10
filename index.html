@@ -14,7 +14,9 @@
     <div class="intro-white"></div>
     <button type="button" class="intro-santoo" id="introSantoo">SANTOO</button>
     <div class="intro-video-wrap">
-      <video id="introVideo" src="assets/intro.mp4" muted playsinline preload="auto"></video>
+      <video id="introVideo" muted playsinline preload="auto">
+        <source src="assets/intro.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="intro-hero8k"></div>
   </div>
@@ -25,7 +27,7 @@
       
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
-        <span class="logo-mark">⌇■</span>
+        <img src="assets/santooLogo.svg" alt="Santoo Logo" class="logo-svg-icon">
       </div>
 
       <nav class="entry">
@@ -54,6 +56,18 @@
       </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-left">
+      <p>© 2026 SANTOO INSTITUTE. ALL RESEARCH AND WORKS EMBODIED HEREIN ARE PROTECTED UNDER INTERNATIONAL COPYRIGHT LAWS.</p>
+    </div>
+    
+    <div class="footer-right">
+      <span class="page-meta">STATUS: OPERATIONAL / 2026</span>
+      <span class="page-meta-divider">|</span>
+      <a href="legal.html" class="footer-link">LEGAL & PRIVACY</a>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="script.js"></script>
