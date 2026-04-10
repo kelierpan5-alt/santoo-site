@@ -1,16 +1,19 @@
 (function initSantoo() {
-  // --- 核心变量声明 ---
+  // --- 1. 核心变量声明 ---
   const layer = document.getElementById("introSequence");
   const mark = document.getElementById("introSantoo");
   const video = document.getElementById("introVideo");
   const mainPage = document.getElementById("mainPage");
   const content = document.getElementById("systemLabel");
   const structure = document.getElementById("structureContainer");
+  // 新增：获取底部元素
+  const footer = document.querySelector(".site-footer");
 
   const hasSeenIntro = sessionStorage.getItem('santoo-visited');
 
-  // 1. 优雅呼吸感语言切换
+  // --- 2. 优雅呼吸感语言切换 ---
   window.switchLang = function(lang) {
+    // 选取所有带有翻译属性的元素（包含主内容和底部）
     const targets = document.querySelectorAll('[data-en], #current-lang');
     const tl = gsap.timeline();
 
@@ -19,79 +22,94 @@
       duration: 1.0, 
       ease: "power2.inOut" 
     })
-    .to({}, { duration: 0.4 }) // 关键：空白呼吸停顿期
+    .to({}, { duration: 0.4 }) // 呼吸停顿期
     .call(() => {
-      // 执行语言替换
+      // 执行所有元素的语言替换
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.getAttribute(`data-${lang}`);
         if (text) el.innerText = text;
       });
       // 更新语言按钮文字
       const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
-      document.getElementById('current-lang').innerText = names[lang];
+      const langBtn = document.getElementById('current-lang');
+      if (langBtn) langBtn.innerText = names[lang];
     })
     .to(targets, { 
       opacity: 1, 
-      duration: 1.8, // 缓慢浮现
+      duration: 1.8, 
       ease: "power2.out" 
     });
 
     localStorage.setItem('santoo-lang', lang);
   };
 
-  // 2. 激活主页面逻辑 
+  // --- 3. 激活主页面逻辑 ---
   function showMain(isFast = false) {
     if (!mainPage) return;
+    
     mainPage.style.visibility = "visible";
+    // 确保底部在进场前是可见的（由 GSAP 控制透明度）
+    if (footer) footer.style.visibility = "visible";
     if (structure) structure.classList.add("has-hero8k");
 
     if (isFast) {
       if (layer) layer.remove();
-      // 即便是快速进入，也给一个 1.5秒的渐显，保持优雅
-      gsap.fromTo(mainPage, { opacity: 0 }, { opacity: 1, duration: 1.5 });
+      // 快速进入时，主页和底部同时渐显
+      gsap.fromTo([mainPage, footer], { opacity: 0 }, { opacity: 1, duration: 1.5 });
       gsap.set(content, { opacity: 1, y: 0 });
     } else {
+      // 标准进场动画序列
       gsap.timeline()
-        .to(mainPage, { opacity: 1, duration: 1.5 })
-        .to(layer, { opacity: 0, duration: 2, onComplete: () => layer?.remove() }, "-=0.5")
-        .to(content, { opacity: 1, duration: 2.5, ease: "expo.out" }, "-=1");
+        .to([mainPage, footer], { opacity: 1, duration: 1.5 })
+        .to(layer, { 
+          opacity: 0, 
+          duration: 2, 
+          onComplete: () => { if(layer) layer.remove(); } 
+        }, "-=0.5")
+        .to(content, { 
+          opacity: 1, 
+          duration: 2.5, 
+          ease: "expo.out" 
+        }, "-=1");
     }
     sessionStorage.setItem('santoo-visited', 'true');
   }
 
-  // 3. 初始进入判定逻辑 
-  // 判断当前是否是首页 (如果是 index.html 或 根目录)
-  const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
+  // --- 4. 初始进入判定逻辑 ---
+  const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '';
 
   if (isIndex && !hasSeenIntro) {
-    // 首页初次访问：启动 SANTOO 点击监听
     gsap.set(mark, { opacity: 1 });
     mark.addEventListener("click", () => {
-      // 1. 立即处理图标消失
       mark.classList.add('is-hidden'); 
       gsap.to(mark, { opacity: 0, duration: 0.8 });
 
-      // 2. 视频与背景处理
       if(video) {
         video.play();
-        gsap.to(".intro-video-wrap", { opacity: 1, duration: 1.5 });
+        gsap.to(".intro-video-wrap", { opacity: 1, duration: 1 });
       }
-      gsap.to(".intro-white", { opacity: 0, duration: 2 });
+      gsap.to(".intro-white", { opacity: 0, duration: 1.5 });
 
-      // 3. 优雅进入主页 (根据你的视频时长 11s，设定在 9s 时触发主页渐显)
-      gsap.delayedCall(9, showMain);
+      // 在视频播放接近尾声时（4.5秒）切换到主页
+      gsap.delayedCall(4.5, showMain);
     }, { once: true });
   } else {
     showMain(true);
   }
 
-  // 4. 语言初始化
-  const saved = localStorage.getItem('santoo-lang') || 'en';
+  // --- 5. 语言初始化 ---
+  const savedLang = localStorage.getItem('santoo-lang') || 'en';
   document.querySelectorAll('[data-en]').forEach(el => {
-    el.innerText = el.getAttribute(`data-${saved}`);
+    const text = el.getAttribute(`data-${savedLang}`);
+    if (text) el.innerText = text;
   });
-  // --- 4.5 背景图片预加载逻辑 ---
-  // 定义页面与背景图的对应关系
+  const langBtnInit = document.getElementById('current-lang');
+  if (langBtnInit) {
+    const names = { en: 'LANGUAGE', zh: '语言', ja: '言語' };
+    langBtnInit.innerText = names[savedLang];
+  }
+
+  // --- 6. 资源预加载逻辑 ---
   const preloadConfig = {
     'member.html': 'assets/member-bg.jpg',
     'project.html': 'assets/project-bg.jpg',
@@ -99,38 +117,29 @@
     'works.html': 'assets/works-bg.jpg'
   };
 
-  const navLinks = document.querySelectorAll('a.nav-anchor');
-
-  navLinks.forEach(link => {
+  document.querySelectorAll('a.nav-anchor').forEach(link => {
     link.addEventListener('mouseenter', function() {
       const href = this.getAttribute('href');
       const imgSrc = preloadConfig[href];
-      
       if (imgSrc) {
-        // 创建一个隐形的图片对象进行静默下载
         const img = new Image();
         img.src = imgSrc;
-        // 下载完成后会缓存在浏览器中，跳转后瞬间显示
       }
-    }, { once: true }); // 每个链接只预加载一次，节省资源
+    }, { once: true });
   });
-  // --- 5. 页面平滑跳转过渡 (渐隐-黑色-渐显) ---
-  const allLinks = document.querySelectorAll('a.nav-anchor, a.back-btn');
 
-  allLinks.forEach(link => {
+  // --- 7. 页面平滑跳转过渡 ---
+  document.querySelectorAll('a.nav-anchor, a.back-btn').forEach(link => {
     link.addEventListener('click', function(e) {
-      // 只有站内跳转才执行动画
       const targetUrl = this.getAttribute('href');
       if (targetUrl && targetUrl.includes('.html')) {
-        e.preventDefault(); // 拦截默认跳转
-
-        // 执行优雅的渐隐到黑色
-        gsap.to(mainPage, {
+        e.preventDefault(); 
+        // 连同底部一起淡出
+        gsap.to([mainPage, footer], {
           opacity: 0,
-          duration: 1.2, // 你要求的缓慢态度
+          duration: 1.2,
           ease: "power2.inOut",
           onComplete: () => {
-            // 动画完成后，执行真正的页面跳转
             window.location.href = targetUrl;
           }
         });
@@ -138,11 +147,13 @@
     });
   });
 
-  // 页面加载时的渐显逻辑
-  window.addEventListener('pageshow', () => {
-    gsap.fromTo(mainPage, 
-      { opacity: 0 }, 
-      { opacity: 1, duration: 1.5, ease: "power2.out" }
-    );
+  // 处理浏览器后退时的显示
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      gsap.fromTo([mainPage, footer], 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 1.5, ease: "power2.out" }
+      );
+    }
   });
 })();
