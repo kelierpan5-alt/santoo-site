@@ -12,7 +12,7 @@ body {
 
 /* // 2. 进场动画层样式 */
 .intro-sequence { position: fixed; inset: 0; z-index: 2000; background: #fff; display: flex; align-items: center; justify-content: center; }
-.intro-white { position: absolute; inset: 0; z-index: 10; background: #fff; }
+.intro-white { position: absolute; inset: 0; z-index: 5; background: #fff; }
 /* // 2.1 SANTOO 按钮 (镂空效果) */
 .intro-santoo {
   position: relative; z-index: 30;
@@ -28,7 +28,7 @@ body {
 }
 .intro-santoo.is-hidden { opacity: 0 !important; pointer-events: none; } /* 新增状态 */
 
-.intro-video-wrap { position: absolute; inset: 0; z-index: 5; opacity: 0; background: #000; }
+.intro-video-wrap { position: absolute; inset: 0; z-index: 10; opacity: 0; background: #000; }
 .intro-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
 .intro-hero8k { position: absolute; inset: 0; z-index: 2; opacity: 0; background: url("assets/hero-8k.jpg") center/cover no-repeat; }
 
@@ -67,7 +67,25 @@ body {
 }
 
 /* // 5. 内容与 Logo 布局 */
-.logo { position: absolute; left: 30px; bottom: 30px; z-index: 500; font-size: 0.8rem; }
+.logo { 
+  position: absolute; 
+  left: 30px; 
+  bottom: 30px; 
+  z-index: 500; 
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center; /* 确保 Logo 与文字垂直居中 */
+}
+
+/* 新增：Logo SVG 的尺寸与滤镜控制 */
+.logo-svg-icon {
+  width: 18px;
+  height: 18px;
+  margin-left: 10px;
+  filter: brightness(0); /* 强制设为黑色，以匹配文字颜色 */
+  vertical-align: middle;
+}
+
 /* // 5. 内容文案：确保初始可见 */
 .content {
   position: absolute; 
@@ -157,14 +175,22 @@ body {
 /* MEMBER 页面专用背景图 (会覆盖默认图) */
 .structure-container.bg-member {
   background: url("assets/member-bg.jpg") center/cover no-repeat; 
-  /* 请确保你 assets 文件夹里有一张叫 member-bg.jpg 的图 */
-  filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
+  filter: grayscale(0.5); 
 }
 /* WORKS 页面专用背景图 (会覆盖默认图) */
 .structure-container.bg-works {
   background: url("assets/works-bg.jpg") center/cover no-repeat; 
-  /* 请确保你 assets 文件夹里有一张叫 works-bg.jpg 的图 */
-  filter: grayscale(0.5); /* 如果你想要稍微低调一点的灰色调，可以加滤镜，不需要则删除 */
+  filter: grayscale(0.5); 
+}
+/* PROJECT 页面专用背景图 (会覆盖默认图) */
+.structure-container.bg-project {
+  background: url("assets/project-bg.jpg") center/cover no-repeat; 
+  filter: grayscale(0.5); 
+}
+/* RESEARCH 页面专用背景图 (会覆盖默认图) */
+.structure-container.bg-research {
+  background: url("assets/research-bg.jpg") center/cover no-repeat; 
+  filter: grayscale(0.5); 
 }
 /* // 9. 页面切换过渡效果 */
 body {
@@ -175,4 +201,55 @@ body {
 /* 确保主页面在显示时背景是浅灰色，只有切换时才显露底部的黑色 */
 .page {
   background-color: #f7f7f7; 
+}
+
+/* // 10. 国际化底部信息栏样式 (新增) */
+.site-footer {
+  position: fixed;
+  bottom: 20px; /* 距离底部边距 */
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* 左右两端分布 */
+  padding: 0 30px; /* 与 Logo 保持一致的边距 */
+  font-family: 'Michroma', sans-serif;
+  font-size: 8px; /* 极细微字体展现机构质感 */
+  letter-spacing: 0.15em;
+  color: rgba(0, 0, 0, 0.4); /* 柔和的半透明灰色 */
+  text-transform: uppercase;
+  z-index: 150;
+  pointer-events: none; /* 穿透属性，防止遮挡背景交互 */
+}
+
+/* 恢复底部链接的可点击性 */
+.site-footer p, .site-footer a, .site-footer span {
+  pointer-events: auto;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #111;
+  border-bottom: 1px solid #111;
+}
+
+.page-meta-divider {
+  margin: 0 10px;
+  opacity: 0.3;
+}
+
+/* 针对手机等小屏幕的自动适配 */
+@media (max-width: 768px) {
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 0 20px;
+    bottom: 15px;
+  }
+  .page-meta-divider { display: none; } /* 移动端隐藏分隔符 */
 }
