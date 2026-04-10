@@ -3,21 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANTOO | Structural Studies</title>
+  <title>SANTOO | Member</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif:wght@400;600&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body { overflow: hidden; background: #000; }
+    .page { background-color: transparent !important; }
+
+    .structure-container.bg-member {
+      background: url("assets/member-bg.jpg") center/cover no-repeat;
+      filter: grayscale(0.5);
+    }
+
+    /* 右侧链接 */
+    .member-links-sidebar {
+      position: absolute;
+      top: 240px; 
+      right: 6vw; 
+      text-align: right;
+      z-index: 1000;
+    }
+
+    .member-trigger {
+      display: block;
+      font-family: "Michroma", sans-serif !important;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      color: #111;
+      margin-bottom: 20px;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+    .member-trigger:hover { opacity: 0.6; }
+
+    /* 模态框样式 */
+    .member-overlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px); opacity: 0; visibility: hidden;
+      transition: 0.4s; z-index: 1500;
+    }
+    .member-overlay.active { opacity: 1; visibility: visible; }
+
+    .member-detail-modal {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: min(820px, 88vw); background: rgba(255, 255, 255, 0.97);
+      padding: 60px 70px; box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+      opacity: 0; visibility: hidden; transition: 0.4s; z-index: 2000;
+      font-family: "Noto Serif", serif;
+      color: #111;
+      max-height: 90vh;
+      overflow-y: auto; /* 确保长文本可滚动 */
+    }
+    .member-detail-modal.active { opacity: 1; visibility: visible; }
+
+    /* 语言切换样式 */
+    .modal-lang {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      display: flex;
+      gap: 15px;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.65rem;
+    }
+    .modal-lang span {
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.3s;
+      padding-bottom: 2px;
+    }
+    .modal-lang span.active {
+      opacity: 1;
+      border-bottom: 1px solid #111;
+    }
+
+    .member-close {
+      position: absolute; top: 20px; right: 30px;
+      font-family: "Michroma", sans-serif; font-size: 0.65rem;
+      background: none; border: none; cursor: pointer; border-bottom: 1px solid #111;
+      color: #111;
+    }
+
+    .member-detail-modal h1 { font-size: 1.6rem; margin-bottom: 10px; font-family: "Noto Serif SC", serif; }
+    .member-detail-modal h2 { font-size: 1.1rem; margin-top: 25px; margin-bottom: 10px; }
+    .member-detail-modal .subtitle { font-size: 0.95rem; margin-bottom: 16px; color: #555; line-height: 1.5; }
+    .member-detail-modal .meta { font-size: 0.85rem; color: #666; margin-bottom: 15px; line-height: 1.6; }
+    .member-detail-modal .section-divider { width: 100%; height: 1px; background: rgba(0, 0, 0, 0.12); margin: 20px 0; }
+    .member-detail-modal p { font-size: 0.9rem; line-height: 1.9; margin-bottom: 10px; text-align: justify; }
+
+    .member-modal { display: none; }
+  </style>
 </head>
+
 <body>
   <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
 
-  <main class="page" id="mainPage" style="visibility: visible;">
+  <main class="page" id="mainPage" style="visibility: visible; opacity: 1;">
     <section class="hero">
-      <div class="structure-container has-hero8k bg-member"></div>
+      <div class="structure-container has-hero8k bg-member" id="structureContainer"></div>
+
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
-        <span class="logo-mark">⌇■</span>
       </div>
 
       <nav class="entry">
@@ -35,18 +127,105 @@
         <div class="nav-item-wrapper"><a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a></div>
       </nav>
 
-      <div class="content" id="systemLabel" style="opacity: 1;">
-        <h1 data-en="Member" data-zh="核心成员" data-ja="メンバー">Member</h1>
-        <p data-en="A multidisciplinary team of structural observers." 
-           data-zh="一个由跨学科结构观察者组成的团队。" 
-           data-ja="多角的な視点を持つ構造オブザーバーのチーム。">
-           A multidisciplinary team of structural observers.
-        </p>
+      <div class="member-links-sidebar">
+        <a href="#" class="member-trigger open-member-modal" data-en="PAN YAO" data-zh="潘遥" data-ja="潘遥">PAN YAO</a>
+        <a href="#" class="member-trigger" data-en="CHANG BIN" data-zh="常斌" data-ja="常斌">CHANG BIN</a>
       </div>
     </section>
   </main>
 
+  <div class="member-overlay" id="memberOverlay"></div>
+  
+  <div class="member-detail-modal" id="memberModal">
+    <div class="modal-lang">
+      <span onclick="switchModalLang('en')" id="modal-lang-en">EN</span>
+      <span onclick="switchModalLang('zh')" id="modal-lang-zh">中文</span>
+      <span onclick="switchModalLang('ja')" id="modal-lang-ja">日本語</span>
+    </div>
+
+    <button class="member-close" id="memberClose" data-en="BACK" data-zh="返回" data-ja="戻る">BACK</button>
+    
+    <h1 data-en="Member" data-zh="成员" data-ja="メンバー">Member</h1>
+    
+    <div class="subtitle" 
+         data-en="An independent structure built around long-term artistic and research practice." 
+         data-zh="一个围绕长期艺术实践与研究形成的独立结构。" 
+         data-ja="長期的な芸術実践と研究を基盤とした独立構造。">
+      An independent structure built around long-term artistic and research practice.
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="block">
+      <h2 data-en="Founder" data-zh="创始人" data-ja="創設者">Founder</h2>
+      
+      <div class="meta" 
+           data-en="Music distribution, copyright registration, and ongoing publication activities across multiple platforms." 
+           data-zh="音乐发行、版权登记及跨平台持续出版活动。" 
+           data-ja="音楽配信、著作権登録、複数プラットフォームでの継続的な出版活動。">
+        Music distribution, copyright registration, and ongoing publication activities across multiple platforms.
+      </div>
+      
+      <p style="font-weight: 600; font-family: 'Michroma'; letter-spacing: 0.1em;">Pan Yao</p>
+      
+      <p class="experience" 
+         data-en="Artist, writer, and independent researcher working across visual practice, narrative construction, and structural design." 
+         data-zh="艺术家、写作者、独立研究者，长期从事视觉创作、叙事构建与结构设计。" 
+         data-ja="ビジュアル制作・物語構築・構造設計に取り組むアーティスト／作家／独立研究者。">
+        Artist, writer, and independent researcher working across visual practice, narrative construction, and structural design.
+      </p>
+      
+      <p data-en="Over 20 years of continuous hands-on practice, including tattoo work, independent publishing, and cross-platform content production." 
+         data-zh="超过二十年的持续实践经验，涵盖纹身创作、独立出版与多平台内容生产。" 
+         data-ja="タトゥー制作、出版、複数プラットフォームでの制作を含む20年以上の実践経験。">
+        Over 20 years of continuous hands-on practice, including tattoo work, independent publishing, and cross-platform content production.
+      </p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="script.js"></script>
+
+  <script>
+    function switchModalLang(lang) {
+      if (typeof window.switchLang === 'function') {
+        window.switchLang(lang);
+      }
+      updateModalLangUI(lang);
+    }
+
+    function updateModalLangUI(lang) {
+      document.querySelectorAll('.modal-lang span').forEach(s => s.classList.remove('active'));
+      const activeBtn = document.getElementById(`modal-lang-${lang}`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("memberModal");
+      const overlay = document.getElementById("memberOverlay");
+      const closeBtn = document.getElementById("memberClose");
+      const openBtns = document.querySelectorAll(".open-member-modal");
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        const savedLang = localStorage.getItem('santoo-lang') || 'en';
+        updateModalLangUI(savedLang);
+        modal.classList.add("active");
+        overlay.classList.add("active");
+      }
+
+      function closeModal() {
+        modal.classList.remove("active");
+        overlay.classList.remove("active");
+      }
+
+      openBtns.forEach(btn => btn.addEventListener("click", openModal));
+      if(closeBtn) closeBtn.addEventListener("click", closeModal);
+      if(overlay) overlay.addEventListener("click", closeModal);
+
+      const currentLang = localStorage.getItem('santoo-lang') || 'en';
+      updateModalLangUI(currentLang);
+    });
+  </script>
 </body>
 </html>
