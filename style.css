@@ -253,3 +253,30 @@ body {
   }
   .page-meta-divider { display: none; } /* 移动端隐藏分隔符 */
 }
+.timeline {
+  margin-top: 10px;
+}
+
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.timeline-item .year {
+  color: #666;
+  width: 80px;
+}
+
+.timeline-item .event {
+  flex: 1;
+  text-align: right;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.timeline-item .event:hover {
+  opacity: 0.6;
+}
