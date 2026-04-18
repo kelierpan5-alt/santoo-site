@@ -3,58 +3,274 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANTOO | Structural Studies</title>
+  <title>SANTOO | Project</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet" />
 
-  <main class="page" id="mainPage" style="visibility: visible;">
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body { overflow: hidden; background: #000; }
+    .page { background-color: transparent !important; }
+
+    /* Sidebar */
+    .project-sidebar {
+      position: absolute;
+      top: 220px;
+      right: 6vw;
+      text-align: right;
+      z-index: 1000;
+    }
+
+    .project-year {
+      font-family: "Michroma", sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 15px;
+      color: #111;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .project-year:hover { opacity: 0.6; }
+
+    /* Overlay */
+    .project-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+      z-index: 1500;
+    }
+
+    .project-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal */
+    .project-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(860px, 90vw);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 60px 70px;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+      z-index: 2000;
+      font-family: "Noto Serif", serif;
+      color: #111;
+    }
+
+    .project-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .project-modal h1 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .project-modal h2 {
+      font-size: 1.1rem;
+      margin-top: 25px;
+    }
+
+    .project-modal p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .project-modal ul {
+      margin-left: 18px;
+      margin-bottom: 10px;
+    }
+
+    /* 修复 1：缩小点击范围。改为 inline-block 并配合 fit-content，使点击区域仅限文字本身 */
+    .project-item {
+      display: inline-block;
+      width: fit-content;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .project-item:hover { 
+      opacity: 0.6; 
+      border-bottom: 1px solid #111; 
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.12);
+      margin: 20px 0;
+    }
+
+    .project-footer {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 20px;
+    }
+
+/* 修复 2：模态框语言切换器（完全参照 member.html 风格） */
+    .modal-lang {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      display: flex;
+      gap: 15px;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.65rem;
+    }
+    .modal-lang span {
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.3s;
+      padding-bottom: 2px;
+    }
+    .modal-lang span.active {
+      opacity: 1;
+      border-bottom: 1px solid #111;
+    }
+
+    /* 修复 3：JUMP UP 按钮样式 */
+    .jump-up-btn {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 3000; /* 确保在模态框之上 */
+    }
+    .jump-up-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .jump-up-btn:hover {
+      background: #333;
+    }
+
+    /* 辅助：确保项目列表换行 */
+    .project-list-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn">← BACK</a>
+
+  <main class="page" id="mainPage" style="visibility: visible; opacity: 1;">
     <section class="hero">
       <div class="structure-container has-hero8k bg-project"></div>
 
+      <!-- Logo -->
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
         <span class="logo-mark">⌇■</span>
       </div>
-
+<div id="current-lang" style="position: absolute; top: 30px; right: 30px; font-family: 'Michroma', sans-serif; font-size: 0.75rem; cursor: pointer; z-index: 1000;" onclick="switchLang(localStorage.getItem('santoo-lang') === 'en' ? 'zh' : (localStorage.getItem('santoo-lang') === 'zh' ? 'ja' : 'en'))">LANGUAGE</div>
+      <!-- Navigation -->
       <nav class="entry">
-        <div class="nav-item-wrapper lang-dropdown">
-          <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
-          <div class="lang-content">
-            <span onclick="switchLang('en')">English</span>
-            <span onclick="switchLang('zh')">中文</span>
-            <span onclick="switchLang('ja')">日本語</span>
-          </div>
+        <div class="nav-item-wrapper">
+          <a href="member.html" class="nav-anchor">Member</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
+          <a href="project.html" class="nav-anchor">Project</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
+          <a href="research.html" class="nav-anchor">Research</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
-        </div>
-        <div class="nav-item-wrapper">
-          <a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
+          <a href="works.html" class="nav-anchor">Works</a>
         </div>
       </nav>
-      <div class="content" id="systemLabel" style="opacity: 1;">
-        <h1 data-en="Ongoing Projects" data-zh="在研项目" data-ja="進行中のプロジェクト">Ongoing Projects</h1>
-        <p data-en="Exploring the tension between material and form." 
-           data-zh="探索材料与形式之间的张力。" 
-           data-ja="材料と形態の間の緊張感を探求する。">
-           Exploring the tension between material and form.
-        </p>
+
+      <!-- Page Title -->
+      <div class="content" id="systemLabel">
+        <h1>Projects</h1>
+        <p>Structure-based artistic research and spatial investigations.</p>
+      </div>
+
+      <!-- Year Entry -->
+      <div class="project-sidebar">
+        <div class="project-year" id="openYearModal">2026–2027</div>
       </div>
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <!-- Overlay -->
+  <div class="project-overlay" id="projectOverlay"></div>
+
+  <!-- Year Modal -->
+  <div class="project-modal" id="yearModal">
+    <div class="modal-lang">
+      <span onclick="switchProjectModalLang('en')" id="proj-lang-en">EN</span>
+      <span onclick="switchProjectModalLang('zh')" id="proj-lang-zh">中文</span>
+      <span onclick="switchProjectModalLang('ja')" id="proj-lang-ja">日本語</span>
+    </div>
+    <button class="project-close" onclick="closeYearModal()">BACK</button>
+    
+    <h1 data-en="2026–2027" data-zh="2026–2027" data-ja="2026–2027">2026–2027</h1>
+    <div class="section-divider"></div>
+    <p data-en="Projects scheduled for release within this period:" 
+       data-zh="在此期间计划发布的项目：" 
+       data-ja="この期間に発表予定のプロジェクト：">
+       Projects scheduled for release within this period:
+    </p>
+
+    <div class="project-list-wrapper">
+      <div class="project-item" onclick="openProjectModal('asam')">
+        ASAM × NPF
+      </div>
+      </div>
+  </div>
+
+  <!-- Project Modal -->
+  <div class="project-modal" id="projectModal">
+    <div class="modal-lang">
+      <span onclick="switchProjectModalLang('en')" id="proj-detail-lang-en">EN</span>
+      <span onclick="switchProjectModalLang('zh')" id="proj-detail-lang-zh">中文</span>
+      <span onclick="switchProjectModalLang('ja')" id="proj-detail-lang-ja">日本語</span>
+    </div>
+    <button class="project-close" onclick="closeProjectModal()">BACK</button>
+    <div id="projectContent"></div>
+  </div>
+
+  <button class="jump-up-btn" id="jumpUpBtn" onclick="scrollToTop()">JUMP UP</button>
+  <!-- Scripts -->
   <script src="script.js"></script>
+
 </body>
 </html>
