@@ -128,14 +128,24 @@
       </nav>
 
       <div class="member-links-sidebar">
-        <a href="#" class="member-trigger open-member-modal" data-en="PAN YAO" data-zh="潘遥" data-ja="潘遥">PAN YAO</a>
+        <a href="#" class="member-trigger open-member-modal" data-en="PAN YAO" data-zh="潘垚" data-ja="潘垚">PAN YAO</a>
         <a href="#" class="member-trigger" data-en="CHANG BIN" data-zh="常斌" data-ja="常斌">CHANG BIN</a>
       </div>
     </section>
   </main>
 
   <div class="member-overlay" id="memberOverlay"></div>
-  
+  <!-- Evidence Overlay -->
+<div class="member-overlay" id="evidenceOverlay"></div>
+
+<!-- Evidence Modal -->
+<div class="member-detail-modal" id="evidenceModal">
+
+  <button class="member-close" onclick="closeEvidence()">BACK</button>
+
+  <div id="evidenceContent"></div>
+
+</div>
   <div class="member-detail-modal" id="memberModal">
     <div class="modal-lang">
       <span onclick="switchModalLang('en')" id="modal-lang-en">EN</span>
@@ -157,43 +167,159 @@
     <div class="section-divider"></div>
 
     <div class="block">
-      <h2 data-en="Founder" data-zh="创始人" data-ja="創設者">Founder</h2>
-      
-      <div class="meta" 
-           data-en="Music distribution, copyright registration, and ongoing publication activities across multiple platforms." 
-           data-zh="音乐发行、版权登记及跨平台持续出版活动。" 
-           data-ja="音楽配信、著作権登録、複数プラットフォームでの継続的な出版活動。">
-        Music distribution, copyright registration, and ongoing publication activities across multiple platforms.
-      </div>
-      
-      <p style="font-weight: 600; font-family: 'Michroma'; letter-spacing: 0.1em;">Pan Yao</p>
-      
-      <p class="experience" 
-         data-en="Artist, writer, and independent researcher working across visual practice, narrative construction, and structural design." 
-         data-zh="艺术家、写作者、独立研究者，长期从事视觉创作、叙事构建与结构设计。" 
-         data-ja="ビジュアル制作・物語構築・構造設計に取り組むアーティスト／作家／独立研究者。">
-        Artist, writer, and independent researcher working across visual practice, narrative construction, and structural design.
-      </p>
-      
-      <p data-en="Over 20 years of continuous hands-on practice, including tattoo work, independent publishing, and cross-platform content production." 
-         data-zh="超过二十年的持续实践经验，涵盖纹身创作、独立出版与多平台内容生产。" 
-         data-ja="タトゥー制作、出版、複数プラットフォームでの制作を含む20年以上の実践経験。">
-        Over 20 years of continuous hands-on practice, including tattoo work, independent publishing, and cross-platform content production.
-      </p>
-    </div>
+
+  <!-- NAME -->
+  <p style="font-weight: 600; font-family: 'Michroma'; letter-spacing: 0.1em;">
+    Pan Yao
+  </p>
+
+  <!-- SUMMARY -->
+  <p class="experience"
+     data-en="Artist, writer, and independent researcher with over 20 years of continuous practice across visual art, music, and writing."
+     data-zh="艺术家、写作者、独立研究者，拥有超过二十年的视觉艺术、音乐与写作持续实践。"
+     data-ja="ビジュアル・音楽・執筆において20年以上の継続的実践を行うアーティスト／作家／独立研究者。">
+    Artist, writer, and independent researcher with over 20 years of continuous practice across visual art, music, and writing.
+  </p>
+
+  <!-- FIELDS -->
+  <div class="meta"
+       data-en="Fields: Visual Art / Music Production / Writing / Structural Research"
+       data-zh="领域：视觉艺术 / 音乐制作 / 写作 / 结构研究"
+       data-ja="分野：ビジュアルアート / 音楽制作 / 執筆 / 構造研究">
+    Fields: Visual Art / Music Production / Writing / Structural Research
   </div>
+
+  <div class="section-divider"></div>
+
+  <!-- TIMELINE -->
+  <h2 data-en="Timeline" data-zh="时间轴" data-ja="年表">Timeline</h2>
+
+<div class="timeline">
+
+  <div class="timeline-item">
+    <span class="year">2026–</span>
+    <span class="event open-evidence"
+          data-target="evidence-music"
+          data-en="Music Distribution & Copyright System"
+          data-zh="音乐发行与版权系统"
+          data-ja="音楽配信および著作権システム">
+      Music Distribution & Copyright System
+    </span>
+  </div>
+
+  <div class="timeline-item">
+    <span class="year">2025</span>
+    <span class="event open-evidence"
+          data-target="evidence-paper"
+          data-en="Paper Republic (UK Publication)"
+          data-zh="Paper Republic（英国出版）"
+          data-ja="Paper Republic（英国出版）">
+      Paper Republic (UK Publication)
+    </span>
+  </div>
+
+  <div class="timeline-item">
+    <span class="year">2024–</span>
+    <span class="event open-evidence"
+          data-target="evidence-association"
+          data-en="Vice Chairman, Calligraphers Association"
+          data-zh="书法家协会副主席"
+          data-ja="書道家協会 副会長">
+      Vice Chairman, Calligraphers Association
+    </span>
+  </div>
+
+  <div class="timeline-item">
+    <span class="year">2023</span>
+    <span class="event open-evidence"
+          data-target="evidence-kyoto"
+          data-en="Kyoto International Exhibition (Award)"
+          data-zh="京都国际展览（获奖）"
+          data-ja="京都国際展覧会（受賞）">
+      Kyoto International Exhibition (Award)
+    </span>
+  </div>
+
+  <div class="timeline-item">
+    <span class="year">2022</span>
+    <span class="event open-evidence"
+          data-target="evidence-busan"
+          data-en="China–Korea Exhibition (Busan)"
+          data-zh="中韩交流展（釜山）"
+          data-ja="中韓交流展（釜山）">
+      China–Korea Exhibition (Busan)
+    </span>
+  </div>
+
+  <div class="timeline-item">
+    <span class="year">2020</span>
+    <span class="event open-evidence"
+          data-target="evidence-france"
+          data-en="China–France Abstract Exhibition"
+          data-zh="中法抽象艺术展"
+          data-ja="中仏抽象芸術展">
+      China–France Abstract Exhibition
+    </span>
+  </div>
+
+  <div class="timeline-item">
+    <span class="year">2000s–</span>
+    <span class="event open-evidence"
+          data-target="evidence-practice"
+          data-en="Long-term Visual & Tattoo Practice"
+          data-zh="长期视觉艺术与纹身实践"
+          data-ja="長期にわたるビジュアルおよびタトゥー実践">
+      Long-term Visual & Tattoo Practice
+    </span>
+  </div>
+
+</div>
+
+  <div class="section-divider"></div>
+
+  <!-- NOTE -->
+  <p style="font-size:0.75rem; color:#666;">
+    Full documentation and verification materials available upon request.
+  </p>
+
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="script.js"></script>
 
   <script>
+    // 独立的模态框文本更新函数，瞬间完成，无动画干扰
+    function updateModalTextSync(lang) {
+      const modal = document.getElementById("memberModal");
+      if (!modal) return;
+      
+      modal.querySelectorAll("[data-en]").forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+          // 【核心修复】使用 textContent 替代 innerText，确保在模态框隐藏时也能成功替换
+          el.textContent = text; 
+        }
+      });
+    }
+
+    // 模态框内部点击语言切换时触发
     function switchModalLang(lang) {
+      // 1. 同步保存语言状态
+      localStorage.setItem('santoo-lang', lang);
+      
+      // 2. 更新模态框内的按钮 UI 状态
+      updateModalLangUI(lang);
+      
+      // 3. 瞬间无延迟更新模态框文本（完美修复 Timeline 无法切换的问题）
+      updateModalTextSync(lang);
+      
+      // 4. 继续调用全局 switchLang 更新主页面背后的文本（带动画）
       if (typeof window.switchLang === 'function') {
         window.switchLang(lang);
       }
-      updateModalLangUI(lang);
     }
 
+    // 更新模态框语言按钮的高亮状态
     function updateModalLangUI(lang) {
       document.querySelectorAll('.modal-lang span').forEach(s => s.classList.remove('active'));
       const activeBtn = document.getElementById(`modal-lang-${lang}`);
@@ -209,7 +335,11 @@
       function openModal(e) {
         if (e) e.preventDefault();
         const savedLang = localStorage.getItem('santoo-lang') || 'en';
+        
+        // 打开模态框前，瞬间准备好对应语言文本，彻底抛弃带动画的全局方法
         updateModalLangUI(savedLang);
+        updateModalTextSync(savedLang);
+
         modal.classList.add("active");
         overlay.classList.add("active");
       }
@@ -223,8 +353,10 @@
       if(closeBtn) closeBtn.addEventListener("click", closeModal);
       if(overlay) overlay.addEventListener("click", closeModal);
 
+      // 页面初始加载时，同步一次模态框语言
       const currentLang = localStorage.getItem('santoo-lang') || 'en';
       updateModalLangUI(currentLang);
+      updateModalTextSync(currentLang);
     });
   </script>
 </body>
