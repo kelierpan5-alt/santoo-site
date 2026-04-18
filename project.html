@@ -189,43 +189,51 @@
 
 <body>
   <!-- Back Button -->
-  <a href="index.html" class="back-btn">← BACK</a>
+  <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
 
   <main class="page" id="mainPage" style="visibility: visible; opacity: 1;">
     <section class="hero">
-      <div class="structure-container has-hero8k bg-project"></div>
+      <div class="structure-container has-hero8k bg-project" id="structureContainer"></div>
 
-      <!-- Logo -->
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
         <span class="logo-mark">⌇■</span>
       </div>
-<div id="current-lang" style="position: absolute; top: 30px; right: 30px; font-family: 'Michroma', sans-serif; font-size: 0.75rem; cursor: pointer; z-index: 1000;" onclick="switchLang(localStorage.getItem('santoo-lang') === 'en' ? 'zh' : (localStorage.getItem('santoo-lang') === 'zh' ? 'ja' : 'en'))">LANGUAGE</div>
-      <!-- Navigation -->
+
       <nav class="entry">
-        <div class="nav-item-wrapper">
-          <a href="member.html" class="nav-anchor">Member</a>
+        <div class="nav-item-wrapper lang-dropdown">
+          <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
+          <div class="lang-content">
+            <span onclick="switchLang('en')">English</span>
+            <span onclick="switchLang('zh')">中文</span>
+            <span onclick="switchLang('ja')">日本語</span>
+          </div>
         </div>
         <div class="nav-item-wrapper">
-          <a href="project.html" class="nav-anchor">Project</a>
+          <a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="research.html" class="nav-anchor">Research</a>
+          <a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="works.html" class="nav-anchor">Works</a>
+          <a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
+        </div>
+        <div class="nav-item-wrapper">
+          <a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
         </div>
       </nav>
 
-      <!-- Page Title -->
       <div class="content" id="systemLabel">
-        <h1>Projects</h1>
-        <p>Structure-based artistic research and spatial investigations.</p>
+        <h1 data-en="Projects" data-zh="项目" data-ja="プロジェクト">Projects</h1>
+        <p data-en="Structure-based artistic research and spatial investigations." 
+           data-zh="基于结构的艺术研究与空间调查。" 
+           data-ja="構造に基づく芸術研究と空間調査。">
+           Structure-based artistic research and spatial investigations.
+        </p>
       </div>
 
-      <!-- Year Entry -->
       <div class="project-sidebar">
-        <div class="project-year" id="openYearModal">2026–2027</div>
+        <div class="project-year" onclick="openYearModal()">2026–2027</div>
       </div>
     </section>
   </main>
