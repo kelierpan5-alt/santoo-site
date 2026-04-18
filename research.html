@@ -3,24 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANTOO | Structural Studies</title>
+  <title>SANTOO | Research</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Main Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body { overflow: hidden; background: #000; }
+    .page { background-color: transparent !important; }
+
+    /* Sidebar Links */
+    .research-sidebar {
+      position: absolute;
+      top: 220px;
+      right: 6vw;
+      text-align: right;
+      z-index: 1000;
+    }
+
+    .research-trigger {
+      display: block;
+      font-family: "Michroma", sans-serif !important;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      color: #111;
+      margin-bottom: 18px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .research-trigger:hover {
+      opacity: 0.6;
+    }
+
+    /* Modal Overlay */
+    .research-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+      z-index: 1500;
+    }
+
+    .research-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal Window */
+    .research-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(900px, 90vw);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 60px 70px;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+      z-index: 2000;
+      font-family: "Noto Serif", serif;
+      color: #111;
+    }
+
+    .research-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .research-modal h1 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .research-modal h2 {
+      font-size: 1.1rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .research-modal p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    .research-modal ul {
+      margin-left: 18px;
+      margin-bottom: 10px;
+    }
+
+    .research-modal li {
+      margin-bottom: 6px;
+    }
+
+    .research-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.65rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 1px solid #111;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.12);
+      margin: 20px 0;
+    }
+
+    table.research-info {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    table.research-info td {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    table.research-info td:first-child {
+      font-weight: 600;
+      width: 35%;
+    }
+  </style>
 </head>
+
 <body>
-  <a href="index.html" class="back-btn" data-en="← BACK" data-zh="← 返回" data-ja="← 戻る">← BACK</a>
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn"
+     data-en="← BACK"
+     data-zh="← 返回"
+     data-ja="← 戻る">← BACK</a>
 
-  <main class="page" id="mainPage" style="visibility: visible;">
+  <!-- Main Page -->
+  <main class="page" id="mainPage" style="visibility: visible; opacity: 1;">
     <section class="hero">
-      <div class="structure-container has-hero8k bg-research"></div>
+      <div class="structure-container has-hero8k bg-research" id="structureContainer"></div>
 
+      <!-- Logo -->
       <div class="logo">
         <span class="logo-full">SANTOO / Structural Studies</span>
         <span class="logo-mark">⌇■</span>
       </div>
 
+      <!-- Navigation -->
       <nav class="entry">
         <div class="nav-item-wrapper lang-dropdown">
           <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
@@ -31,30 +177,198 @@
           </div>
         </div>
         <div class="nav-item-wrapper">
-          <a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
+          <a href="member.html" class="nav-anchor"
+             data-en="Member" data-zh="成员" data-ja="メンバー">Member</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
+          <a href="project.html" class="nav-anchor"
+             data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a>
+          <a href="research.html" class="nav-anchor"
+             data-en="Research" data-zh="研究" data-ja="研究">Research</a>
         </div>
         <div class="nav-item-wrapper">
-          <a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
+          <a href="works.html" class="nav-anchor"
+             data-en="Works" data-zh="作品集" data-ja="作品集">Works</a>
         </div>
       </nav>
-      <div class="content" id="systemLabel" style="opacity: 1;">
-        <h1 data-en="Research Studies" data-zh="研究课题" data-ja="研究課題">Research Studies</h1>
-        <p data-en="Theoretical frameworks for structural stability across fields." 
-           data-zh="跨领域结构稳定性的理论框架。" 
-           data-ja="領域を超えた構造的安定性のための理論的枠組み。">
-           Theoretical frameworks for structural stability across fields.
+
+      <!-- Page Title -->
+      <div class="content" id="systemLabel">
+        <h1 data-en="Research Studies"
+            data-zh="研究成果"
+            data-ja="研究成果">
+          Research Studies
+        </h1>
+        <p data-en="Theoretical and empirical investigations into structural stability across perceptual and cognitive systems."
+           data-zh="探索感知与认知系统中结构稳定性的理论与实证研究。"
+           data-ja="知覚および認知システムにおける構造的安定性の理論的・実証的研究。">
+          Theoretical and empirical investigations into structural stability across perceptual and cognitive systems.
         </p>
+      </div>
+
+      <!-- Research List -->
+      <div class="research-sidebar">
+        <a href="#" class="research-trigger open-research-modal"
+           data-research="against-persistence">
+          Against Persistence
+        </a>
+        <a href="#" class="research-trigger open-research-modal"
+           data-research="visual-stability-zenodo">
+          The Visual Stability Problem (2026)
+        </a>
+        <a href="#" class="research-trigger open-research-modal"
+           data-research="visual-stability-working">
+          The Visual Stability Problem (2025)
+        </a>
       </div>
     </section>
   </main>
 
+  <!-- Modal Overlay -->
+  <div class="research-overlay" id="researchOverlay"></div>
+
+  <!-- Research Modal -->
+  <div class="research-modal" id="researchModal">
+    <button class="research-close" id="researchClose">BACK</button>
+    <div id="researchContent"></div>
+  </div>
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="script.js"></script>
+
+  <script>
+    const researchData = {
+      "against-persistence": {
+        en: `
+          <h1>Against Persistence</h1>
+          <p><strong>Preprint / Working Paper — Santoo Institute for Structural Studies</strong></p>
+          <div class="section-divider"></div>
+
+          <table class="research-info">
+            <tr><td>Author</td><td>Pan Yao</td></tr>
+            <tr><td>Date</td><td>April 2026</td></tr>
+            <tr><td>Type</td><td>Conference Paper</td></tr>
+            <tr><td>Roles</td><td>Conceptualization; Writing – Review & Editing</td></tr>
+            <tr><td>Source Work ID</td><td>Santoo-ASAM-2026-01</td></tr>
+            <tr><td>Institution</td><td>Santoo Institute for Structural Studies</td></tr>
+            <tr><td>Status</td><td>Preprint</td></tr>
+          </table>
+
+          <h2>Abstract</h2>
+          <p>
+          A conceptual critique of persistence as a dominant paradigm in cognitive and behavioral discourse,
+          proposing a structural reinterpretation of adaptive stability within dynamic systems.
+          </p>
+        `,
+        zh: `
+          <h1>Against Persistence</h1>
+          <p><strong>预印本 / 工作论文 —— Santoo结构研究院</strong></p>
+          <p>对“坚持”作为认知与行为范式的概念性批判，并提出基于结构稳定性的替代解释。</p>
+        `,
+        ja: `
+          <h1>Against Persistence</h1>
+          <p><strong>プレプリント／ワーキングペーパー</strong></p>
+          <p>認知および行動における支配的概念である「持続」を批判的に再検討する研究。</p>
+        `
+      },
+
+      "visual-stability-zenodo": {
+        en: `
+          <h1>The Visual Stability Problem</h1>
+          <p><strong>Preprint — Zenodo</strong></p>
+          <div class="section-divider"></div>
+
+          <table class="research-info">
+            <tr><td>Author</td><td>Pan Yao</td></tr>
+            <tr><td>Date</td><td>April 12, 2026</td></tr>
+            <tr><td>Type</td><td>Preprint</td></tr>
+            <tr><td>DOI</td><td>10.5281/ZENODO.19543833</td></tr>
+            <tr><td>Repository</td><td>Zenodo</td></tr>
+            <tr><td>Status</td><td>Open Access</td></tr>
+          </table>
+
+          <h2>Abstract</h2>
+          <p>
+          This paper investigates how visual systems maintain stability in environments characterized
+          by density, heterogeneity, and functional layering, offering a theoretical foundation for
+          neurocognitive perception frameworks.
+          </p>
+        `,
+        zh: `
+          <h1>视觉稳定性问题</h1>
+          <p><strong>Zenodo 预印本</strong></p>
+          <p>研究视觉系统如何在复杂环境中维持稳定性，并提出神经认知感知框架。</p>
+        `,
+        ja: `
+          <h1>視覚的安定性の問題</h1>
+          <p><strong>Zenodo プレプリント</strong></p>
+          <p>複雑な視覚環境における知覚の安定性を探究する研究。</p>
+        `
+      },
+
+      "visual-stability-working": {
+        en: `
+          <h1>The Visual Stability Problem</h1>
+          <p><strong>Preprint / Working Paper — Santoo Institute for Structural Studies</strong></p>
+          <div class="section-divider"></div>
+
+          <table class="research-info">
+            <tr><td>Author</td><td>Pan Yao</td></tr>
+            <tr><td>Date</td><td>September 2025</td></tr>
+            <tr><td>Type</td><td>Journal Article (Working Paper)</td></tr>
+            <tr><td>Roles</td><td>Conceptualization; Writing – Original Draft; Review & Editing</td></tr>
+            <tr><td>Other ID</td><td>Santoo-NPF-2025-01</td></tr>
+            <tr><td>Institution</td><td>Santoo Institute for Structural Studies</td></tr>
+            <tr><td>Status</td><td>Working Paper</td></tr>
+          </table>
+
+          <h2>Abstract</h2>
+          <p>
+          An early theoretical formulation of the Neurocognitive Perception Framework (NPF),
+          establishing the conceptual foundation for subsequent research on structural perception
+          and cognitive stability.
+          </p>
+        `,
+        zh: `
+          <h1>视觉稳定性问题</h1>
+          <p><strong>Santoo结构研究院工作论文</strong></p>
+          <p>神经认知感知框架（NPF）的早期理论奠基研究。</p>
+        `,
+        ja: `
+          <h1>視覚的安定性の問題</h1>
+          <p><strong>ワーキングペーパー</strong></p>
+          <p>神経認知知覚フレームワークの理論的基盤。</p>
+        `
+      }
+    };
+
+    const modal = document.getElementById("researchModal");
+    const overlay = document.getElementById("researchOverlay");
+    const content = document.getElementById("researchContent");
+
+    document.querySelectorAll(".open-research-modal").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        const key = btn.dataset.research;
+        const lang = localStorage.getItem("santoo-lang") || "en";
+        content.innerHTML = researchData[key][lang];
+        modal.classList.add("active");
+        overlay.classList.add("active");
+      });
+    });
+
+    document.getElementById("researchClose").addEventListener("click", () => {
+      modal.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      modal.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+  </script>
 </body>
 </html>
