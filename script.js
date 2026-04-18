@@ -427,22 +427,25 @@ window.addEventListener("load", () => {
 // 9. 项目模态框交互逻辑
 // ===============================
 
-// 打开年份选择模态框
-if (openYearBtn) {
-  openYearBtn.onclick = () => {
-    const savedLang = localStorage.getItem('santoo-lang') || 'en';
+// 暴露给 HTML onclick 使用的全局函数：打开年份模态框
+window.openYearModal = function() {
+  const savedLang = localStorage.getItem('santoo-lang') || 'en';
+  // 同步更新模态框内部语言按钮的样式
+  if (typeof updateModalLangUI === 'function') {
     updateModalLangUI(savedLang);
-    yearModal.classList.add("active");
-    projectOverlay.classList.add("active");
-  };
-}
+  }
+  // 确保全局变量有效后触发 CSS 类
+  if (yearModal) yearModal.classList.add("active");
+  if (projectOverlay) projectOverlay.classList.add("active");
+};
 
-// 暴露给 HTML onclick 使用的全局函数
+// 暴露给 HTML onclick 使用的全局函数：关闭年份模态框
 window.closeYearModal = function() {
   if (yearModal) yearModal.classList.remove("active");
   if (projectOverlay) projectOverlay.classList.remove("active");
 };
 
+// 👇 以下必须保留，用于打开具体的项目详情（如 ASAM × NPF）
 window.openProjectModal = function(key) {
   currentProjectKey = key;
   const savedLang = localStorage.getItem('santoo-lang') || 'en';
@@ -455,6 +458,7 @@ window.openProjectModal = function(key) {
   if (projectModal) projectModal.scrollTo(0, 0);
 };
 
+// 👇 以下必须保留，用于关闭具体的项目详情
 window.closeProjectModal = function() {
   if (projectModal) projectModal.classList.remove("active");
   if (projectOverlay) projectOverlay.classList.remove("active");
