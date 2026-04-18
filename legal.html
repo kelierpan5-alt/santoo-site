@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SANTOO | Legal & Privacy</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Serif:wght@400;600&family=Noto+Serif+JP:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* =====================================================
+       LEGAL MODAL – NON-SCROLLING ACADEMIC LAYOUT
+       ===================================================== */
+
+    body.legal-page {
+      overflow: hidden;
+      height: 100vh;
+      background: #000;
+    }
+
+    /* Background */
+    .legal-background {
+      position: fixed;
+      inset: 0;
+      background: url("assets/hero-8k.jpg") center/cover no-repeat;
+      filter: grayscale(0.4) brightness(0.5);
+      z-index: 1;
+    }
+
+    /* Floating Modal */
+    .legal-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(1000px, 90vw);/* 宽度调节 */
+      height: min(90vh, 950px); /* 高度调节 */
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+      padding: 60px 70px;
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .legal-modal::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    /* Close Button */
+    .legal-close {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.6rem;/* 字号调整 */
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      color: #111;
+      text-transform: uppercase;
+      border-bottom: 1px solid #111;
+    }
+
+    /* Language Switcher */
+    .legal-lang {
+      position: absolute;
+      top: 25px;
+      left: 30px;
+      font-family: "Michroma", sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .legal-lang span {
+      margin-right: 12px;
+      opacity: 0.5;
+    }
+
+    .legal-lang span.active {
+      opacity: 1;
+      border-bottom: 1px solid #111;
+    }
+
+    /* Academic Typography */
+    .legal-content {
+      font-family: "Noto Serif", "Noto Serif SC", "Noto Serif JP", serif;
+      color: #111;
+      text-align: justify;
+      line-height: 1.9;
+    }
+
+    .legal-content h1 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .legal-content h2 {
+      font-size: 0.95rem;
+      text-align: center;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .legal-content .doi {
+      text-align: center;
+      font-size: 0.75rem;
+      margin-bottom: 20px;
+      letter-spacing: 0.08em;
+    }
+
+    .legal-content .meta {
+      text-align: center;
+      font-size: 0.75rem;
+      margin-bottom: 30px;
+    }
+
+    .legal-content h3 {
+      font-size: 0.9rem;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .legal-content p {
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .legal-modal {
+        padding: 40px 30px;
+        height: 85vh;
+      }
+    }
+  </style>
+</head>
+
+<body class="legal-page">
+  <!-- Background -->
+  <div class="legal-background"></div>
+
+  <!-- Floating Legal Modal -->
+  <div class="legal-modal">
+    <div class="legal-lang">
+      <span onclick="setLang('en')" id="lang-en" class="active">EN</span>
+      <span onclick="setLang('zh')" id="lang-zh">中文</span>
+      <span onclick="setLang('ja')" id="lang-ja">日本語</span>
+    </div>
+
+    <a href="#" class="legal-close" onclick="window.location.href='index.html?skip=1'; return false;">BACK</a>
+
+    <div class="legal-content">
+      <h1 data-en="LEGAL & PRIVACY" data-zh="法律与隐私" data-ja="法務およびプライバシー">LEGAL & PRIVACY</h1>
+      <h2 data-en="Santoo Institute for Structural Studies"
+          data-zh="Santoo 结构研究所"
+          data-ja="Santoo 構造研究所">
+          Santoo Institute for Structural Studies
+      </h2>
+
+      <div class="doi"
+           data-en="DOI: SANTOO-LP-2026-01"
+           data-zh="DOI：SANTOO-LP-2026-01"
+           data-ja="DOI：SANTOO-LP-2026-01">
+           DOI: SANTOO-LP-2026-01
+      </div>
+
+      <div class="meta"
+           data-en="Effective Date: January 1, 2026"
+           data-zh="生效日期：2026年1月1日"
+           data-ja="施行日：2026年1月1日">
+           Effective Date: January 1, 2026
+      </div>
+
+      <h3 data-en="1. Institutional Identity"
+          data-zh="1. 机构身份"
+          data-ja="1. 機関の概要">1. Institutional Identity</h3>
+      <p data-en="Santoo Institute for Structural Studies (\"SANTOO\") is an independent research institution dedicated to the study of structural stability across disciplines."
+         data-zh="Santoo结构研究所（SANTOO）是一个致力于跨学科结构稳定性研究的独立学术机构。"
+         data-ja="Santoo構造研究所（SANTOO）は、学際的な構造安定性の研究に専念する独立した学術機関です。">
+         Santoo Institute for Structural Studies ("SANTOO") is an independent research institution dedicated to the study of structural stability across disciplines.
+      </p>
+
+      <h3 data-en="2. Intellectual Property Rights"
+          data-zh="2. 知识产权"
+          data-ja="2. 知的財産権">2. Intellectual Property Rights</h3>
+      <p data-en="All materials on this website are the intellectual property of SANTOO and are protected under international copyright laws."
+         data-zh="本网站的所有内容均为SANTOO所有，并受国际版权法保护。"
+         data-ja="本ウェブサイトのすべての資料はSANTOOの知的財産であり、国際著作権法によって保護されています。">
+         All materials on this website are the intellectual property of SANTOO and are protected under international copyright laws.
+      </p>
+
+      <h3 data-en="3. Acceptable Use"
+          data-zh="3. 合理使用"
+          data-ja="3. 適切な利用">3. Acceptable Use</h3>
+      <p data-en="Users agree to access this website solely for lawful academic and informational purposes."
+         data-zh="用户仅可出于合法的学术与信息目的访问本网站。"
+         data-ja="利用者は、本ウェブサイトを合法的な学術および情報目的のみに使用することに同意するものとします。">
+         Users agree to access this website solely for lawful academic and informational purposes.
+      </p>
+
+      <h3 data-en="4. Privacy and Data Protection"
+          data-zh="4. 隐私与数据保护"
+          data-ja="4. プライバシーとデータ保護">4. Privacy and Data Protection</h3>
+      <p data-en="SANTOO collects only limited, non-personal data to enhance user experience and does not sell or distribute personal information."
+         data-zh="SANTOO仅收集有限的非个人数据以优化用户体验，不会出售或分发个人信息。"
+         data-ja="SANTOOはユーザー体験向上のために限定的な非個人データのみを収集し、個人情報を販売または共有することはありません。">
+         SANTOO collects only limited, non-personal data to enhance user experience and does not sell or distribute personal information.
+      </p>
+
+      <h3 data-en="5. International Compliance"
+          data-zh="5. 国际合规"
+          data-ja="5. 国際コンプライアンス">5. International Compliance</h3>
+      <p data-en="The Institute endeavors to comply with internationally recognized data protection standards, including GDPR and applicable regulations."
+         data-zh="本机构致力于遵守国际数据保护标准，包括GDPR及相关法规。"
+         data-ja="当研究所はGDPRを含む国際的なデータ保護基準の遵守に努めます。">
+         The Institute endeavors to comply with internationally recognized data protection standards, including GDPR and applicable regulations.
+      </p>
+
+      <h3 data-en="6. Policy Revisions"
+          data-zh="6. 政策修订"
+          data-ja="6. ポリシーの改訂">6. Policy Revisions</h3>
+      <p data-en="SANTOO reserves the right to amend this Legal and Privacy Policy at any time."
+         data-zh="SANTOO保留随时修订本法律与隐私政策的权利。"
+         data-ja="SANTOOは本法務およびプライバシーポリシーを随時改訂する権利を有します。">
+         SANTOO reserves the right to amend this Legal and Privacy Policy at any time.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.innerText = el.getAttribute(`data-${lang}`);
+      });
+
+      document.querySelectorAll('.legal-lang span').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.getElementById(`lang-${lang}`).classList.add('active');
+    }
+  </script>
+</body>
+</html>
