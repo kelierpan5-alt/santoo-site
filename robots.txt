@@ -1,0 +1,17 @@
+User-agent: *
+# 允许抓取所有 HTML 页面，确保论文简介和 DOI 被索引
+Allow: /
+
+# 核心策略：禁止爬虫进入资源文件夹
+# 这样 AI 只会读取您的文字逻辑，而不会下载 4K 底图和视频资源
+Disallow: /assets/
+
+# 禁止抓取样式表和脚本（爬虫不需要看这些，省流量）
+Disallow: /css/
+Disallow: /js/
+
+# 设置抓取延迟，防止爬虫抓取过快占用带宽
+Crawl-delay: 5
+
+# 您的站点地图地址
+Sitemap: https://santoo.org/sitemap.xml
