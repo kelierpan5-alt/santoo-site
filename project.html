@@ -152,6 +152,21 @@
       border-bottom: 1px solid #111;
     }
 
+/* 修复：Project 模态框的 BACK 按钮样式，与 Member 保持一致 */
+    .project-close {
+      position: absolute; 
+      top: 20px; 
+      right: 30px;
+      font-family: "Michroma", sans-serif; 
+      font-size: 0.65rem;
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      border-bottom: 1px solid #111;
+      color: #111;
+      padding: 0;
+    }
+
     /* 修复 3：JUMP UP 按钮样式 */
     .jump-up-btn {
       position: fixed;
@@ -275,7 +290,12 @@
     <button class="project-close" onclick="closeProjectModal()">BACK</button>
     <div id="projectContent"></div>
   </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+  <script src="script.js"></script>
 
+</body>
+</html>
   <button class="jump-up-btn" id="jumpUpBtn" onclick="scrollToTop()">JUMP UP</button>
   <!-- Scripts -->
   <script src="script.js"></script>
