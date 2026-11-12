@@ -8,6 +8,10 @@
       const value = node.dataset[lang] || node.dataset.en;
       if (value && node.textContent !== value) node.textContent = value;
     });
+    document.querySelectorAll('[data-alt-en]').forEach(image => {
+      const value = image.getAttribute('data-alt-' + lang) || image.getAttribute('data-alt-en');
+      if (image.alt !== value) image.alt = value;
+    });
     const musicLinks = {en:'https://music.apple.com/us/artist/clrpan/1839608535',zh:'https://music.apple.com/cn/artist/clrpan/1839608535',ja:'https://music.apple.com/jp/artist/clrpan/1839608535'};
     const musicLabels = {en:'Listen to Clrpan on Apple Music ↗',zh:'前往 Apple Music 聆聽 Clrpan ↗',ja:'Apple MusicでClrpanを聴く ↗'};
     document.querySelectorAll('[data-music-store]').forEach(link => {

@@ -36,6 +36,7 @@
   };
   const language = () => document.documentElement.lang.startsWith("zh") ? "zh" : document.documentElement.lang.startsWith("ja") ? "ja" : "en";
   const text = () => copy[language()];
+  const isChang = document.body.dataset.artist === "chang-bin";
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const images = [...document.querySelectorAll(".artwork-card > img")];
   images.forEach((image) => {
@@ -98,8 +99,15 @@
     const c = text();
     document.querySelectorAll("[data-copy]").forEach((node) => {
       if (node.dataset.copy === 'heading') {
+        if (isChang) {
+          const active = document.querySelector('[data-chang-filter][aria-pressed="true"] [data-l10n]');
+          node.textContent = active?.dataset[language()] || c.heading;
+          return;
+        }
         const series=document.querySelector('[data-art-filter][aria-pressed="true"]')?.dataset.artFilter;
         node.textContent=series==='ming'?({en:'Ming Series',zh:'明系列',ja:'明シリーズ'})[language()]:series==='early'?({en:'Early Studies',zh:"早期習作",ja:'初期習作'})[language()]:c.heading;
+      } else if (isChang && node.dataset.copy === 'eyebrow') {
+        node.textContent = {en:'CHANG BIN / PAINTING',zh:'常斌 / 繪畫',ja:'常斌 / 絵画'}[language()];
       } else if (c[node.dataset.copy]) node.textContent = c[node.dataset.copy];
     });
     document.querySelectorAll(".artwork-media").forEach((button) => button.setAttribute("aria-label", c.open + (button.querySelector("img")?.alt || "")));
@@ -119,9 +127,14 @@
     if (language() === "zh") metadata = metadata.replace("Mixed media on canvas", "布面综合材料");
     if (language() === "ja") metadata = metadata.replace("Mixed media on canvas", "キャンバスにミクストメディア");
     inspector.querySelector(".inspector-metadata").textContent = metadata;
+    inspector.querySelector(".inspector-artist").textContent = isChang ? "CHANG BIN / 常斌" : "PAN YAO / 潘垚";
     const series = currentCard.dataset.series || (currentCard.closest(".ming-series") ? "ming" : currentCard.closest(".transition-abstraction") ? "transition" : "");
-    const description = series ? c[series] : currentCard.closest(".section-body")?.querySelector("p:not(.lead)")?.textContent.trim();
-    inspector.querySelector(".inspector-text").textContent = description || "";
+    const description = isChang ? {
+      en:'Chang Bin’s abstract painting explores the relationship between the individual and systems through color, material, and divided compositions.',
+      zh:'常斌的抽象繪畫透過色彩、物質與分割構圖，探索個體與系統之間的關係。',
+      ja:'常斌の抽象絵画は、色彩、物質、分割された構図を通して、個体とシステムの関係を探る。'
+    }[language()] : series ? c[series] : currentCard.closest(".section-body")?.querySelector("p:not(.lead)")?.textContent.trim();
+    inspector.querySelector(".inspector-text").textContent = currentCard.getAttribute(`data-description-${language()}`) || description || "";
   }
 
   function renderDetail() {

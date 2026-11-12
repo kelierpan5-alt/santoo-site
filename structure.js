@@ -7,6 +7,7 @@
   const routeBackgrounds = {
     "works.html": "assets/works-bg.jpg",
     "works-gallery.html": "assets/works-bg.jpg",
+    "chang-bin-works.html": "assets/works-bg.jpg",
     "exhibitions.html": "assets/project-bg.jpg",
     "index_pc.html": "assets/hero-8k.jpg",
     "about.html": "assets/member-bg.jpg",
@@ -455,6 +456,7 @@
     "A cumulative method moving from attention dynamics to studio operation, methodological synthesis, and practical application: Attention → Method → Synthesis → Application.": { zh: "從注意動力學遞進至工作室操作、方法綜合與實踐應用的累積方法：注意 → 方法 → 綜合 → 應用。", ja: "注意の動態からスタジオ運用、方法論的統合、実践的応用へ進む累積的方法：注意 → 方法 → 統合 → 応用。" }
   });
   const directoryLabels = {
+    "Pan Yao": ["潘垚", "潘垚"], "Chang Bin": ["常斌", "常斌"],
     "Selected Exhibitions": ["精選展覽", "主な展覧会"], "Art Projects": ["藝術項目", "芸術プロジェクト"],
     "Japan / Collaboration": ["日本合作計劃", "日本での協働計画"],
     "Exhibitions & Activities": ["展覽與活動", "展覧会と活動"],
@@ -976,6 +978,7 @@
         overlay.hidden = false;
         body.classList.add("modal-open");
         closeButton.focus();
+        window.dispatchEvent(new CustomEvent('santoo:section-open', {detail:{id:section.id, content:dialogContent}}));
       });
       directory.appendChild(trigger);
     });
