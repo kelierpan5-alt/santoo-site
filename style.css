@@ -280,3 +280,78 @@ body {
 .timeline-item .event:hover {
   opacity: 0.6;
 }
+
+/* ============================================================
+   SANTOO 附加修复补丁 - 粘贴在 style.css 最底部
+   ============================================================ */
+
+/* 1. PC端：防止文字随窗口缩小而挤压碰撞 */
+@media (min-width: 769px) {
+  body {
+    /* 强制锁定最小宽度，窗口再小，网页也不再收缩 */
+    min-width: 1200px !important; 
+    overflow-x: auto !important; 
+    overflow-y: hidden !important;
+  }
+  
+  /* 将右侧偏移从比例(vw)改为固定像素(px)，这样文字就会“停”在原地 */
+  .entry {
+    right: 80px !important; 
+  }
+  .content {
+    right: 80px !important;
+  }
+  .logo {
+    left: 80px !important;
+  }
+  .site-footer {
+    padding: 0 80px !important;
+  }
+}
+
+/* 2. 手机端：设计另一套纵向排列的逻辑 */
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+    height: auto !important;
+    min-width: 100% !important;
+    overflow-y: auto !important; /* 手机端允许上下滑动 */
+    overflow-x: hidden !important;
+  }
+
+  /* 核心：把所有绝对定位(飞在空中的)改为标准流(落回地面) */
+  .main-page {
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px !important;
+  }
+
+  .logo, .entry, .content, .site-footer {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    margin-bottom: 50px; /* 给每个块之间留出间距 */
+  }
+
+  /* 手机端导航项改为横向横排或垂直排，这里建议垂直，防止名字太长 */
+  .entry {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .content h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 !important;
+  }
+}

@@ -1,0 +1,112 @@
+/* Six clear routes; retain SANTOO's established scene, typography and restraint. */
+body[data-page="practice"] { --page-bg: url("assets/works-bg.jpg"); }
+body[data-page="works"] { --page-bg: url("assets/works-bg.jpg"); }
+.immersive-directory-item { text-decoration:none; }
+body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
+.site-nav { grid-template-columns: repeat(6, minmax(0,1fr)); }
+.site-nav > a, .home-nav > a { width: auto !important; flex-basis: auto !important; }
+.site-nav > .language-menu, .home-nav > .language-menu { width:auto !important; flex-basis:auto !important; }
+.site-utility { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); z-index:65; color:#6d6d66; font:7px/1.6 "Michroma",sans-serif; white-space:nowrap; text-shadow:0 0 5px #fff; }
+.site-utility a { text-decoration:none; }
+.record-note { color:#77776f; font-size:12px !important; }
+.project-copy .project-focus { margin:6px 0 24px; font-size:16px; font-weight:500; line-height:1.65; }
+.project-copy > p:not(.lead):not(.record-note) { max-width:700px; line-height:1.9; }
+.project-record { max-width:700px; margin:26px 0; padding:18px 0; border-top:1px solid rgba(17,17,17,.18); border-bottom:1px solid rgba(17,17,17,.18); }
+.project-record h4 { margin:0 0 12px; font-size:12px; font-weight:500; color:#77776f; }
+.project-record p { margin:0 0 14px; font-size:13px; line-height:1.85; }
+.project-record a { font-size:12px; text-underline-offset:4px; }
+.activity-heading { margin:36px 0 18px; font-size:14px; font-weight:500; line-height:1.6; }
+.activity-updates a { font-size:12px; text-underline-offset:4px; }
+.section-body .evidence-source { margin:8px 0 0; color:#77776f; font-size:11px; line-height:1.7; }
+.record .record-source { margin-top:10px; font-size:11px; }
+.section-actions { display:flex; gap:20px; flex-wrap:wrap; }
+.plain-links { display:flex; flex-direction:column; gap:22px; padding-top:8px; font-size:13px; }
+.plain-links a { text-underline-offset:5px; }
+.contact-email { font-size:clamp(20px,3vw,34px); text-decoration:none; }
+.gallery-filters { display:flex; gap:26px; margin-top:24px; }
+.gallery-filters button { padding:5px 0; border:0; border-bottom:1px solid transparent; color:#85857d; background:transparent; font:10px/1.7 "Noto Sans",sans-serif; cursor:pointer; }
+.gallery-filters button[aria-pressed="true"] { color:#111; border-bottom-color:#111; }
+.artwork-card[hidden] { display:none !important; }
+.artwork-gallery-page .artwork-grid { margin-top:24px; }
+.gallery-edition > [data-gallery-years], .gallery-edition > [data-gallery-count] { padding:0; color:inherit; }
+@media(min-width:981px) {
+  .immersive-page .site-nav, .home-nav { width:min(850px,calc(100vw - 180px)); }
+}
+@media(max-width:980px) {
+  .immersive-page .site-nav { width:210px; }
+}
+@media(max-width:820px) {
+  .home-nav { width:100%; align-items:start; }
+  .home-nav > .language-menu { justify-content:flex-start; }
+  .home-nav .language-options { right:auto; left:0; z-index:6; }
+  .immersive-page .brand { max-width:48vw; font-size:8px; }
+  .site-utility { left:auto; right:20px; bottom:19px; transform:none; font-size:6px; }
+  .gallery-filters { gap:24px; }
+}
+@media(max-width:640px) {
+  .gallery-filters { gap:20px; margin-top:19px; }
+  .gallery-filters button { font-size:10px; }
+  .gallery-footer { flex-wrap:wrap; }
+}
+
+/* Literature introduction: a short text beside the original edition cover. */
+.book-feature { display:grid; grid-template-columns:minmax(0,1fr) 196px; gap:64px; align-items:center; }
+.book-feature-copy { min-width:0; }
+.book-feature-title { margin:0 0 22px; font-family:"Noto Serif",serif; font-size:clamp(22px,2.5vw,30px); line-height:1.5; font-weight:400; }
+.book-feature-summary { margin:0 0 30px; max-width:440px; line-height:1.95; }
+.book-feature-links { display:flex; flex-direction:column; align-items:flex-start; gap:18px; font-size:13px; line-height:1.8; }
+.book-feature-links a { text-underline-offset:5px; }
+.book-feature-cover { margin:0; }
+.book-feature-cover img { display:block; width:100%; height:auto; }
+@media(max-width:640px) {
+  .book-feature { grid-template-columns:minmax(0,1fr); gap:32px; align-items:start; }
+  .book-feature-title { font-size:24px; }
+  .book-feature-cover { width:156px; justify-self:end; }
+}
+
+/* Preserve the artist-provided analytics screenshot and its original aspect ratio. */
+.sound-feature { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:48px; align-items:center; }
+.sound-feature-copy { min-width:0; }
+.sound-feature-copy > :first-child { margin-top:0; }
+.sound-feature-copy > :last-child { margin-bottom:0; }
+.sound-reach { margin:0; }
+.sound-reach img { display:block; width:100%; height:auto; cursor:default; filter:grayscale(1); transition:filter .35s ease; }
+.sound-reach img:hover { filter:grayscale(0); }
+@media(prefers-reduced-motion:reduce) { .sound-reach img { transition:none; } }
+.sound-reach figcaption { margin-top:12px; color:#6d6d66; font-size:11px; line-height:1.8; }
+.sound-reach figcaption span { display:block; }
+.sound-reach-source { margin-top:4px; font-size:10px; }
+@media(max-width:640px) {
+  .sound-feature { grid-template-columns:minmax(0,1fr); gap:30px; }
+  .sound-reach { width:min(100%,280px); justify-self:end; }
+}
+
+/* Emphasize page categories while preserving the quiet primary navigation. */
+.immersive-directory-primary {
+  display:inline-block;
+  color:#111;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.5;
+  letter-spacing:.06em;
+  -webkit-text-fill-color:currentColor;
+  -webkit-text-stroke:.15px transparent;
+  transform:scale(1);
+  transform-origin:right center;
+  transition:color .6s ease, -webkit-text-fill-color .6s ease, -webkit-text-stroke .6s ease, transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.immersive-directory-item { padding:10px 0; }
+.immersive-directory-item:hover .immersive-directory-primary,
+.immersive-directory-item:focus-visible .immersive-directory-primary {
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  font-synthesis:none;
+  -webkit-text-stroke:.15px #111;
+  text-shadow:none;
+  transform:scale(1.2);
+}
+:lang(zh) .immersive-directory-primary,
+:lang(ja) .immersive-directory-primary { font-size:14px; }
+@media(prefers-reduced-motion:reduce) {
+  .immersive-directory-primary { transition:none; }
+}

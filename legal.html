@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script src="locale.js?v=20261112-1"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SANTOO | Legal & Privacy</title>
+  <meta name="description" content="Legal, authorship, acceptable use, and privacy information for the SANTOO website operated by Pan Yao." />
+  <link rel="canonical" href="https://santoo.org/legal.html" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Serif:wght@400;600&family=Noto+Serif+JP:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Serif:wght@400;600&family=Noto+Serif+JP:wght@400;600&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- Main Styles -->
   <link rel="stylesheet" href="style.css" />
@@ -91,7 +94,7 @@
 
     /* Academic Typography */
     .legal-content {
-      font-family: "Noto Serif", "Noto Serif SC", "Noto Serif JP", serif;
+      font-family: "Noto Serif", "Noto Serif TC", "Noto Serif JP", serif;
       color: #111;
       text-align: justify;
       line-height: 1.9;
@@ -142,112 +145,15 @@
         height: 85vh;
       }
     }
+
+    .legal-modal, .legal-background { transition: opacity 0.8s ease; }
+    body.is-route-leaving .legal-modal,
+    body.is-route-leaving .legal-background { opacity: 0; pointer-events: none; }
+    .route-transition { position: fixed; inset: -5%; z-index: 3000; opacity: 0; pointer-events: none; background-color: #111; background-image: var(--transition-bg); background-position: 62% 50%; background-repeat: no-repeat; background-size: cover; filter: grayscale(1) contrast(1.04); transform: scale(1.13) translate3d(4%, 0, 0); will-change: opacity, transform, background-position; }
+    .route-transition::after { content: ""; position: absolute; inset: 0; background: rgba(17, 17, 17, 0.08); }
+    .route-transition.is-active { opacity: 1; background-position: 42% 50%; transform: scale(1.04) translate3d(-2%, 0, 0); transition: opacity 0.55s ease, transform 3s cubic-bezier(0.22, 0.61, 0.36, 1), background-position 3s cubic-bezier(0.22, 0.61, 0.36, 1); }
+    .route-transition.is-arrival { opacity: 1; background-position: 42% 50%; transform: scale(1.04) translate3d(-2%, 0, 0); }
+    .route-transition.is-releasing { opacity: 0; transition: opacity 0.9s ease; }
+    @media (prefers-reduced-motion: reduce) { .legal-modal, .legal-background, .route-transition { transition: none !important; } }
   </style>
-</head>
-
-<body class="legal-page">
-  <!-- Background -->
-  <div class="legal-background"></div>
-
-  <!-- Floating Legal Modal -->
-  <div class="legal-modal">
-    <div class="legal-lang">
-      <span onclick="setLang('en')" id="lang-en" class="active">EN</span>
-      <span onclick="setLang('zh')" id="lang-zh">中文</span>
-      <span onclick="setLang('ja')" id="lang-ja">日本語</span>
-    </div>
-
-    <a href="#" class="legal-close" onclick="window.location.href='index.html?skip=1'; return false;">BACK</a>
-
-    <div class="legal-content">
-      <h1 data-en="LEGAL & PRIVACY" data-zh="法律与隐私" data-ja="法務およびプライバシー">LEGAL & PRIVACY</h1>
-      <h2 data-en="Santoo Institute for Structural Studies"
-          data-zh="Santoo 结构研究所"
-          data-ja="Santoo 構造研究所">
-          Santoo Institute for Structural Studies
-      </h2>
-
-      <div class="doi"
-           data-en="DOI: SANTOO-LP-2026-01"
-           data-zh="DOI：SANTOO-LP-2026-01"
-           data-ja="DOI：SANTOO-LP-2026-01">
-           DOI: SANTOO-LP-2026-01
-      </div>
-
-      <div class="meta"
-           data-en="Effective Date: January 1, 2026"
-           data-zh="生效日期：2026年1月1日"
-           data-ja="施行日：2026年1月1日">
-           Effective Date: January 1, 2026
-      </div>
-
-      <h3 data-en="1. Institutional Identity"
-          data-zh="1. 机构身份"
-          data-ja="1. 機関の概要">1. Institutional Identity</h3>
-      <p data-en="Santoo Institute for Structural Studies (\"SANTOO\") is an independent research institution dedicated to the study of structural stability across disciplines."
-         data-zh="Santoo结构研究所（SANTOO）是一个致力于跨学科结构稳定性研究的独立学术机构。"
-         data-ja="Santoo構造研究所（SANTOO）は、学際的な構造安定性の研究に専念する独立した学術機関です。">
-         Santoo Institute for Structural Studies ("SANTOO") is an independent research institution dedicated to the study of structural stability across disciplines.
-      </p>
-
-      <h3 data-en="2. Intellectual Property Rights"
-          data-zh="2. 知识产权"
-          data-ja="2. 知的財産権">2. Intellectual Property Rights</h3>
-      <p data-en="All materials on this website are the intellectual property of SANTOO and are protected under international copyright laws."
-         data-zh="本网站的所有内容均为SANTOO所有，并受国际版权法保护。"
-         data-ja="本ウェブサイトのすべての資料はSANTOOの知的財産であり、国際著作権法によって保護されています。">
-         All materials on this website are the intellectual property of SANTOO and are protected under international copyright laws.
-      </p>
-
-      <h3 data-en="3. Acceptable Use"
-          data-zh="3. 合理使用"
-          data-ja="3. 適切な利用">3. Acceptable Use</h3>
-      <p data-en="Users agree to access this website solely for lawful academic and informational purposes."
-         data-zh="用户仅可出于合法的学术与信息目的访问本网站。"
-         data-ja="利用者は、本ウェブサイトを合法的な学術および情報目的のみに使用することに同意するものとします。">
-         Users agree to access this website solely for lawful academic and informational purposes.
-      </p>
-
-      <h3 data-en="4. Privacy and Data Protection"
-          data-zh="4. 隐私与数据保护"
-          data-ja="4. プライバシーとデータ保護">4. Privacy and Data Protection</h3>
-      <p data-en="SANTOO collects only limited, non-personal data to enhance user experience and does not sell or distribute personal information."
-         data-zh="SANTOO仅收集有限的非个人数据以优化用户体验，不会出售或分发个人信息。"
-         data-ja="SANTOOはユーザー体験向上のために限定的な非個人データのみを収集し、個人情報を販売または共有することはありません。">
-         SANTOO collects only limited, non-personal data to enhance user experience and does not sell or distribute personal information.
-      </p>
-
-      <h3 data-en="5. International Compliance"
-          data-zh="5. 国际合规"
-          data-ja="5. 国際コンプライアンス">5. International Compliance</h3>
-      <p data-en="The Institute endeavors to comply with internationally recognized data protection standards, including GDPR and applicable regulations."
-         data-zh="本机构致力于遵守国际数据保护标准，包括GDPR及相关法规。"
-         data-ja="当研究所はGDPRを含む国際的なデータ保護基準の遵守に努めます。">
-         The Institute endeavors to comply with internationally recognized data protection standards, including GDPR and applicable regulations.
-      </p>
-
-      <h3 data-en="6. Policy Revisions"
-          data-zh="6. 政策修订"
-          data-ja="6. ポリシーの改訂">6. Policy Revisions</h3>
-      <p data-en="SANTOO reserves the right to amend this Legal and Privacy Policy at any time."
-         data-zh="SANTOO保留随时修订本法律与隐私政策的权利。"
-         data-ja="SANTOOは本法務およびプライバシーポリシーを随時改訂する権利を有します。">
-         SANTOO reserves the right to amend this Legal and Privacy Policy at any time.
-      </p>
-    </div>
-  </div>
-
-  <script>
-    function setLang(lang) {
-      document.querySelectorAll('[data-en]').forEach(el => {
-        el.innerText = el.getAttribute(`data-${lang}`);
-      });
-
-      document.querySelectorAll('.legal-lang span').forEach(el => {
-        el.classList.remove('active');
-      });
-      document.getElementById(`lang-${lang}`).classList.add('active');
-    }
-  </script>
-</body>
-</html>
+<style>.legal-lang button{margin-right:12px;padding:0;border:0;background:none;color:#111;font:inherit;opacity:.5;cursor:pointer}.legal-lang button.active{opacity:1;border-bottom:1px solid #111}.legal-content{text-align:left}.legal-content a{text-underline-offset:3px}.legal-privacy-button{padding:9px 14px;border:1px solid #aaa;background:none;font:12px "Noto Sans",sans-serif;cursor:pointer}@media(max-width:640px){.legal-modal{width:calc(100vw - 24px);padding:65px 24px 35px;height:calc(100svh - 40px)}.legal-lang{left:24px}.legal-close{right:24px}}</style><link rel="stylesheet" href="privacy-consent.css?v=20261111-1"></head><body class="legal-page" data-page="legal"><div class="legal-background"></div><main class="legal-modal"><div class="legal-lang"><button type="button" onclick="SantooLocale.select('en')" id="lang-en">EN</button><button type="button" onclick="SantooLocale.select('zh')" id="lang-zh">繁體中文</button><button type="button" onclick="SantooLocale.select('ja')" id="lang-ja">日本語</button></div><a href="index_pc.html" class="legal-close">BACK</a><div class="legal-content"><h1 data-en="Rights &amp; Privacy" data-zh="權利與隱私說明" data-ja="権利とプライバシー" >Rights &amp; Privacy</h1><h2 data-en="SANTOO / PAN YAO" data-zh="SANTOO / 潘垚" data-ja="SANTOO / 潘垚" >SANTOO / PAN YAO</h2><div data-en="Updated: November 12, 2026" data-zh="更新日期：2026年11月12日" data-ja="更新日：2026年11月12日" class="meta">Updated: November 12, 2026</div><h3 data-en="1. About this website" data-zh="1. 關於本網站" data-ja="1. 本ウェブサイトについて" >1. About this website</h3><p data-en="SANTOO is an artist-led practice initiated by Pan Yao, centered on painting and extending into exhibitions, sound, writing, and independent research. This website is operated by Pan Yao." data-zh="SANTOO是由潘垚發起、以繪畫爲核心，延伸至展覽、聲音、寫作與獨立研究的藝術實踐。本網站由潘垚運營。" data-ja="SANTOO は潘垚が始めた、絵画を中心に展覧会、音、執筆、独立研究へと広がる芸術実践です。本ウェブサイトは潘垚が運営します。" >SANTOO is an artist-led practice initiated by Pan Yao, centered on painting and extending into exhibitions, sound, writing, and independent research. This website is operated by Pan Yao.</p><h3 data-en="2. Authorship and rights" data-zh="2. 創作署名與權利" data-ja="2. 著作者表示と権利" >2. Authorship and rights</h3><p data-en="Rights in paintings, images, text, sound, and collaborative works belong to their respective creators or rights holders, as stated in the credits and applicable agreements. Third-party resources and software remain subject to their own licenses." data-zh="繪畫、圖片、文字、聲音及合作作品的權利歸相應創作者或權利人所有，以具體署名及相關約定爲準。第三方資源與軟件適用各自許可。" data-ja="絵画、画像、文章、音、共同制作作品の権利は、著作者表示と合意に従い、各制作者または権利者に帰属します。第三者の素材とソフトウェアには、それぞれのライセンスが適用されます。" >Rights in paintings, images, text, sound, and collaborative works belong to their respective creators or rights holders, as stated in the credits and applicable agreements. Third-party resources and software remain subject to their own licenses.</p><h3 data-en="3. Browsing, quotation, and reuse" data-zh="3. 瀏覽、引用與使用" data-ja="3. 閲覧、引用、利用" >3. Browsing, quotation, and reuse</h3><p data-en="The website is intended for viewing art, reading, research, and professional inquiries. Except where permitted by law or a specific license, reproduction, distribution, adaptation, or commercial use requires authorization from the relevant rights holder. Openly licensed research follows the license on its original publication page." data-zh="本網站供藝術欣賞、閱讀、研究與專業諮詢使用。除法律允許或具體許可另有規定外，複製、發行、改編及商業使用須取得相應權利人的授權。以開放許可發佈的研究文獻，依原始發佈頁所載許可使用。" data-ja="本ウェブサイトは、芸術鑑賞、閲読、研究、専門的なお問い合わせのために公開しています。法令または個別ライセンスで認められる場合を除き、複製、頒布、翻案、商用利用には権利者の許諾が必要です。オープンライセンスの研究資料には、原掲載ページのライセンスが適用されます。" >The website is intended for viewing art, reading, research, and professional inquiries. Except where permitted by law or a specific license, reproduction, distribution, adaptation, or commercial use requires authorization from the relevant rights holder. Openly licensed research follows the license on its original publication page.</p><h3 data-en="4. Necessary website functions" data-zh="4. 必要的網站功能" data-ja="4. 必要なウェブサイト機能" >4. Necessary website functions</h3><p data-en="The website has no visitor accounts or submission forms. Browser local storage remembers language and privacy choices. Privacy choices are retained for 180 days unless cleared or changed. Temporary session storage supports page transitions. These necessary functions remain available when optional analytics is declined." data-zh="本網站不提供訪客註冊賬戶或站內提交表單。瀏覽器本地存儲用於記住語言和隱私選擇；隱私選擇保存180天，您也可提前清除或更改。臨時會話存儲用於頁面過渡。拒絕可選統計仍可正常使用這些必要功能。" data-ja="訪問者用アカウントや送信フォームはありません。ブラウザーのローカルストレージに言語とプライバシー設定を保存します。プライバシー設定は180日間保持し、いつでも変更・消去できます。セッションストレージはページ遷移に使用します。任意の分析を拒否しても必要な機能は利用できます。" >The website has no visitor accounts or submission forms. Browser local storage remembers language and privacy choices. Privacy choices are retained for 180 days unless cleared or changed. Temporary session storage supports page transitions. These necessary functions remain available when optional analytics is declined.</p><p data-en="On a first visit, a country or region hint supplied by the hosting platform may select a language: Japanese for Japan, Traditional Chinese for mainland China, Taiwan, Hong Kong, and Macao, and English elsewhere. A manual language choice takes priority. If the hint is unavailable, browser language is used. This language feature does not create an optional analytics record or send IP addresses to an additional geolocation provider. Only the automatic language is cached in the current tab for up to six hours." data-zh="首次訪問時，網站可使用託管平臺提供的國家或地區提示選擇語言：日本使用日文，中國大陸、臺灣、香港及澳門使用繁體中文，其他地區使用英文。手動語言選擇優先；無法取得地區提示時參考瀏覽器語言。此功能不生成可選訪問統計記錄，也不向額外的定位服務發送IP地址。自動語言僅在當前標籤頁緩存，最長六小時。" data-ja="初回訪問時はホスティング側が提供する国・地域情報を言語選択に利用する場合があります。日本では日本語、中国本土・台湾・香港・マカオでは繁体字中国語、それ以外では英語を選びます。手動の言語選択を優先し、地域情報を取得できない場合はブラウザーの言語を参照します。この機能は任意の訪問分析記録を作成せず、追加の位置情報サービスへIPアドレスを送信しません。自動選択した言語だけを現在のタブで最大6時間保持します。">On a first visit, a country or region hint supplied by the hosting platform may select a language: Japanese for Japan, Traditional Chinese for mainland China, Taiwan, Hong Kong, and Macao, and English elsewhere. A manual language choice takes priority. If the hint is unavailable, browser language is used. This language feature does not create an optional analytics record or send IP addresses to an additional geolocation provider. Only the automatic language is cached in the current tab for up to six hours.</p><h3 data-en="5. Optional visit analytics" data-zh="5. 可選訪問統計" data-ja="5. 任意の訪問分析" >5. Optional visit analytics</h3><p data-en="Optional analytics is sent only after you allow it and when the analytics service is enabled. Records may include the connection IP address; broad device, browser, and operating-system categories; language; country when available; referral website origin; viewed pages; time; and artwork opens. A random identifier links events within the current tab session. No advertising identifiers, cross-site tracking, or device fingerprinting are used." data-zh="僅在您明確允許且統計服務已啓用時，網站才發送可選統計。記錄可能包括連接IP地址、設備與瀏覽器和操作系統的大致類別、語言、可用時的國家信息、來源網站域名、訪問頁面、時間及作品打開情況。隨機標識僅用於關聯當前標籤頁會話內的事件，不使用廣告標識、跨站追蹤或設備指紋。" data-ja="任意の分析は、許可をいただき、かつ分析サービスが有効な場合にのみ送信します。接続元IPアドレス、端末・ブラウザー・OSの大まかな分類、言語、取得可能な国情報、参照元サイトのオリジン、閲覧ページ、時刻、作品閲覧を記録する場合があります。ランダムな識別子は現在のタブのセッション内でのみイベントを関連付けます。広告識別子、サイト横断追跡、端末フィンガープリントは使用しません。" >Optional analytics is sent only after you allow it and when the analytics service is enabled. Records may include the connection IP address; broad device, browser, and operating-system categories; language; country when available; referral website origin; viewed pages; time; and artwork opens. A random identifier links events within the current tab session. No advertising identifiers, cross-site tracking, or device fingerprinting are used.</p><h3 data-en="6. Purpose, access, and retention" data-zh="6. 用途、訪問權限與保留" data-ja="6. 目的、アクセス、保持期間" >6. Purpose, access, and retention</h3><p data-en="Analytics is used to understand visits, improve presentation and compatibility, and review unusual activity. Raw records have a 30-day query window; expired records are deleted when the service next processes a request. Daily aggregate counts without IP addresses or session identifiers are kept for 12 months. Records and exports require owner authorization. Hosting access logs and provider backups are separate and follow the configured provider policies." data-zh="訪問統計用於瞭解瀏覽情況、改進作品呈現和兼容性，以及輔助查看異常活動。原始記錄的查詢窗口爲30天，過期記錄在服務後續處理請求時刪除；不含IP或會話標識的日彙總計數保留12個月。訪問原始記錄或導出須經過運營者授權。託管訪問日誌及服務商備份另行適用實際配置和服務商政策。" data-ja="訪問分析は、閲覧状況の理解、作品表示と互換性の改善、異常なアクセスの確認に利用します。生データの照会期間は30日間とし、期限切れデータは次のサービスリクエスト処理時に削除します。IPアドレスやセッション識別子を含まない日別集計は12か月保持します。記録の閲覧・出力には運営者の認証が必要です。ホスティングのアクセスログや事業者のバックアップには、別途その設定とポリシーが適用されます。" >Analytics is used to understand visits, improve presentation and compatibility, and review unusual activity. Raw records have a 30-day query window; expired records are deleted when the service next processes a request. Daily aggregate counts without IP addresses or session identifiers are kept for 12 months. Records and exports require owner authorization. Hosting access logs and provider backups are separate and follow the configured provider policies.</p><h3 data-en="7. Your choices and inquiries" data-zh="7. 您的選擇與諮詢" data-ja="7. 選択とお問い合わせ" >7. Your choices and inquiries</h3><p data-en="You can allow or decline optional analytics and change your choice using Privacy settings. Withdrawing consent stops future optional analytics; existing records follow the retention policy. For access or deletion inquiries, contact pan@santoo.org with the approximate visit time and enough context to locate the relevant record. If you email us, the information you provide is used to handle that inquiry and related correspondence." data-zh="您可以允許或拒絕可選統計，並隨時通過“隱私設置”更改選擇。撤回後停止後續可選統計，已有記錄依保留規則處理。查詢或刪除相關記錄，可聯繫pan@santoo.org並提供大致訪問時間及幫助定位記錄的信息。通過郵件聯繫時，您提供的信息用於處理該諮詢及相關通信。" data-ja="任意の分析は許可・拒否でき、プライバシー設定からいつでも変更できます。撤回後は今後の任意分析を停止し、既存の記録には保持規則が適用されます。記録の照会・削除については、おおよその訪問日時と記録を特定するための情報を添えて pan@santoo.org までご連絡ください。メールで提供された情報は、お問い合わせと関連する連絡への対応に利用します。" >You can allow or decline optional analytics and change your choice using Privacy settings. Withdrawing consent stops future optional analytics; existing records follow the retention policy. For access or deletion inquiries, contact pan@santoo.org with the approximate visit time and enough context to locate the relevant record. If you email us, the information you provide is used to handle that inquiry and related correspondence.</p><h3 data-en="8. External resources and services" data-zh="8. 外部資源與服務" data-ja="8. 外部リソースとサービス" >8. External resources and services</h3><p data-en="Fonts and animation resources may be loaded from Google Fonts and cdnjs. These requests, website hosting, and security services may process IP addresses and technical request information as part of delivery or security, separately from optional analytics. External destinations such as ORCID, Zenodo, DOI links, and Paper Republic apply their own terms and privacy policies when visited." data-zh="字體和動畫資源可能從Google Fonts及cdnjs加載。這些請求以及網站託管和安全服務，可能爲傳輸或安全目的處理IP地址和技術請求信息，與可選訪問統計分開。訪問ORCID、Zenodo、DOI鏈接及Paper Republic等外部網站時，適用相應網站的條款和隱私政策。" data-ja="フォントやアニメーションのリソースを Google Fonts と cdnjs から読み込む場合があります。これらの通信、ホスティング、安全対策サービスでは、配信や安全確保のためにIPアドレスや技術情報を処理する場合があり、任意の訪問分析とは区別されます。ORCID、Zenodo、DOIリンク、Paper Republic などの外部サイトには、訪問先の規約とプライバシーポリシーが適用されます。" >Fonts and animation resources may be loaded from Google Fonts and cdnjs. These requests, website hosting, and security services may process IP addresses and technical request information as part of delivery or security, separately from optional analytics. External destinations such as ORCID, Zenodo, DOI links, and Paper Republic apply their own terms and privacy policies when visited.</p><h3 data-en="9. Updates and contact" data-zh="9. 更新與聯繫" data-ja="9. 更新と連絡先" >9. Updates and contact</h3><p data-en="This statement will be updated when the website or its data practices change. Contact for rights and privacy: pan@santoo.org." data-zh="網站功能或數據處理方式變化時，本說明將相應更新。權利與隱私問題請聯繫：pan@santoo.org。" data-ja="ウェブサイトやデータ処理方法の変更に合わせて本説明を更新します。権利とプライバシーの連絡先：pan@santoo.org。" >This statement will be updated when the website or its data practices change. Contact for rights and privacy: pan@santoo.org.</p><button data-en="Change privacy choices" data-zh="更改隱私選擇" data-ja="プライバシー設定を変更" type="button" class="legal-privacy-button" data-open-privacy>Change privacy choices</button><p><a href="mailto:pan@santoo.org">pan@santoo.org</a></p></div></main><script>function setLang(value){const lang=['en','zh','ja'].includes(value)?value:'en';document.querySelectorAll('[data-en]').forEach(node=>node.textContent=node.dataset[lang]||node.dataset.en);document.querySelectorAll('.legal-lang button').forEach(button=>{const selected=button.id==='lang-'+lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});document.querySelector('.legal-close').textContent=lang==='zh'?'返回':lang==='ja'?'戻る':'BACK';document.documentElement.lang=lang==='zh'?'zh-Hant':lang;}window.addEventListener('santoo:language-change',event=>setLang(event.detail.language));setLang(window.SantooLocale?.language||'en');</script><script src="structure.js?v=20261112-locale-1"></script><script src="privacy-consent.js?v=20261112-locale-1"></script></body></html>

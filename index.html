@@ -2,74 +2,156 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script src="locale.js?v=20261112-1"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANTOO | Structural Studies</title>
+  <title>SANTOO | Gateway</title>
+  <meta name="description" content="Painting, exhibitions, sound, writing, and independent research by Pan Yao." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://santoo.org/index_pc.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; background: #fff; overflow: hidden; }
+    .intro-sequence {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 1;
+      visibility: visible;
+    }
+    .intro-white { position: absolute; inset: 0; z-index: 0; background: #fff; }
+    .intro-white.is-destination {
+      background: #f7f7f7 url("assets/hero-8k.jpg") center / cover no-repeat;
+    }
+    .destination-preload {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      border: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .intro-video-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      background: #000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 0s linear 1s;
+    }
+    .intro-video-wrap.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1s ease;
+    }
+    .intro-video-wrap.is-visible.is-ending {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .intro-video-wrap video { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .intro-santoo {
+      position: relative;
+      z-index: 2;
+      padding: 0.35em 0 0.35em 0.4em;
+      border: 0;
+      color: #111;
+      background: transparent;
+      font: 400 clamp(1.2rem, 4vw, 2rem)/1 "Michroma", sans-serif;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      -webkit-text-stroke: 1px transparent;
+      cursor: pointer;
+      transition: color 0.6s ease, -webkit-text-stroke 0.6s ease, opacity 1s ease;
+    }
+    .intro-santoo:hover,
+    .intro-santoo:focus-visible {
+      color: transparent;
+      -webkit-text-stroke: 1px #111;
+    }
+    .intro-santoo:focus-visible { outline: 1px solid #111; outline-offset: 12px; }
+    .intro-santoo.is-leaving {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: none;
+      -webkit-text-stroke: 0 transparent;
+    }
+    @media (prefers-reduced-motion: reduce) { .intro-santoo { transition: none; } }
+  </style>
+<link rel="stylesheet" href="privacy-consent.css?v=20261111-1"></head>
 <body>
-  <div id="introSequence" class="intro-sequence">
+
+  <div id="gatewayWrapper" class="intro-sequence">
     <div class="intro-white"></div>
-    <button type="button" class="intro-santoo" id="introSantoo">SANTOO</button>
-    <div class="intro-video-wrap">
+    <div class="intro-video-wrap" id="introVideoWrap" aria-hidden="true">
       <video id="introVideo" muted playsinline preload="auto">
-        <source src="assets/intro.mp4" type="video/mp4">
+        <source src="assets/Intro.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="intro-hero8k"></div>
+    
+    <button type="button" class="intro-santoo" id="gatewayBtn">
+      SANTOO
+    </button>
   </div>
 
-  <main class="page" id="mainPage">
-    <section class="hero">
-      <div class="structure-container" id="structureContainer"></div>
-      
-      <div class="logo">
-        <span class="logo-full">SANTOO / Structural Studies</span>
-        <img src="assets/santooLogo.svg" alt="Santoo Logo" class="logo-svg-icon">
-      </div>
-
-      <nav class="entry">
-        <div class="nav-item-wrapper lang-dropdown">
-          <button class="lang-dropbtn nav-anchor" id="current-lang">LANGUAGE</button>
-          <div class="lang-content">
-            <span onclick="switchLang('en')">English</span>
-            <span onclick="switchLang('zh')">中文</span>
-            <span onclick="switchLang('ja')">日本語</span>
-          </div>
-        </div>
-        <div class="nav-item-wrapper"><a href="member.html" class="nav-anchor" data-en="Member" data-zh="成员" data-ja="メンバー">Member</a></div>
-        <div class="nav-item-wrapper"><a href="project.html" class="nav-anchor" data-en="Project" data-zh="项目" data-ja="プロジェクト">Project</a></div>
-        <div class="nav-item-wrapper"><a href="research.html" class="nav-anchor" data-en="Research" data-zh="研究" data-ja="研究">Research</a></div>
-        <div class="nav-item-wrapper"><a href="works.html" class="nav-anchor" data-en="Works" data-zh="作品集" data-ja="作品集">Works</a></div>
-      </nav>
-
-      <div class="content" id="systemLabel">
-        <h1 data-en="Santoo Institute" data-zh="Santoo 研究所" data-ja="Santoo 研究所">Santoo Institute</h1>
-        <h2 data-en="for Structural Studies" data-zh="结构研究中心" data-ja="構造研究センター">for Structural Studies</h2>
-        <p data-en="A framework for observing structural stability across fields." 
-           data-zh="一个用于观察跨领域结构稳定性的框架。" 
-           data-ja="領域を超えた構造的安定性を观察するためのフレームワーク。">
-           A framework for observing structural stability across fields.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-left">
-      <p>© 2026 SANTOO INSTITUTE. ALL RESEARCH AND WORKS EMBODIED HEREIN ARE PROTECTED UNDER INTERNATIONAL COPYRIGHT LAWS.</p>
-    </div>
+  <script>
+    const btn = document.getElementById('gatewayBtn');
     
-    <div class="footer-right">
-      <span class="page-meta">STATUS: OPERATIONAL / 2026</span>
-      <span class="page-meta-divider">|</span>
-      <a href="legal.html" class="footer-link">LEGAL & PRIVACY</a>
-    </div>
-  </footer>
+    const video = document.getElementById('introVideo');
+    const videoWrap = document.getElementById('introVideoWrap');
+    const whiteLayer = document.querySelector('.intro-white');
+    const target = 'index_pc.html';
+    let fallbackTimer;
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="script.js"></script>
-</body>
+    const enterSite = () => {
+      window.clearTimeout(fallbackTimer);
+      window.location.replace(target);
+    };
+
+    // 点击 Logo 后播放过场视频，播放结束再进入背景图首页。
+    btn.addEventListener('click', () => {
+        btn.classList.add('is-leaving');
+        videoWrap.classList.add('is-visible');
+
+        // 点击的同时开始加载目标页及其资源，让视频结束后的接续无等待。
+        const heroPreload = new Image();
+        heroPreload.src = 'assets/hero-8k.jpg';
+        const destinationPreload = document.createElement('iframe');
+        destinationPreload.className = 'destination-preload';
+        destinationPreload.src = target;
+        destinationPreload.tabIndex = -1;
+        destinationPreload.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(destinationPreload);
+
+        video.addEventListener('timeupdate', () => {
+          if (Number.isFinite(video.duration) && video.duration - video.currentTime <= 1.1) {
+            whiteLayer.classList.add('is-destination');
+            videoWrap.classList.add('is-ending');
+          }
+        });
+        video.addEventListener('ended', enterSite, { once: true });
+        video.addEventListener('error', enterSite, { once: true });
+
+        const playback = video.play();
+        if (playback) playback.catch(enterSite);
+
+        // 防止极端情况下视频事件没有触发，仍能进入网站。
+        fallbackTimer = window.setTimeout(enterSite, 12000);
+    }, { once: true });
+    // 初始进入页面时的“SANTOO”标识 3 秒渐显效果
+    if (window.gsap) gsap.from("#gatewayBtn", {
+        duration: 3, 
+        opacity: 0, 
+        ease: "power1.inOut" 
+    });
+  </script>
+<script src="privacy-consent.js?v=20261112-locale-1"></script></body>
 </html>

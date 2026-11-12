@@ -1,0 +1,31 @@
+.privacy-banner, .privacy-dialog, .privacy-toggle, .privacy-toast { box-sizing:border-box; color:#20201c; font-family:"Noto Sans",Arial,sans-serif; }
+.privacy-banner { position:fixed; z-index:6100; right:24px; bottom:24px; width:min(760px,calc(100vw - 48px)); padding:25px 28px; border:1px solid #d0d0c8; background:rgba(250,250,247,.98); box-shadow:0 12px 50px rgba(20,20,15,.12); }
+.privacy-banner[hidden], .privacy-toast[hidden] { display:none; }
+.privacy-banner h2, .privacy-dialog h2 { margin:0 0 12px; font-size:15px; font-weight:500; letter-spacing:.04em; }
+.privacy-banner p, .privacy-dialog p { margin:0 0 15px; color:#62625b; font-size:12px; line-height:1.85; }
+.privacy-banner a, .privacy-dialog a { color:inherit; text-underline-offset:3px; }
+.privacy-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:19px; }
+.privacy-actions button, .privacy-dialog-close { padding:10px 16px; border:1px solid #a6a69d; border-radius:0; color:#20201c; background:transparent; font:11px/1.5 "Noto Sans",Arial,sans-serif; cursor:pointer; }
+.privacy-actions button { flex:1; }
+.privacy-actions button:hover { background:#eeeee7; }
+.privacy-banner button:focus-visible, .privacy-dialog button:focus-visible, .privacy-toggle:focus-visible { outline:2px solid #333; outline-offset:3px; }
+.privacy-toggle { position:fixed; z-index:5900; right:20px; bottom:13px; padding:4px 0; border:0; border-bottom:1px solid #99998d; color:#56564e; background:rgba(250,250,247,.94); font-size:9px; cursor:pointer; }
+.privacy-dialog { width:min(550px,calc(100vw - 36px)); max-height:calc(100svh - 40px); overflow:auto; padding:30px; border:1px solid #c6c6bd; background:#fafaf7; box-shadow:0 20px 80px #0002; }
+.privacy-dialog::backdrop { background:#24241c44; backdrop-filter:blur(5px); }
+.privacy-dialog-top { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:15px; }
+.privacy-dialog-top h2 { margin:0; }
+.privacy-dialog-close { padding:3px 5px; border:0; font-size:18px; }
+.privacy-option { display:flex; justify-content:space-between; gap:20px; padding:18px 0; border-top:1px solid #d7d7ce; }
+.privacy-option label { display:block; margin-bottom:7px; font-size:13px; }
+.privacy-option p { margin:0; font-size:11px; }
+.privacy-option input { width:18px; height:18px; margin:2px; accent-color:#333; flex-shrink:0; }
+.privacy-toast { position:fixed; z-index:6200; bottom:52px; right:20px; width:min(450px,calc(100vw - 40px)); border:1px solid #cecec5; padding:12px 16px; background:#fafaf7; color:#62625b; font-size:11px; line-height:1.7; }
+@media print { .privacy-banner, .privacy-dialog, .privacy-toggle, .privacy-toast { display:none !important; } }
+@media(max-width:640px) {
+ .privacy-banner { right:12px; bottom:12px; width:calc(100vw - 24px); padding:21px; }
+ .privacy-actions { gap:8px; }
+ .privacy-actions button { padding:10px 8px; font-size:10px; }
+ .privacy-toggle { bottom:43px; font-size:9px; }
+ .privacy-dialog { padding:24px; }
+ .privacy-toast { bottom:77px; }
+}

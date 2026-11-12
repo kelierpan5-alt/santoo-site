@@ -2,15 +2,12 @@
   // ===============================
   // 1. 核心变量声明
   // ===============================
-  const layer = document.getElementById("introSequence");
-  const mark = document.getElementById("introSantoo");
-  const video = document.getElementById("introVideo");
+  
   const mainPage = document.getElementById("mainPage");
   const content = document.getElementById("systemLabel");
   const structure = document.getElementById("structureContainer");
   const footer = document.querySelector(".site-footer");
 
-  const hasSeenIntro = sessionStorage.getItem("santoo-visited");
 // --- 新增项目模态框变量 ---
 const projectOverlay = document.getElementById("projectOverlay");
 const yearModal = document.getElementById("yearModal");
@@ -25,7 +22,7 @@ const projectData = {
   asam: {
     en: `
       <h1>ASAM × NPF</h1>
-      <p><strong>Adaptive Structural Awareness Module × Neurocognitive Perception Framework</strong></p>
+      <p><strong>Adaptive Switching in Attention Allocation × Neurocognitive Perception Framework</strong></p>
       <div class="section-divider"></div>
       <h2>Overview</h2>
       <p>ASAM × NPF is a structure-based artistic project focusing on how visual configurations are perceived and navigated.</p>
@@ -44,26 +41,26 @@ const projectData = {
     `,
     zh: `
       <h1>ASAM × NPF</h1>
-      <p><strong>适应性结构感知模块 × 神经认知感知框架</strong></p>
+      <p><strong>注意力分配中的適應性切換 × 神經認知感知框架</strong></p>
       <div class="section-divider"></div>
-      <h2>项目概述</h2>
-      <p>ASAM × NPF 是一个基于结构的艺术项目，专注于视觉配置如何被感知和导航。</p>
+      <h2>項目概述</h2>
+      <p>ASAM × NPF 是一個基於結構的藝術項目，專注於視覺配置如何被感知和導航。</p>
       <p>它探索：</p>
       <ul>
-        <li>注意力从何处开始</li>
-        <li>它如何移动</li>
-        <li>它何时脱离</li>
+        <li>注意力從何處開始</li>
+        <li>它如何移動</li>
+        <li>它何時脫離</li>
       </ul>
-      <h2>项目形式</h2>
+      <h2>項目形式</h2>
       <ul>
-        <li><strong>空间装置</strong> — 形成结构化视觉场的抽象作品</li>
-        <li><strong>工作坊</strong> — 观看行为的观察</li>
+        <li><strong>空間裝置</strong> — 形成結構化視覺場的抽象作品</li>
+        <li><strong>工作坊</strong> — 觀看行爲的觀察</li>
       </ul>
-      <p class="project-footer">可根据要求提供详细提案。</p>
+      <p class="project-footer">可根據要求提供詳細提案。</p>
     `,
     ja: `
       <h1>ASAM × NPF</h1>
-      <p><strong>適応型構造認知モジュール × 神経認知知覚フレームワーク</strong></p>
+      <p><strong>注意配分における適応的切り替え × 神経認知知覚フレームワーク</strong></p>
       <div class="section-divider"></div>
       <h2>プロジェクト概要</h2>
       <p>ASAM × NPFは、視覚的配置がどのように認識され、ナビゲートされるかに焦点を当てた構造ベースのアートプロジェクトです。</p>
@@ -109,7 +106,7 @@ const projectData = {
         // 4. 更新语言按钮显示并保存状态
         const names = {
           en: "LANGUAGE",
-          zh: "语言",
+          zh: "語言",
           ja: "言語"
         };
         const langBtn = document.getElementById("current-lang");
@@ -152,13 +149,13 @@ function renderProjectDetail(key, lang) {
         </ul>
       `,
       zh: `
-        <h2>音乐发行与版权系统</h2>
-        <p><strong>类别：</strong>商业活动</p>
-        <p>超过180首原创音乐已在全球平台发行。</p>
+        <h2>音樂發行與版權系統</h2>
+        <p><strong>類別：</strong>商業活動</p>
+        <p>超過180首原創音樂已在全球平臺發行。</p>
         <ul>
-          <li>平台后台截图</li>
-          <li>曲目列表与元数据</li>
-          <li>互动数据（1万+播放量）</li>
+          <li>平臺後臺截圖</li>
+          <li>曲目列表與元數據</li>
+          <li>互動數據（1萬+播放量）</li>
         </ul>
       `,
       ja: `
@@ -175,37 +172,37 @@ function renderProjectDetail(key, lang) {
 
     "evidence-paper": {
       en: `<h2>Paper Republic (UK Publication)</h2>`,
-      zh: `<h2>Paper Republic（英国出版）</h2>`,
+      zh: `<h2>Paper Republic（英國出版）</h2>`,
       ja: `<h2>Paper Republic（英国出版）</h2>`
     },
 
     "evidence-association": {
       en: `<h2>Vice Chairman, Calligraphers Association</h2>`,
-      zh: `<h2>书法家协会副主席</h2>`,
+      zh: `<h2>書法家協會副主席</h2>`,
       ja: `<h2>書道家協会 副会長</h2>`
     },
 
     "evidence-kyoto": {
       en: `<h2>Kyoto International Exhibition (Award)</h2>`,
-      zh: `<h2>京都国际展览（获奖）</h2>`,
+      zh: `<h2>京都國際展覽（獲獎）</h2>`,
       ja: `<h2>京都国際展覧会（受賞）</h2>`
     },
 
     "evidence-busan": {
       en: `<h2>China–Korea Exhibition (Busan)</h2>`,
-      zh: `<h2>中韩交流展（釜山）</h2>`,
+      zh: `<h2>中韓交流展（釜山）</h2>`,
       ja: `<h2>中韓交流展（釜山）</h2>`
     },
 
     "evidence-france": {
       en: `<h2>China–France Abstract Exhibition</h2>`,
-      zh: `<h2>中法抽象艺术展</h2>`,
+      zh: `<h2>中法抽象藝術展</h2>`,
       ja: `<h2>中仏抽象芸術展</h2>`
     },
 
     "evidence-practice": {
       en: `<h2>Long-term Visual & Tattoo Practice</h2>`,
-      zh: `<h2>长期视觉艺术与纹身实践</h2>`,
+      zh: `<h2>長期視覺藝術與紋身實踐</h2>`,
       ja: `<h2>長期にわたるビジュアルおよびタトゥー実践</h2>`
     }
   };
@@ -266,66 +263,27 @@ function renderProjectDetail(key, lang) {
   }
 
   // ===============================
-  // 5. 主页面逻辑
+  // 5. 主页面逻辑 (全新：全站3秒渐显)
   // ===============================
-  function showMain(isFast = false) {
-    if (!mainPage) return;
+  window.addEventListener('load', () => {
+    if (mainPage) {
+      // 1. 强制覆盖 style.css 中的 visibility: hidden
+      mainPage.style.visibility = "visible";
+      if (footer) footer.style.visibility = "visible";
+      
+      // 2. 挂载默认的背景图类名
+      if (structure) structure.classList.add("has-hero8k");
 
-    mainPage.style.visibility = "visible";
-    if (footer) footer.style.visibility = "visible";
-    if (structure) structure.classList.add("has-hero8k");
-
-    if (isFast) {
-      if (layer) layer.remove();
+      // 3. 过滤掉不存在的元素，执行 3 秒渐隐渐显过渡
+      const animateTargets = [mainPage, footer].filter(Boolean);
+      
       gsap.fromTo(
-        [mainPage, footer],
+        animateTargets,
         { opacity: 0 },
-        { opacity: 1, duration: 1.2 }
-      );
-      if (content) gsap.set(content, { opacity: 1 });
-    } else {
-      gsap.timeline()
-        .to([mainPage, footer], { opacity: 1, duration: 1.5 })
-        .to(layer, {
-          opacity: 0,
-          duration: 1.5,
-          onComplete: () => {
-            if (layer) layer.remove();
-          }
-        });
-    }
-
-    sessionStorage.setItem("santoo-visited", "true");
-  }
-
-  const isIndex =
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname === "/" ||
-    window.location.pathname === "";
-
-  if (isIndex && !hasSeenIntro) {
-    if (mark) {
-      gsap.set(mark, { opacity: 1 });
-      mark.addEventListener(
-        "click",
-        () => {
-          mark.classList.add("is-hidden");
-          gsap.to(mark, { opacity: 0, duration: 0.8 });
-
-          if (video) {
-            video.play();
-            gsap.to(".intro-video-wrap", { opacity: 1, duration: 1 });
-          }
-
-          gsap.to(".intro-white", { opacity: 0, duration: 1.5 });
-          gsap.delayedCall(4.5, showMain);
-        },
-        { once: true }
+        { opacity: 1, duration: 3, ease: "power1.inOut" }
       );
     }
-  } else {
-    showMain(true);
-  }
+  });
 
   // ===============================
   // 6. 初始化语言
@@ -338,7 +296,7 @@ function renderProjectDetail(key, lang) {
 
   const langBtnInit = document.getElementById("current-lang");
   if (langBtnInit) {
-    const names = { en: "LANGUAGE", zh: "语言", ja: "言語" };
+    const names = { en: "LANGUAGE", zh: "語言", ja: "言語" };
     langBtnInit.innerText = names[savedLang];
   }
 

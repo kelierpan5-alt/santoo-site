@@ -1,0 +1,24 @@
+body[data-page="reading"] { position:relative; padding-bottom:40px; background:#fafaf8; }
+body[data-page="reading"] .site-utility { position:static; transform:none; text-align:center; }
+body[data-page="reading"] .privacy-toggle { position:absolute; right:24px; bottom:18px; }
+.reader-shell { width:min(100%,760px); margin:0 auto; padding:64px 36px 90px; }
+.reader-back { color:#77776f; font-size:11px; text-decoration:none; }
+.reader-header { margin:58px 0 64px; padding-bottom:34px; border-bottom:1px solid #deded8; }
+.reader-book { margin:0 0 20px; color:#77776f; font-size:12px; line-height:1.8; }
+.reader-header h1 { margin:0 0 20px; font:400 clamp(29px,4vw,42px)/1.4 "Noto Serif",Georgia,serif; letter-spacing:0; text-transform:none; }
+.reader-byline { margin:0 0 24px; color:#77776f; font-size:12px; }
+.reader-store, .reader-footer a { font-size:12px; text-underline-offset:4px; }
+.reader-prose { font:400 17px/2 "Noto Serif",Georgia,serif; overflow-wrap:break-word; }
+html[lang^="zh"] .reader-header h1, html[lang^="zh"] .reader-prose { font-family:"Noto Serif TC","Songti TC","PMingLiU",serif; }
+html[lang^="ja"] .reader-header h1, html[lang^="ja"] .reader-prose { font-family:"Noto Serif JP","Yu Mincho",serif; }
+.reader-prose p { margin:0; }
+.reader-prose .pause-unit { height:1.25em; }
+.reader-footer { margin-top:70px; padding-top:28px; border-top:1px solid #deded8; color:#77776f; font-size:11px; line-height:2; }
+@media(max-width:820px) {
+  .reader-shell { padding:64px 24px 90px; }
+  .reader-header { margin:40px 0 46px; }
+  .reader-prose { font-size:16px; line-height:2; }
+}
+@media(min-width:981px) {
+  body[data-page="reading"] .site-nav { grid-template-columns:repeat(7,minmax(0,1fr)); }
+}
