@@ -145,8 +145,9 @@
     const width = detail.clientWidth;
     const height = detail.clientHeight;
     if (!imageRect.width || !imageRect.height || !width || !height) return;
-    // Stay within original pixels: inspect genuine surface detail without synthetic enlargement.
-    const scale = Math.min(Math.max(3, width / imageRect.width * 1.3), overviewImage.naturalWidth / imageRect.width);
+    // A narrower source window gives the detail pane a closer surface view.
+    // Allow up to 2x original pixels for smaller supplied images as well.
+    const scale = Math.min(Math.max(5, width / imageRect.width * 2.2), 2 * overviewImage.naturalWidth / imageRect.width);
     const imageWidth = imageRect.width * scale;
     const imageHeight = imageRect.height * scale;
     const sourceX = clamp(position.x * imageWidth - width / 2, 0, Math.max(0, imageWidth - width));

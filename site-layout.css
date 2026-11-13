@@ -1,30 +1,30 @@
 /* Six clear routes; retain SANTOO's established scene, typography and restraint. */
-body[data-page="practice"] { --page-bg: url("assets/works-bg.jpg"); }
+body[data-page="practice"] { --page-bg: url("assets/practice-bg.jpg"); }
 body[data-page="works"] { --page-bg: url("assets/works-bg.jpg"); }
 .immersive-directory-item { text-decoration:none; }
 body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
 .site-nav { grid-template-columns: repeat(6, minmax(0,1fr)); }
 .site-nav > a, .home-nav > a { width: auto !important; flex-basis: auto !important; }
 .site-nav > .language-menu, .home-nav > .language-menu { width:auto !important; flex-basis:auto !important; }
-.site-utility { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); z-index:65; color:#6d6d66; font:7px/1.6 "Michroma",sans-serif; white-space:nowrap; text-shadow:0 0 5px #fff; }
+.site-utility { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); z-index:65; color:#6d6d66; font:7px/1.6 "Michroma",var(--site-cjk,sans-serif); white-space:nowrap; text-shadow:0 0 5px #fff; }
 .site-utility a { text-decoration:none; }
-.record-note { color:#77776f; font-size:12px !important; }
+.record-note { color:#65655e; font-size:12px !important; }
 .project-copy .project-focus { margin:6px 0 24px; font-size:16px; font-weight:500; line-height:1.65; }
 .project-copy > p:not(.lead):not(.record-note) { max-width:700px; line-height:1.9; }
 .project-record { max-width:700px; margin:26px 0; padding:18px 0; border-top:1px solid rgba(17,17,17,.18); border-bottom:1px solid rgba(17,17,17,.18); }
-.project-record h4 { margin:0 0 12px; font-size:12px; font-weight:500; color:#77776f; }
+.project-record h4 { margin:0 0 12px; font-size:12px; font-weight:500; color:#65655e; }
 .project-record p { margin:0 0 14px; font-size:13px; line-height:1.85; }
 .project-record a { font-size:12px; text-underline-offset:4px; }
 .activity-heading { margin:36px 0 18px; font-size:14px; font-weight:500; line-height:1.6; }
 .activity-updates a { font-size:12px; text-underline-offset:4px; }
-.section-body .evidence-source { margin:8px 0 0; color:#77776f; font-size:11px; line-height:1.7; }
+.section-body .evidence-source { margin:8px 0 0; color:#65655e; font-size:11px; line-height:1.7; }
 .record .record-source { margin-top:10px; font-size:11px; }
 .section-actions { display:flex; gap:20px; flex-wrap:wrap; }
 .plain-links { display:flex; flex-direction:column; gap:22px; padding-top:8px; font-size:13px; }
 .plain-links a { text-underline-offset:5px; }
 .contact-email { font-size:clamp(20px,3vw,34px); text-decoration:none; }
 .gallery-filters { display:flex; gap:26px; margin-top:24px; }
-.gallery-filters button { padding:5px 0; border:0; border-bottom:1px solid transparent; color:#85857d; background:transparent; font:10px/1.7 "Noto Sans",sans-serif; cursor:pointer; }
+.gallery-filters button { padding:5px 0; border:0; border-bottom:1px solid transparent; color:#65655e; background:transparent; font:10px/1.7 "Noto Sans",var(--site-cjk,sans-serif); cursor:pointer; }
 .gallery-filters button[aria-pressed="true"] { color:#111; border-bottom-color:#111; }
 .artwork-card[hidden] { display:none !important; }
 .artwork-gallery-page .artwork-grid { margin-top:24px; }
@@ -32,6 +32,8 @@ body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
 @media(min-width:981px) {
   .immersive-page .site-nav, .home-nav { width:min(850px,calc(100vw - 180px)); }
 }
+
+
 @media(max-width:980px) {
   .immersive-page .site-nav { width:210px; }
 }
@@ -123,26 +125,26 @@ body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
 .santoo-profile { display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:44px; align-items:start; }
 .santoo-studio-photo { margin:0; }
 .santoo-studio-photo img { display:block; width:100%; height:auto; }
-.santoo-studio-photo figcaption { margin-top:12px; color:#77776f; font-size:11px; line-height:1.6; }
+.santoo-studio-photo figcaption { margin-top:12px; color:#65655e; font-size:11px; line-height:1.6; }
 /* Studio choices lead to a single detail view in the existing dialog. */
 .studio-selector[hidden], .studio-detail[hidden] { display:none !important; }
 .studio-selector-intro { margin:0 0 32px; }
 .studio-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; }
 .studio-choice { position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:15px; min-width:0; padding:24px 24px 28px 0; border:0; border-top:1px solid rgba(17,17,17,.25); border-bottom:1px solid rgba(17,17,17,.12); background:transparent; color:#111; text-align:left; cursor:pointer; }
-.studio-choice-year { color:#77776f; font:10px/1.5 "Michroma",sans-serif; }
-.studio-choice-title { font:400 17px/1.8 "Michroma","Noto Sans",sans-serif; }
-.studio-choice-note { color:#77776f; font:12px/1.8 "Noto Sans",sans-serif; }
+.studio-choice-year { color:#65655e; font:10px/1.5 "Michroma",var(--site-cjk,sans-serif); }
+.studio-choice-title { font:400 17px/1.8 "Michroma","Noto Sans",var(--site-cjk,sans-serif); }
+.studio-choice-note { color:#65655e; font:12px/1.8 "Noto Sans",var(--site-cjk,sans-serif); }
 .studio-choice-arrow { position:absolute; right:0; top:24px; font-size:18px; transition:transform .25s ease; }
 .studio-choice:hover, .studio-choice:focus-visible { border-color:#111; }
 .studio-choice:hover .studio-choice-arrow { transform:translateX(3px); }
-.studio-back { display:inline-block; margin:0 0 26px; padding:0; border:0; background:transparent; color:#55554e; font:12px/1.7 "Noto Sans",sans-serif; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
-.studio-detail-title { margin:0 0 12px; font:400 clamp(22px,2.5vw,30px)/1.5 "Michroma","Noto Sans",sans-serif; overflow-wrap:anywhere; }
+.studio-back { display:inline-block; margin:0 0 26px; padding:0; border:0; background:transparent; color:#55554e; font:12px/1.7 "Noto Sans",var(--site-cjk,sans-serif); text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+.studio-detail-title { margin:0 0 12px; font:400 clamp(22px,2.5vw,30px)/1.5 "Michroma","Noto Sans",var(--site-cjk,sans-serif); overflow-wrap:anywhere; }
 .studio-detail-title:focus { outline:none; }
-.studio-established { margin:0 0 24px; color:#77776f; font-size:11px !important; }
+.studio-established { margin:0 0 24px; color:#65655e; font-size:11px !important; }
 .studio-photo-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:30px; }
 .studio-photo { display:grid; place-items:center; min-width:0; margin:0; background:rgba(17,17,17,.025); }
 .studio-photo img { display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; cursor:default; }
-.section-body .studio-photo-source { margin:14px 0 0; color:#77776f; font-size:10px; line-height:1.6; }
+.section-body .studio-photo-source { margin:14px 0 0; color:#65655e; font-size:10px; line-height:1.6; }
 @media(max-width:640px) {
   .artist-profile, .santoo-profile { grid-template-columns:minmax(0,1fr); gap:28px; }
   .artist-portrait { width:190px; justify-self:end; }
@@ -167,13 +169,13 @@ body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
 [data-artist-selector][hidden], [data-artist-panel][hidden], [data-artist-content][hidden] { display:none !important; }
 .artist-selector { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px; }
 .artist-choice { display:flex; align-items:center; justify-content:space-between; gap:24px; width:100%; padding:30px 0; border:0; border-top:1px solid rgba(17,17,17,.25); border-bottom:1px solid rgba(17,17,17,.12); color:#111; background:transparent; text-align:left; cursor:pointer; }
-.artist-choice-title { font:400 22px/1.7 "Michroma","Noto Sans",sans-serif; }
+.artist-choice-title { font:400 22px/1.7 "Michroma","Noto Sans",var(--site-cjk,sans-serif); }
 .artist-choice:hover, .artist-choice:focus-visible { border-color:#111; }
 .artist-view-nav { display:flex; flex-wrap:wrap; gap:26px; margin:26px 0 34px; }
-.artist-view-nav button { padding:4px 0 7px; border:0; border-bottom:1px solid transparent; background:transparent; color:#77776f; font:12px/1.8 "Noto Sans",sans-serif; cursor:pointer; }
+.artist-view-nav button { padding:4px 0 7px; border:0; border-bottom:1px solid transparent; background:transparent; color:#65655e; font:12px/1.8 "Noto Sans",var(--site-cjk,sans-serif); cursor:pointer; }
 .artist-view-nav button[aria-pressed="true"] { color:#111; border-bottom-color:#111; }
 .artist-work-links { display:flex; flex-direction:column; align-items:flex-start; gap:28px; }
-.artist-work-links a { font:400 19px/1.8 "Michroma","Noto Sans",sans-serif; text-decoration:none; }
+.artist-work-links a { font:400 19px/1.8 "Michroma","Noto Sans",var(--site-cjk,sans-serif); text-decoration:none; }
 .artist-work-links a:hover { text-decoration:underline; text-underline-offset:6px; }
 .artist-detail--portrait:has(> [data-artist-content="bio"]:not([hidden])) {
   display:grid;
@@ -193,7 +195,7 @@ body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
 .career-photo { min-width:0; margin:0; }
 .career-photo img { display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; cursor:default; filter:grayscale(1); transition:filter .35s ease; }
 .career-photo img:hover { filter:grayscale(0); }
-.career-photo figcaption { margin-top:10px; font:11px/1.8 "Noto Sans",sans-serif; color:#77776f; }
+.career-photo figcaption { margin-top:10px; font:11px/1.8 "Noto Sans",var(--site-cjk,sans-serif); color:#65655e; }
 @media(max-width:640px) {
   .artist-selector { grid-template-columns:minmax(0,1fr); gap:24px; }
   .artist-choice-title { font-size:20px; }
@@ -211,9 +213,353 @@ body[data-page="exhibitions"] { --page-bg: url("assets/project-bg.jpg"); }
 .contact-compose { margin-top:30px; padding-top:23px; border-top:1px solid rgba(17,17,17,.16); }
 .contact-address-row { display:flex; align-items:baseline; flex-wrap:wrap; gap:14px 24px; }
 .contact-address-row .contact-email { font-size:clamp(20px,2.5vw,28px); overflow-wrap:anywhere; }
-.contact-address-row button { padding:3px 0; border:0; background:transparent; color:inherit; font:12px/1.8 "Noto Sans",sans-serif; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+.contact-address-row button { padding:3px 0; border:0; background:transparent; color:inherit; font:12px/1.8 "Noto Sans",var(--site-cjk,sans-serif); text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
 .contact-compose-links { display:flex; flex-wrap:wrap; gap:15px 25px; margin:24px 0 16px; }
 .contact-compose-links a { font-size:12px; line-height:1.8; text-underline-offset:4px; }
-.section-body .contact-compose-note { max-width:660px; margin:0; color:#77776f; font-size:11px; line-height:1.8; }
+.section-body .contact-compose-note { max-width:660px; margin:0; color:#65655e; font-size:11px; line-height:1.8; }
 .section-body .contact-copy-status { margin:10px 0 0; color:#55554f; font-size:11px; line-height:1.8; }
 .contact-copy-status:empty { display:none; }
+
+/* Contrast follows the glyphs: the scene stays continuous, without panels. */
+:root {
+  --scene-text-halo:
+    0 0 1px rgba(255,255,255,1),
+    0 0 3px rgba(255,255,255,.98),
+    0 0 7px rgba(255,255,255,.84);
+}
+.home-copy,
+.home-nav > a,
+.home-nav > .language-menu > .language-toggle,
+.home-brand,
+.home-legal,
+.immersive-page .site-nav > a,
+.immersive-page .site-nav > .language-menu > .language-toggle,
+.immersive-page .page-intro > .intro-copy,
+.immersive-directory-primary,
+.immersive-back,
+.immersive-page .brand,
+.immersive-page .menu-button,
+.site-utility {
+  mix-blend-mode:normal;
+  text-shadow:var(--scene-text-halo);
+}
+.home-copy h1,
+.home-copy h2,
+.immersive-page .intro-copy h1 {
+  -webkit-text-stroke:.35px rgba(255,255,255,.94);
+}
+.home-copy h2,
+.home-copy p,
+.home-copy .home-artist { opacity:1; }
+.home-copy h2 { color:#33332f; }
+.home-copy p,
+.home-practice-link,
+.immersive-page .intro-note,
+.home-legal,
+.site-utility { color:#45453f; }
+/* Keep the approved hollow hover, with a light rim following its thin stroke. */
+.immersive-directory-item:hover .immersive-directory-primary,
+.immersive-directory-item:focus-visible .immersive-directory-primary {
+  text-shadow:none;
+  filter:drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #fff);
+}
+.immersive-page .site-nav a:hover,
+.immersive-page .site-nav a:focus-visible,
+.immersive-page .site-nav a[aria-current="page"],
+.home-nav a:hover,
+.home-nav a:focus-visible {
+  text-shadow:none;
+  filter:drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #fff);
+}
+.immersive-directory {
+  padding:12px 10px;
+  margin:-12px -10px 0 0;
+}
+.immersive-directory-item { position:relative; }
+.immersive-directory-item::after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:2px;
+  height:1px;
+  background:var(--accent,#b73722);
+  opacity:0;
+  transform:scaleX(.75);
+  transform-origin:right center;
+  transition:opacity .3s ease,transform .45s cubic-bezier(.22,.61,.36,1);
+  pointer-events:none;
+}
+.immersive-directory-item:hover::after,
+.immersive-directory-item:focus-visible::after {
+  opacity:1;
+  transform:scaleX(1);
+}
+@media(prefers-reduced-motion:reduce) {
+  .immersive-directory-item::after { transition:none; }
+}
+
+/* Chinese and Japanese use their own glyph forms when the Latin face falls back. */
+:lang(zh) { --site-cjk:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif; }
+:lang(ja) { --site-cjk:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif; }
+
+/* CJK navigation needs a larger reading size; keep the English composition. */
+@media(min-width:821px) {
+  html:is(:lang(zh),:lang(ja)) .home-nav > a,
+  html:is(:lang(zh),:lang(ja)) .home-nav > .language-menu > .language-toggle,
+  html:is(:lang(zh),:lang(ja)) .immersive-page .site-nav > a,
+  html:is(:lang(zh),:lang(ja)) .immersive-page .site-nav > .language-menu > .language-toggle,
+  html:is(:lang(zh),:lang(ja)) .immersive-back,
+  html:is(:lang(zh),:lang(ja)) .immersive-page .menu-button {
+    font-size:12px;
+    line-height:1.6;
+  }
+}
+
+/* Short landscape windows keep the complete directory and introduction reachable. */
+@media(max-height:600px) {
+  body[data-page="home"] { overflow:auto; }
+  body.immersive-page:not(.artwork-gallery-page) {
+    display:flex;
+    flex-direction:column;
+    height:auto;
+    min-height:100svh;
+    overflow:auto;
+  }
+  .immersive-page:not(.artwork-gallery-page) > main.page-shell {
+    position:relative;
+    inset:auto;
+    order:2;
+  }
+  .immersive-page:not(.artwork-gallery-page) .immersive-directory {
+    position:relative;
+    top:auto;
+    right:auto;
+    order:1;
+    max-height:none;
+    margin:86px clamp(20px,5.5vw,88px) 0 auto;
+    padding:18px 0;
+  }
+  .immersive-page:not(.artwork-gallery-page) .page-intro {
+    position:relative;
+    right:auto;
+    bottom:auto;
+    margin:40px clamp(20px,5.5vw,88px) 90px auto;
+  }
+}
+
+/* Fixed edge clearance leaves the centre open at every desktop window width. */
+@media(min-width:981px) {
+  :root {
+    --composition-width:min(100vw,1045px);
+    --composition-height:min(100svh,718px);
+    --composition-edge:48px;
+  }
+  body.immersive-page[data-page="practice"]::before { background-position:100% 50%; }
+  .home-hero {
+    width:100%;
+    height:100svh;
+    margin:0;
+    background-size:cover;
+  }
+  body[data-page="home"] { display:block; }
+  body.immersive-page:not(.artwork-gallery-page)::before {
+    inset:0;
+    width:auto;
+    height:auto;
+    background-size:cover;
+  }
+  body.immersive-page:is([data-page="works"],[data-page="sound"],[data-page="art"],[data-page="contact"])::before {
+    background-size:cover;
+  }
+  .immersive-page .site-nav,.home-nav {
+    width:min(850px,calc(var(--composition-width) - 180px));
+    right:var(--composition-edge);
+    justify-content:space-between !important;
+    gap:0 !important;
+  }
+  .immersive-page .site-nav { top:34px; }
+  .immersive-page .immersive-back { top:34px; left:30px; }
+  .immersive-page .brand { left:30px; bottom:22px; }
+  .home-copy { right:var(--composition-edge); width:min(440px,calc(var(--composition-width)*.42)); }
+  .home-copy h1 { font-size:clamp(24px,2.29665vw,30.857px); }
+  .home-copy h2 { font-size:clamp(14px,1.33972vw,18px); }
+  .immersive-page .immersive-directory {
+    top:126px;
+    right:var(--composition-edge);
+    width:min(430px,calc(var(--composition-width)*.38));
+    max-height:calc(100svh - 390px);
+  }
+  .immersive-page .page-intro {
+    right:var(--composition-edge);
+    bottom:26px;
+    width:min(420px,calc(var(--composition-width)*.36));
+  }
+  body.immersive-page .page-intro > .intro-copy { padding:0; }
+  .immersive-page .intro-copy h1 { font-size:clamp(24px,2.29665vw,30.857px); }
+  .immersive-page .intro-question,.home-copy p { font-size:clamp(11px,1.05264vw,14.143px); }
+  .immersive-page .intro-note { font-size:clamp(10px,.95694vw,12.857px); }
+  .immersive-directory-primary { font-size:clamp(12px,1.14833vw,15.429px); }
+  html:is(:lang(zh),:lang(ja)) .immersive-directory-primary { font-size:clamp(14px,1.33972vw,18px); }
+  .home-nav > a,.home-nav > .language-menu > .language-toggle,
+  .immersive-page .site-nav > a,.immersive-page .site-nav > .language-menu > .language-toggle,
+  .immersive-back { font-size:clamp(9px,.86125vw,11.571px); }
+  html:is(:lang(zh),:lang(ja)) .home-nav > a,
+  html:is(:lang(zh),:lang(ja)) .home-nav > .language-menu > .language-toggle,
+  html:is(:lang(zh),:lang(ja)) .immersive-page .site-nav > a,
+  html:is(:lang(zh),:lang(ja)) .immersive-page .site-nav > .language-menu > .language-toggle,
+  html:is(:lang(zh),:lang(ja)) .immersive-back { font-size:clamp(12px,1.14833vw,15.429px); }
+  .site-utility { bottom:10px; }
+  .privacy-toggle { right:20px; bottom:13px; }
+}
+/* Portrait crops keep the complete focal structure and a deliberate foreground. */
+@media(max-width:820px) and (orientation:portrait) {
+  body[data-page="home"],
+  body.immersive-page:not(.artwork-gallery-page) { background:#f7f7f7; }
+  body.immersive-page:not(.artwork-gallery-page) {
+    --portrait-top:14svh;
+    --portrait-height:58svh;
+    --portrait-position:54% 50%;
+  }
+  body.immersive-page:is([data-page="research"],[data-page="publications"]) {
+    --portrait-top:24svh;
+    --portrait-height:44svh;
+    --portrait-position:52% 50%;
+  }
+  body.immersive-page:is([data-page="exhibitions"],[data-page="working"]) {
+    --portrait-top:22svh;
+    --portrait-height:53svh;
+    --portrait-position:58% 50%;
+  }
+  body.immersive-page:is([data-page="works"],[data-page="sound"],[data-page="art"],[data-page="contact"]) {
+    --portrait-top:12svh;
+    --portrait-height:72svh;
+    --portrait-position:50% 62%;
+  }
+  body.immersive-page:is([data-page="practice"]) {
+    --portrait-top:28svh;
+    --portrait-height:50svh;
+    --portrait-position:80% 50%;
+  }
+  body.immersive-page:not(.artwork-gallery-page)::before {
+    inset:auto 0 auto;
+    top:var(--portrait-top);
+    height:var(--portrait-height);
+    background-size:cover;
+    background-position:var(--portrait-position);
+    mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 88%,transparent);
+  }
+  .home-hero { background-image:none; background-color:#f7f7f7; }
+  .home-hero::before {
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:20svh;
+    height:50svh;
+    z-index:-1;
+    background:url("assets/hero-8k.jpg") 52% 50%/cover no-repeat;
+    mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 88%,transparent);
+  }
+}
+
+/* Small type uses crisp ink; image-aware ink maps below paint glyphs only. */
+:root { --scene-text-halo:0 1px 0 #fff,0 -1px 0 #fff,1px 0 0 #fff,-1px 0 0 #fff; }
+.scene-ink {
+  background-image:none;
+  background-repeat:no-repeat;
+  background-position:0 0;
+  background-size:100% 100%;
+  background-clip:text;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:var(--scene-solid-ink,#111);
+  -webkit-text-stroke:.25px var(--scene-edge-ink,#fff) !important;
+  paint-order:stroke fill;
+  text-shadow:none !important;
+  filter:none;
+}
+.immersive-directory-item:is(:hover,:focus-visible) .scene-ink {
+  background-image:none;
+  -webkit-text-fill-color:transparent;
+  -webkit-text-stroke:.15px var(--scene-outline,#111) !important;
+  filter:none;
+}
+.home-nav a.scene-ink:is(:hover,:focus-visible),
+.immersive-page .site-nav a.scene-ink:is(:hover,:focus-visible) {
+  background-image:none;
+  -webkit-text-fill-color:transparent;
+  font-synthesis:none;
+  -webkit-text-stroke:.7px var(--scene-outline,#111) !important;
+  filter:none;
+}
+/* Current-page navigation keeps its native fill and the opposite fine edge. */
+@media screen and (forced-colors:none) {
+.immersive-page .site-nav a.scene-ink[aria-current="page"] {
+  -webkit-text-fill-color:var(--scene-solid-ink,#111);
+  -webkit-text-stroke:.25px var(--scene-edge-ink,#fff) !important;
+  font-synthesis:none;
+  filter:none;
+}
+  .immersive-page .site-nav a.scene-ink.scene-edge[aria-current="page"] {
+    -webkit-text-stroke:.6px var(--scene-edge-ink,#fff) !important;
+  }
+}
+.home-copy :is(h1,h2).scene-ink,
+.immersive-page .intro-copy h1.scene-ink { -webkit-text-stroke:0 transparent; }
+
+/* Short desktop windows retain the capped horizontal track and scrollable copy. */
+@media(min-width:981px) and (max-height:600px) {
+  .home-copy h1,.immersive-page .intro-copy h1 { font-size:24px; }
+  .immersive-page:not(.artwork-gallery-page) .immersive-directory {
+    top:auto;
+    right:auto;
+    margin-right:var(--composition-edge);
+  }
+  .immersive-page:not(.artwork-gallery-page) .page-intro {
+    right:auto;
+    bottom:auto;
+    margin-right:var(--composition-edge);
+  }
+}
+@media(forced-colors:active) {
+  body[data-page="home"],body.immersive-page,.home-hero { background:Canvas; }
+  body.immersive-page::before,.home-hero::before { background-image:none; }
+  .scene-ink {
+    background-image:none !important;
+    -webkit-text-fill-color:CanvasText !important;
+    -webkit-text-stroke:0 transparent !important;
+  }
+}
+@media print {
+  .scene-ink {
+    background-image:none !important;
+    -webkit-text-fill-color:#111 !important;
+    -webkit-text-stroke:0 transparent !important;
+  }
+}
+
+/* Slightly stronger hairline only where a glyph crosses a hard light/dark boundary. */
+@media screen and (forced-colors:none) {
+  .scene-ink.scene-edge { -webkit-text-stroke:.6px var(--scene-edge-ink,#fff) !important; }
+}
+.artist-work-links { align-items:stretch; width:100%; max-width:430px; }
+.artist-work-links > a { position:relative; display:block; text-decoration:none; }
+.artist-work-links > a::after {
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px;
+  background:var(--accent,#b73722); opacity:0; transform:scaleX(.75); transform-origin:left center;
+  transition:opacity .3s ease,transform .45s cubic-bezier(.22,.61,.36,1); pointer-events:none;
+}
+.artist-work-links > a:is(:hover,:focus-visible) { text-decoration:none; }
+.artist-work-links > a:is(:hover,:focus-visible)::after { opacity:1; transform:scaleX(1); }
+:is(.artist-choice,.studio-choice):is(:hover,:focus-visible) { border-bottom-color:var(--accent); }
+:is(.artist-view-nav,.gallery-filters) button:is(:hover,:focus-visible,[aria-pressed="true"]) { border-bottom-color:var(--accent); }
+.studio-back:is(:hover,:focus-visible) { text-decoration-color:var(--accent); }
+@media(prefers-reduced-motion:reduce) { .artist-work-links > a::after { transition:none; } }
+
+
+/* User-approved ink for this label, which crosses a foreground block. */
+body[data-page="exhibitions"] [data-section="development"] > .immersive-directory-primary {
+  --scene-solid-ink:#111 !important;
+  --scene-edge-ink:#fff !important;
+  --scene-outline:#111 !important;
+}

@@ -17,7 +17,7 @@
     "methods.html": "assets/hero-8k.jpg",
     "fellows.html": "assets/member-bg.jpg",
     "contact.html": "assets/works-bg.jpg",
-    "art-practice.html": "assets/works-bg.jpg",
+    "art-practice.html": "assets/practice-bg.jpg",
     "writing-practice.html": "assets/member-bg.jpg",
     "sound-practice.html": "assets/works-bg.jpg",
     "legal.html": "assets/hero-8k.jpg"
