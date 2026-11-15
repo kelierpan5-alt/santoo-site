@@ -1,21 +1,162 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://santoo.org/index_pc.html</loc></url>
-  <url><loc>https://santoo.org/works.html</loc></url>
-  <url><loc>https://santoo.org/works-gallery.html</loc></url>
-  <url><loc>https://santoo.org/chang-bin-works.html</loc></url>
-  <url><loc>https://santoo.org/exhibitions.html</loc></url>
-  <url><loc>https://santoo.org/art-practice.html</loc></url>
-  <url><loc>https://santoo.org/sound-practice.html</loc></url>
-  <url><loc>https://santoo.org/writing-practice.html</loc></url>
-  <url><loc>https://santoo.org/research-fields.html</loc></url>
-  <url><loc>https://santoo.org/publications.html</loc></url>
-  <url><loc>https://santoo.org/methods.html</loc></url>
-  <url><loc>https://santoo.org/working-papers.html</loc></url>
-  <url><loc>https://santoo.org/about.html</loc></url>
-  <url><loc>https://santoo.org/pan-yao-cv.html</loc></url>
-  <url><loc>https://santoo.org/chang-bin-cv.html</loc></url>
-  <url><loc>https://santoo.org/contact.html</loc></url>
-  <url><loc>https://santoo.org/legal.html</loc></url>
-  <url><loc>https://santoo.org/read-bone.html</loc></url>
+<?xml version='1.0' encoding='utf-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.santoo.org/index_pc.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/works.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/works-gallery.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/chang-bin-works.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/exhibitions.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/art-practice.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/sound-practice.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/writing-practice.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/research-fields.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/publications.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/methods.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/working-papers.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/about.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/pan-yao-cv.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/chang-bin-cv.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/contact.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/legal.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/read-bone.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/about" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/en/artists/pan-yao</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/pan-yao" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/en/artists/chang-bin</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/chang-bin" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/en/music/clrpan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/music/clrpan" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/en/books/bone-heart</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/books/bone-heart" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/zh/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/about" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/zh/artists/pan-yao</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/pan-yao" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/zh/artists/chang-bin</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/chang-bin" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/zh/music/clrpan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/music/clrpan" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/zh/books/bone-heart</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/books/bone-heart" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/ja/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/about" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/ja/artists/pan-yao</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/pan-yao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/pan-yao" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/ja/artists/chang-bin</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/chang-bin" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/chang-bin" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/ja/music/clrpan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/music/clrpan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/music/clrpan" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/ja/books/bone-heart</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/books/bone-heart" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/books/bone-heart" />
+  </url>
 </urlset>

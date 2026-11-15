@@ -1,0 +1,64 @@
+{
+  "rewrites": [
+    {
+      "source": "/en/about",
+      "destination": "/en/about/index.html"
+    },
+    {
+      "source": "/en/artists/pan-yao",
+      "destination": "/en/artists/pan-yao/index.html"
+    },
+    {
+      "source": "/en/artists/chang-bin",
+      "destination": "/en/artists/chang-bin/index.html"
+    },
+    {
+      "source": "/en/music/clrpan",
+      "destination": "/en/music/clrpan/index.html"
+    },
+    {
+      "source": "/en/books/bone-heart",
+      "destination": "/en/books/bone-heart/index.html"
+    },
+    {
+      "source": "/zh/about",
+      "destination": "/zh/about/index.html"
+    },
+    {
+      "source": "/zh/artists/pan-yao",
+      "destination": "/zh/artists/pan-yao/index.html"
+    },
+    {
+      "source": "/zh/artists/chang-bin",
+      "destination": "/zh/artists/chang-bin/index.html"
+    },
+    {
+      "source": "/zh/music/clrpan",
+      "destination": "/zh/music/clrpan/index.html"
+    },
+    {
+      "source": "/zh/books/bone-heart",
+      "destination": "/zh/books/bone-heart/index.html"
+    },
+    {
+      "source": "/ja/about",
+      "destination": "/ja/about/index.html"
+    },
+    {
+      "source": "/ja/artists/pan-yao",
+      "destination": "/ja/artists/pan-yao/index.html"
+    },
+    {
+      "source": "/ja/artists/chang-bin",
+      "destination": "/ja/artists/chang-bin/index.html"
+    },
+    {
+      "source": "/ja/music/clrpan",
+      "destination": "/ja/music/clrpan/index.html"
+    },
+    {
+      "source": "/ja/books/bone-heart",
+      "destination": "/ja/books/bone-heart/index.html"
+    }
+  ]
+}

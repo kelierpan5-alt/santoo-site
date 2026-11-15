@@ -18,6 +18,13 @@
       link.href = musicLinks[lang];
       if (link.textContent !== musicLabels[lang]) link.textContent = musicLabels[lang];
     });
+    const coreRoutes = {santoo:'about','pan-yao':'artists/pan-yao','chang-bin':'artists/chang-bin',clrpan:'music/clrpan','bone-heart':'books/bone-heart'};
+    document.querySelectorAll('[data-core-link]').forEach(link => {
+      const route = coreRoutes[link.dataset.coreLink];
+      if (!route) return;
+      const target = '/' + lang + '/' + route;
+      if (link.getAttribute('href') !== target) link.setAttribute('href', target);
+    });
     const coverLabels = {en:'Bone, Emptiness, Fire, Extinction, Heart — English edition cover',zh:'《骨空火滅心》繁體中文版封面',ja:'『骨・空・火・滅・心』日本語版の表紙'};
     document.querySelectorAll('[data-book-cover]').forEach(image => {
       const source = 'assets/books/bone-cover-' + lang + '.jpg';
