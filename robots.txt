@@ -5,6 +5,7 @@ Allow: /
 Disallow: /assets/
 Allow: /assets/about/pan-yao-portrait-art.jpg$
 Allow: /assets/about/chang-bin-portrait.jpg$
+Allow: /assets/about/chai-song-portrait.jpg$
 Allow: /assets/about/santoo-studio-space.jpg$
 Allow: /assets/books/bone-cover-en.jpg$
 Allow: /assets/books/bone-cover-zh.jpg$

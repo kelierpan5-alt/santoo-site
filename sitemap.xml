@@ -159,4 +159,31 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/books/bone-heart" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/books/bone-heart" />
   </url>
+  <url>
+    <loc>https://www.santoo.org/chai-song-works.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/chai-song-cv.html</loc>
+  </url>
+  <url>
+    <loc>https://www.santoo.org/en/artists/chai-song</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/chai-song" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/zh/artists/chai-song</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/chai-song" />
+  </url>
+  <url>
+    <loc>https://www.santoo.org/ja/artists/chai-song</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.santoo.org/en/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.santoo.org/zh/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.santoo.org/ja/artists/chai-song" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.santoo.org/en/artists/chai-song" />
+  </url>
 </urlset>

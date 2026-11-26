@@ -18,7 +18,7 @@
       link.href = musicLinks[lang];
       if (link.textContent !== musicLabels[lang]) link.textContent = musicLabels[lang];
     });
-    const coreRoutes = {santoo:'about','pan-yao':'artists/pan-yao','chang-bin':'artists/chang-bin',clrpan:'music/clrpan','bone-heart':'books/bone-heart'};
+    const coreRoutes = {santoo:'about','pan-yao':'artists/pan-yao','chang-bin':'artists/chang-bin','chai-song':'artists/chai-song',clrpan:'music/clrpan','bone-heart':'books/bone-heart'};
     document.querySelectorAll('[data-core-link]').forEach(link => {
       const route = coreRoutes[link.dataset.coreLink];
       if (!route) return;

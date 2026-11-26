@@ -59,6 +59,18 @@
     {
       "source": "/ja/books/bone-heart",
       "destination": "/ja/books/bone-heart/index.html"
+    },
+    {
+      "source": "/en/artists/chai-song",
+      "destination": "/en/artists/chai-song/index.html"
+    },
+    {
+      "source": "/zh/artists/chai-song",
+      "destination": "/zh/artists/chai-song/index.html"
+    },
+    {
+      "source": "/ja/artists/chai-song",
+      "destination": "/ja/artists/chai-song/index.html"
     }
   ]
 }
