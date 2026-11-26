@@ -456,6 +456,7 @@
     "A status-labeled path connecting interim research, framework development, working methods, current Japan activity, and international continuity.": { zh: "一條以真實狀態爲標籤的路徑，連接階段研究、框架發展、工作方法、當前日本活動與國際連續性。", ja: "中間研究、フレームワーク開発、作業方法、現在の日本での活動、国際的継続性を、実際の状態表示で接続する経路。" },
     "A cumulative method moving from attention dynamics to studio operation, methodological synthesis, and practical application: Attention → Method → Synthesis → Application.": { zh: "從注意動力學遞進至工作室操作、方法綜合與實踐應用的累積方法：注意 → 方法 → 綜合 → 應用。", ja: "注意の動態からスタジオ運用、方法論的統合、実践的応用へ進む累積的方法：注意 → 方法 → 統合 → 応用。" }
   });
+  Object.assign(contentTranslations, {"Art & Cultural Dialogue": {"zh": "藝術與文化對話", "ja": "芸術と文化の対話"}, "Initiated by Pan Yao, SANTOO brings artists together for international art projects.": {"zh": "SANTOO 由潘垚發起，聯結藝術家參與國際藝術項目。", "ja": "SANTOOは潘垚が発起し、芸術家をつなぐ国際芸術プロジェクトに取り組む。"}, "Through collaborative creation and local exchange, it connects with cultures around the world.": {"zh": "以共同創作與在地交流，讓不同文化在藝術中相遇。", "ja": "共同制作と地域での交流を通じて、世界のさまざまな文化と出会う。"}});
   const directoryLabels = {
     "Pan Yao": ["潘垚", "潘垚"], "Chang Bin": ["常斌", "常斌"], "Chai Song": ["柴松", "柴松"],
     "Selected Exhibitions": ["精選展覽", "主な展覧会"], "Art Projects": ["藝術項目", "芸術プロジェクト"],
